@@ -1,18 +1,18 @@
 <script>
-  export const index = 0;
-  export const question = "Ai uitat sa pui titlul intrebarii";
-  export const answers = [
-    "lipsa rasp 1",
-    "lipsa rasp 2",
-    "lipsa rasp 3",
-    "lipsa rasp 4",
+  export let index = 0;
+  export const type = "checkbox";
+  export let image = "";
+  export let question = "Ai uitat sa pui titlul intrebarii";
+  export let answers = [
+    {answer: "lipsa rasp 1"},
+    {answer: "lipsa rasp 2"},
+    {answer: "lipsa rasp 3"},
+    {answer: "lipsa rasp 4"}
   ];
   /**
    * @type {never[]}
    */
   let group = [];
-
-  let yes = false;
 </script>
 
 <div class="question-wrapper">
@@ -28,8 +28,8 @@
     {#each answers as answer}
       <div class="radio">
         <label>
-          <input type="radio" bind:group value={answer} />
-          <span>{answer}</span>
+          <input type="radio" bind:group value={answer.answer} />
+          <span>{answer.answer}</span>
         </label>
       </div>
     {/each}
@@ -112,7 +112,6 @@
     margin-top: 10px;
   }
 
-  .radio.disabled label,
   fieldset[disabled] .radio label {
     cursor: not-allowed;
   }

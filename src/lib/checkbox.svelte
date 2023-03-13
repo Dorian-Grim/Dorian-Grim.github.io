@@ -1,11 +1,13 @@
 <script>
-  export const index = 0;
-  export const question = "Ai uitat sa pui titlul intrebarii";
-  export const answers = [
-    "lipsa rasp 1",
-    "lipsa rasp 2",
-    "lipsa rasp 3",
-    "lipsa rasp 4",
+  export let index = 0;
+  export const type = "checkbox";
+  export let image = "";
+  export let question = "Ai uitat sa pui titlul intrebarii";
+  export let answers = [
+    {answer: "lipsa rasp 1"},
+    {answer: "lipsa rasp 2"},
+    {answer: "lipsa rasp 3"},
+    {answer: "lipsa rasp 4"}
   ];
   /**
    * @type {never[]}
@@ -19,7 +21,7 @@
   <div class="question-title">
     <p class="q-index">{index}.</p>
     <p>
-      {question} <span class="required" />
+      {question || image} <span class="required" />
       <span style="color: #014446;">(5 Points)</span>
     </p>
   </div>
@@ -28,8 +30,8 @@
     {#each answers as answer}
       <div class="checkbox">
         <label>
-          <input type="checkbox" bind:group value={answer} />
-          <span>{answer}</span>
+          <input type="checkbox" bind:group value={answer.answer} />
+          <span>{answer.answer}</span>
         </label>
       </div>
     {/each}
@@ -109,12 +111,11 @@
     margin-top: 10px;
   }
 
-  .checkbox.disabled label,
   fieldset[disabled] .checkbox label {
     cursor: not-allowed;
   }
 
-  .checkbox label{
+  .checkbox label {
     cursor: pointer;
     font-weight: 400;
     margin-bottom: 0;
@@ -127,10 +128,10 @@
     margin-top: 4px\9;
   }
 
-  .checkbox + .checkbox{
+  .checkbox + .checkbox {
     margin-top: -5px;
   }
-  .checkbox input[type="checkbox"]{
+  .checkbox input[type="checkbox"] {
     bottom: 0;
     height: 18px;
     margin: auto 0 auto -20px;
@@ -140,7 +141,7 @@
     width: 20px;
   }
 
-  .checkbox input[type="checkbox"]:focus{
+  .checkbox input[type="checkbox"]:focus {
     outline: 1px dashed;
   }
 </style>
