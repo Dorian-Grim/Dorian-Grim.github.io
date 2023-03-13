@@ -26,9 +26,9 @@
 
   <div class="answer-wrapper">
     {#each answers as answer}
-      <div class="checkbox">
+      <div class="radio">
         <label>
-          <input type="checkbox" bind:group value={answer} />
+          <input type="radio" bind:group value={answer} />
           <span>{answer}</span>
         </label>
       </div>
@@ -88,33 +88,36 @@
     line-height: normal;
   }
 
-  input[type="checkbox"] {
+  input[type="radio"] {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
     padding: 0;
   }
-  input[type="checkbox"] {
+
+  input[type="radio"] {
     line-height: normal;
     margin: 4px 0 0;
     margin-top: 1px\9;
   }
-  input[type="checkbox"]:focus {
+
+  input[type="radio"]:focus {
     outline: 5px auto -webkit-focus-ring-color;
     outline-offset: -2px;
   }
-  .checkbox {
+
+  .radio {
     position: relative;
     margin-bottom: 10px;
     margin-top: 10px;
   }
 
-  .checkbox.disabled label,
-  fieldset[disabled] .checkbox label {
+  .radio.disabled label,
+  fieldset[disabled] .radio label {
     cursor: not-allowed;
   }
 
-  .checkbox label{
+  .radio label {
     cursor: pointer;
     font-weight: 400;
     margin-bottom: 0;
@@ -122,15 +125,16 @@
     padding-left: 20px;
   }
 
-  .checkbox input[type="checkbox"] {
+  .radio input[type="radio"] {
     margin-left: -20px;
     margin-top: 4px\9;
   }
 
-  .checkbox + .checkbox{
+  .radio + .radio {
     margin-top: -5px;
   }
-  .checkbox input[type="checkbox"]{
+
+  .radio input[type="radio"] {
     bottom: 0;
     height: 18px;
     margin: auto 0 auto -20px;
@@ -140,7 +144,7 @@
     width: 20px;
   }
 
-  .checkbox input[type="checkbox"]:focus{
+  .radio input[type="radio"]:focus {
     outline: 1px dashed;
   }
 </style>

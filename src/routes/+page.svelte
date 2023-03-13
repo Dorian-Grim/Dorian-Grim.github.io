@@ -1,8 +1,9 @@
 <script>
     import Checkbox from '../lib/checkbox.svelte';
+    import Radio from '../lib/radio.svelte';
 </script>
 
-<h1>Welcome to SvelteKit TESt</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
 
 <Checkbox/>
+
+<Radio/>

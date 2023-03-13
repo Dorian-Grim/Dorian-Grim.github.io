@@ -1,12 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" href="%sveltekit.assets%/favicon.png" />
-		<meta name="viewport" content="width=device-width" />
-		%sveltekit.head%
-	</head>
-	<body data-sveltekit-preload-data="hover">
-		<div style="display: contents">%sveltekit.body%</div>
-	</body>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="%sveltekit.assets%/favicon.png" />
+    <meta name="viewport" content="width=device-width" />
+    <link href="https://fonts.cdnfonts.com/css/segoe-ui-4" rel="stylesheet" />
+
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        padding: 0;
+        margin: 0;
+        font-family: "Segoe UI", sans-serif;
+        color: rgb(51, 51, 51);
+      }
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      p {
+        margin: 0;
+      }
+      p {
+        font-size: 17px;
+      }
+      .quiz-wrapper {
+        background-color: #e8f2f4;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+      }
+      .quiz-body {
+        background-color: white;
+        display: flex;
+        flex-direction: column;
+        box-shadow: 0 0 11px rgba(0, 0, 0, 0.12);
+        max-width: 850px;
+        width: 100%;
+        padding: 20px 30px 70px;
+      }
+    </style>
+    %sveltekit.head%
+  </head>
+  <body data-sveltekit-preload-data="hover" class="quiz-wrapper">
+    <div class="quiz-body">%sveltekit.body%</div>
+  </body>
 </html>
