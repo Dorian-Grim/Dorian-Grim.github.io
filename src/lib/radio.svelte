@@ -1,35 +1,77 @@
 <script>
+  import { compileQuestion } from "$lib/utils.js";
+  import { userQuizSelections } from "../data/store";
+
+  /**
+   * @type {string[]}
+   */
+  export let correct_answers = [];
+  export let showAnswers = false;
   export let index = 0;
-  export const type = "checkbox";
-  export let image = "";
   export let question = "Ai uitat sa pui titlul intrebarii";
   export let answers = [
-    {answer: "lipsa rasp 1"},
-    {answer: "lipsa rasp 2"},
-    {answer: "lipsa rasp 3"},
-    {answer: "lipsa rasp 4"}
+    "lipsa rasp 1",
+    "lipsa rasp 2",
+    "lipsa rasp 3",
+    "lipsa rasp 4",
   ];
   /**
-   * @type {never[]}
+   * @type {string}
    */
-  let group = [];
+  const compiledQuestion = compileQuestion(question) || question;
+  /**
+   * @type {string[]}
+   */
+  let userSelectedAnswers = [];
+
+  /**
+   * @type {("wrong"|"correct"|"")[]}
+   */
+  let errors = [];
+  /*
+    raspuns corect si user l-a selectat = "correct"
+    raspuns corect si user nu l-a selectat = "wrong"
+    raspuns incorect si user l-a selectat = "wrong"
+    raspuns incorect si user nu l-a selectat = ""
+  */
+
+  $userQuizSelections[index] = { userSelectedAnswers };
+
+  $: if (showAnswers) {
+    $userQuizSelections[index] = { userSelectedAnswers };
+
+    answers.forEach((val, index) => {
+      const userSelected = userSelectedAnswers.includes(val);
+      const answerIsCorrect = correct_answers.includes(val);
+
+      if (answerIsCorrect) errors[index] = "correct";
+      if (userSelected && !answerIsCorrect) errors[index] = "wrong";
+    });
+    errors = [...errors];
+  }
 </script>
 
 <div class="question-wrapper">
   <div class="question-title">
     <p class="q-index">{index}.</p>
     <p>
-      {question} <span class="required" />
+      {@html compiledQuestion} <span class="required" />
       <span style="color: #014446;">(5 Points)</span>
     </p>
   </div>
 
   <div class="answer-wrapper">
-    {#each answers as answer}
-      <div class="radio">
+    {#each answers as answer, i}
+      <div class="radio {errors[i]}">
         <label>
-          <input type="radio" bind:group value={answer.answer} />
-          <span>{answer.answer}</span>
+          <input
+            type="radio"
+            bind:group={userSelectedAnswers}
+            name="answers{index}"
+            value={answer}
+            disabled={showAnswers}
+          />
+          <span>{answer}</span>
         </label>
       </div>
     {/each}
@@ -37,6 +79,12 @@
 </div>
 
 <style lang="scss">
+  .wrong {
+    color: red;
+  }
+  .correct {
+    color: green;
+  }
   label {
     font-size: 14px;
     span {
