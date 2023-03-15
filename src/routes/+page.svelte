@@ -18,7 +18,7 @@
 
   let gameStarted = false;
   let showAnswers = false;
-  let numberOfQ = 0;
+  let numberOfQ = 1;
 
   function handleStart() {
     if ($courseName === "random") {
@@ -38,10 +38,29 @@
   function handleSubmit(event) {
     showAnswers = true;
   }
+
+  let generateAnswered = false;
+  /**
+   * @type {{ question: string; answers: string[]; correct_answers: string[]; }[]}
+   */
+  let everything;
+  function showEverything(){
+    everything = generateQuiz(trimmedTrivia, trimmedTrivia.length);
+    generateAnswered = true;
+    showAnswers = true;
+  }
 </script>
 
-{#if !gameStarted}
-  <a style="margin-bottom: 20px;" href="/everything">vezi totul</a>
+{#if generateAnswered}
+  {#each everything as question, index}
+    {#if question.correct_answers.length > 1}
+      <Checkbox {...question} {index} {showAnswers} {generateAnswered} />
+    {:else}
+      <Radio {...question} {index} {showAnswers} {generateAnswered} />
+    {/if}
+  {/each}
+{:else if !gameStarted}
+  <button style="margin-bottom: 20px;" on:click={showEverything}>vezi totul</button>
   <form on:submit|preventDefault={handleStart}>
     <div style="margin-bottom: 20px;">
       <p>Alege un curs anume sau random din toate:</p>
@@ -57,7 +76,7 @@
         type="number"
         bind:value={numberOfQ}
         on:change={() => numberOfQuestions.set(numberOfQ)}
-        min="0"
+        min="1"
         max={$maxNumberOfQuestions}
       />
       {#if $maxNumberOfQuestions >= 10}
