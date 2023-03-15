@@ -34,6 +34,39 @@ export const trivia = {
       ],
       correct_answers: [1],
     },
+    {
+      question:
+        "Care dintre următoarele expresii este adevărată (are o valoare nenulă) dacă şi numai dacă numărul întreg memorat în variabila x aparţine intervalului (1,6]?",
+      answers: [
+        "(x>=1) || (x<6)",
+        "(x>1) || (x<=6)",
+        "(x>1) && (x<6)",
+        "(x>1) && (x<=6)",
+      ],
+      correct_answers: [3],
+    },
+    {
+      question:
+        "După executarea instrucţiunii float x = 55/17*5/8+48/5/8*15; ce valoare va fi memorată în variabila x?",
+      answers: [
+        "17.022058",
+        "17",
+        "16",
+        "21.219914",
+      ],
+      correct_answers: [2],
+    },
+    {
+      question:
+        "Considerim urmitorul program:<<programare_procedurala/img1.png>>Ce valori vor fi afisate pe ecran dupa executarea programului de mai sus?",
+      answers: [
+        "-1 -3 -4",
+        "2 5",
+        "-1 2 -3 -4",
+        "2 -3 -4 5",
+      ],
+      correct_answers: [1],
+    },
   ],
 };
 

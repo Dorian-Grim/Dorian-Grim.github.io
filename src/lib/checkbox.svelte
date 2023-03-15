@@ -51,7 +51,6 @@
   }
 </script>
 
-{showAnswers ? "true" : "false"}
 <div class="question-wrapper">
   <div class="question-title">
     <p class="q-index">{index}.</p>
