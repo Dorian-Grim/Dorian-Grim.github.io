@@ -86,6 +86,7 @@ export const compileQuestion = (/** @type {string} */ question) => {
 
     const tempArr = question.split(/<<|>>/);
     const img = `<img style="margin: 10px 0; width: 100%;" src="images/${tempArr[position]}" alt="Poza a fost incarcata gresit" />`;
+    
     tempArr[position] = img;
     return tempArr.join("");
   }

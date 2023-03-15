@@ -20,6 +20,12 @@
    * @type {string}
    */
   const compiledQuestion = compileQuestion(question) || question;
+  
+  // if needed add this to compiledQuestion
+  /*
+    + ` <span class="required" /><span style="color: #014446;">(5 Points)</span>`
+  */
+
   /**
    * @type {string}
    */
@@ -59,10 +65,7 @@
 <div class="question-wrapper">
   <div class="question-title">
     <p class="q-index">{index}.</p>
-    <pre>{@html compiledQuestion}
-      <span class="required" />
-      <span style="color: #014446;">(5 Points)</span>
-    </pre>
+    <pre>{@html compiledQuestion}</pre>
   </div>
 
   <div class="answer-wrapper">
