@@ -26,3 +26,12 @@
     </option>
   {/each}
 </select>
+
+<style>
+  select {
+    width: 300px;
+    padding: 7px 20px;
+    font-size: 16px;
+    margin-top: 10px;
+  }
+</style>

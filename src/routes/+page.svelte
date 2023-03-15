@@ -9,7 +9,6 @@
   } from "../data/store";
   import { trimmedTrivia, triviaForCourse } from "../data/trivia";
   import { generateQuiz } from "$lib/utils";
-  import { userQuizSelections, validateCourse } from "../data/store";
 
   /**
    * @type {{ question: string; answers: string[]; correct_answers: string[]; }[]}
@@ -31,7 +30,6 @@
 
     pickedCourse = generateQuiz(pickedCourse, numberOfQ);
     gameStarted = true;
-    // alert(`answered question ${selected.id} (${selected.text}) with "${answer}"`);
   }
 
   /**
@@ -43,8 +41,9 @@
 </script>
 
 {#if !gameStarted}
+  <a style="margin-bottom: 20px;" href="/everything">vezi totul</a>
   <form on:submit|preventDefault={handleStart}>
-    <div>
+    <div style="margin-bottom: 20px;">
       <p>Alege un curs anume sau random din toate:</p>
 
       <Select {courses} />
@@ -54,14 +53,34 @@
         Alege cate intrebari vrei sa primesti, nr max pt materie {$maxNumberOfQuestions}:
       </p>
       <input
+        style="min-width: 50px; padding: 7px 20px; font-size: 16px; margin-top: 10px;"
         type="number"
         bind:value={numberOfQ}
         on:change={() => numberOfQuestions.set(numberOfQ)}
         min="0"
         max={$maxNumberOfQuestions}
       />
+      {#if $maxNumberOfQuestions >= 10}
+        <button
+          on:click|preventDefault={() => (numberOfQ = 10)}
+          class="input-btn"
+        >
+          select 10</button
+        >
+      {/if}
+
+      {#if $maxNumberOfQuestions >= 40}
+        <button
+          on:click|preventDefault={() => (numberOfQ = 40)}
+          class="input-btn"
+        >
+          select 40</button
+        >
+      {/if}
     </div>
-    <button type="submit">Start</button>
+    <button type="submit" class="submit-btn" style="margin-left: 0"
+      >Start</button
+    >
   </form>
 {:else}
   <form on:submit|preventDefault={handleSubmit}>
@@ -76,7 +95,9 @@
     <div class="checkbox">
       <label>
         <input type="checkbox" />
-        <span style="margin-left: 13px;"> Send me an email receipt of my responses</span>
+        <span style="margin-left: 13px;">
+          Send me an email receipt of my responses</span
+        >
       </label>
     </div>
     <button type="submit" class="submit-btn">Submit form</button>
@@ -84,6 +105,25 @@
 {/if}
 
 <style lang="scss">
+  .input-btn {
+    min-width: 50px;
+    padding: 7px 20px;
+    font-size: 16px;
+    margin-top: 10px;
+  }
+
+  .input-btn {
+    border: 1px solid transparent;
+    background-color: darkgray;
+    font-weight: 700;
+    cursor: pointer;
+
+    &:hover {
+      color: #fff;
+      background-color: darkslategray;
+    }
+  }
+
   .submit-btn {
     border: 1px solid transparent;
     color: #fff;
@@ -141,9 +181,6 @@
     margin-top: 4px\9;
   }
 
-  .checkbox + .checkbox {
-    margin-top: -5px;
-  }
   .checkbox input[type="checkbox"] {
     bottom: 0;
     height: 18px;

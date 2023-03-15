@@ -25,7 +25,10 @@
       p {
         margin: 0;
       }
-      p {
+      p,
+      pre {
+        white-space: break-spaces;
+        font-family: "Segoe UI", sans-serif;
         font-size: 17px;
       }
       .quiz-wrapper {
@@ -42,6 +45,11 @@
         max-width: 850px;
         width: 100%;
         padding: 20px 30px 70px;
+      }
+      @media (max-width: 600px) {
+        .quiz-body {
+          padding: 0 5px 20px 5px;
+        }
       }
     </style>
     %sveltekit.head%

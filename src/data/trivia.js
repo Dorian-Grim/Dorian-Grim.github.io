@@ -1,14 +1,14 @@
 export const trivia = {
   dezvoltare_app_mobile: [
     {
-      question: "In poza urmatoare <<dezvoltare_app_mobile/test.png>> bla bla:",
+      question: "Considerim urmitorul program:\n\n#include<stdio.h>\n\nvoid p(int v[],int *n)\n{\n  int i,3,9;:\n  do\n    {\n      g=0;\n      for (i=0;i<*n; i++)\n      1f(v[i]<0)\n    {\n  for (j=i;j<*n-1;j++) v[jl=v[j+1]1;\n    (*n)--;\n    g=1;\n  }\n}",
       answers: [
         "corect1",
-        "corect2",
-        "getDataStringIntent()",
-        "getStringExtra()",
+        "incorect3",
+        "incorect1",
+        "incorect2",
       ],
-      correct_answers: [0, 1],
+      correct_answers: [0],
     },
   ],
   programare_procedurala: [
@@ -22,52 +22,8 @@ export const trivia = {
         "real x(100);",
       ],
       correct_answers: [1, 2],
-    },
-    {
-      question:
-        "Care dintre următoarele expresii logice este adevărată (are o valoare nenulă) dacă şi numai dacă numărul real memorat în variabila x nu aparţine intervalului (0,5]?",
-      answers: [
-        "(x<=0) || (x>5)",
-        "(x<=0) && (x>5)",
-        "(x<0) || (x>=5)",
-        "(x<=0) && (x>5)",
-      ],
-      correct_answers: [1],
-    },
-    {
-      question:
-        "Care dintre următoarele expresii este adevărată (are o valoare nenulă) dacă şi numai dacă numărul întreg memorat în variabila x aparţine intervalului (1,6]?",
-      answers: [
-        "(x>=1) || (x<6)",
-        "(x>1) || (x<=6)",
-        "(x>1) && (x<6)",
-        "(x>1) && (x<=6)",
-      ],
-      correct_answers: [3],
-    },
-    {
-      question:
-        "După executarea instrucţiunii float x = 55/17*5/8+48/5/8*15; ce valoare va fi memorată în variabila x?",
-      answers: [
-        "17.022058",
-        "17",
-        "16",
-        "21.219914",
-      ],
-      correct_answers: [2],
-    },
-    {
-      question:
-        "Considerim urmitorul program:<<programare_procedurala/img1.png>>Ce valori vor fi afisate pe ecran dupa executarea programului de mai sus?",
-      answers: [
-        "-1 -3 -4",
-        "2 5",
-        "-1 2 -3 -4",
-        "2 -3 -4 5",
-      ],
-      correct_answers: [1],
-    },
-  ],
+    }
+  ]
 };
 
 /**

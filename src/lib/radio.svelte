@@ -7,6 +7,7 @@
    */
   export let correct_answers = [];
   export let showAnswers = false;
+  export let generateAnswered = false;
   export let index = 0;
   export let question = "Ai uitat sa pui titlul intrebarii";
   export let answers = [
@@ -20,28 +21,32 @@
    */
   const compiledQuestion = compileQuestion(question) || question;
   /**
-   * @type {string[]}
+   * @type {string}
    */
-  let userSelectedAnswers = [];
+  let userSelectedAnswers = "";
 
   /**
    * @type {("wrong"|"correct"|"")[]}
    */
   let errors = [];
-  /*
-    raspuns corect si user l-a selectat = "correct"
-    raspuns corect si user nu l-a selectat = "wrong"
-    raspuns incorect si user l-a selectat = "wrong"
-    raspuns incorect si user nu l-a selectat = ""
-  */
 
   $userQuizSelections[index] = { userSelectedAnswers };
+
+  if (generateAnswered) {
+    answers.forEach((val, index) => {
+      if (correct_answers.includes(val)) {
+        userSelectedAnswers = val;
+        errors[index] = "correct";
+      }
+    });
+    errors = [...errors];
+  }
 
   $: if (showAnswers) {
     $userQuizSelections[index] = { userSelectedAnswers };
 
     answers.forEach((val, index) => {
-      const userSelected = userSelectedAnswers.includes(val);
+      const userSelected = userSelectedAnswers === val;
       const answerIsCorrect = correct_answers.includes(val);
 
       if (answerIsCorrect) errors[index] = "correct";
@@ -54,10 +59,10 @@
 <div class="question-wrapper">
   <div class="question-title">
     <p class="q-index">{index}.</p>
-    <p>
-      {@html compiledQuestion} <span class="required" />
+    <pre>{@html compiledQuestion}
+      <span class="required" />
       <span style="color: #014446;">(5 Points)</span>
-    </p>
+    </pre>
   </div>
 
   <div class="answer-wrapper">
@@ -71,7 +76,7 @@
             value={answer}
             disabled={showAnswers}
           />
-          <span>{answer}</span>
+          <span><pre>{answer}</pre></span>
         </label>
       </div>
     {/each}
@@ -79,6 +84,10 @@
 </div>
 
 <style lang="scss">
+  pre {
+    margin: 0;
+    display: inline-block;
+  }
   .wrong {
     color: red;
   }
@@ -184,7 +193,6 @@
   .radio input[type="radio"] {
     bottom: 0;
     height: 18px;
-    margin: auto 0 auto -20px;
     outline-offset: 0;
     position: absolute;
     top: 0;

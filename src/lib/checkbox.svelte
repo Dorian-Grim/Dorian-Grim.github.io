@@ -7,6 +7,7 @@
    */
   export let correct_answers = [];
   export let showAnswers = false;
+  export let generateAnswered = false;
   export let index = 0;
   export let question = "Ai uitat sa pui titlul intrebarii";
   export let answers = [
@@ -28,14 +29,18 @@
    * @type {("wrong"|"correct"|"")[]}
    */
   let errors = [];
-  /*
-    raspuns corect si user l-a selectat = "correct"
-    raspuns corect si user nu l-a selectat = "wrong"
-    raspuns incorect si user l-a selectat = "wrong"
-    raspuns incorect si user nu l-a selectat = ""
-  */
 
   $userQuizSelections[index] = { userSelectedAnswers };
+
+  if (generateAnswered) {
+    answers.forEach((val, index) => {
+      if (correct_answers.includes(val)) {
+        userSelectedAnswers.push(val);
+        errors[index] = "correct";
+      }
+    });
+    errors = [...errors];
+  }
 
   $: if (showAnswers) {
     $userQuizSelections[index] = { userSelectedAnswers };
@@ -54,10 +59,10 @@
 <div class="question-wrapper">
   <div class="question-title">
     <p class="q-index">{index}.</p>
-    <p>
-      {@html compiledQuestion} <span class="required" />
+    <pre>{@html compiledQuestion}
+      <span class="required" />
       <span style="color: #014446;">(5 Points)</span>
-    </p>
+    </pre>
   </div>
 
   <div class="answer-wrapper">
@@ -71,7 +76,7 @@
             value={answer}
             disabled={showAnswers}
           />
-          <span>{answer}</span>
+          <span><pre>{answer}</pre></span>
         </label>
       </div>
     {/each}
@@ -79,6 +84,10 @@
 </div>
 
 <style lang="scss">
+  pre {
+    margin: 0;
+    display: inline-block;
+  }
   .wrong {
     color: red;
   }
@@ -126,6 +135,10 @@
     row-gap: 20px;
     margin-left: 20px;
     margin-top: 20px;
+
+    pre {
+      font-size: 14px;
+    }
   }
 
   .question-wrapper {
@@ -180,7 +193,6 @@
   .checkbox input[type="checkbox"] {
     bottom: 0;
     height: 18px;
-    margin: auto 0 auto -20px;
     outline-offset: 0;
     position: absolute;
     top: 0;
