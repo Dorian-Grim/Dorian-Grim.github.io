@@ -257,7 +257,7 @@ export const trivia = {
     {
       questionNumber: "28.",
       question:
-        "Considerăm funcția int suma(int x,int y) care returnează suma numerelor întregi x și y, precum și funcția int prod(int x,int y) care returnează produsul numerelor întregi x și y. Știind că a, b și c sunt 3 variabile de tip întreg, care dintre expresiile de mai jos atribuie\nvariabilei t de tip întreg valoarea expresiei (a+b)*(a+c)+b*c?",
+        "Considerăm funcția int suma(int x,int y) care returnează suma numerelor întregi x și y,\nprecum și funcția int prod(int x,int y) care returnează produsul numerelor întregi x și y. Știind că a, b și c sunt 3 variabile de tip întreg, care dintre expresiile de mai jos atribuie variabilei t de tip întreg valoarea expresiei (a+b)*(a+c)+b*c?",
       answers: [
         "t = prod(suma(a,",
         "t = suma(prod(suma(a,",
