@@ -14,7 +14,20 @@
    * @type {{ question: string; answers: string[]; correct_answers: string[]; }[]}
    */
   let pickedCourse = trimmedTrivia;
-  const courses = ["random", "dezvoltare_app_mobile", "programare_procedurala"];
+  const courses = [
+    "random",
+    "algoritmi_structuri_date",
+    "baze_de_date",
+    "comert_electronic",
+    "criptografie",
+    "programare_in_c",
+    "programare_in_java",
+    "retele_de_calculatoare",
+    "sgbd",
+    "sisteme_de_operare",
+    "tehnici_avansate_programare",
+    "tehnologii_web",
+  ];
 
   let gameStarted = false;
   let showAnswers = false;
@@ -44,8 +57,8 @@
    * @type {{ question: string; answers: string[]; correct_answers: string[]; }[]}
    */
   let everything;
-  function showEverything(){
-    everything = generateQuiz(trimmedTrivia, trimmedTrivia.length);
+  function showEverything() {
+    everything = generateQuiz(trimmedTrivia, trimmedTrivia.length, false);
     generateAnswered = true;
     showAnswers = true;
   }
@@ -60,7 +73,9 @@
     {/if}
   {/each}
 {:else if !gameStarted}
-  <button style="margin-bottom: 20px;" on:click={showEverything}>vezi totul</button>
+  <button style="margin-bottom: 20px;" on:click={showEverything}
+    >vezi totul</button
+  >
   <form on:submit|preventDefault={handleStart}>
     <div style="margin-bottom: 20px;">
       <p>Alege un curs anume sau random din toate:</p>
@@ -87,6 +102,14 @@
           select 10</button
         >
       {/if}
+      {#if $maxNumberOfQuestions >= 20}
+        <button
+          on:click|preventDefault={() => (numberOfQ = 20)}
+          class="input-btn"
+        >
+          select 20</button
+        >
+      {/if}
 
       {#if $maxNumberOfQuestions >= 40}
         <button
@@ -96,6 +119,12 @@
           select 40</button
         >
       {/if}
+      <button
+        on:click|preventDefault={() => (numberOfQ = $maxNumberOfQuestions)}
+        class="input-btn"
+      >
+        MAX
+      </button>
     </div>
     <button type="submit" class="submit-btn" style="margin-left: 0"
       >Start</button

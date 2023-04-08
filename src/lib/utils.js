@@ -45,9 +45,17 @@ export const getDisplayValue = (/** @type {boolean} */ value) => {
 
 export const generateQuiz = (
   /** @type {string | any[]} */ quizQuestions,
-  /** @type {any} */ desiredLength
+  /** @type {number} */ desiredLength,
+  /** @type {boolean} */ shuffled = true
 ) => {
-  let indexes = getArrayOfRandomNumbers(desiredLength, quizQuestions.length);
+  let indexes;
+  if(!shuffled)
+    indexes = Array.from(Array(desiredLength).keys());
+  else{
+   indexes= getArrayOfRandomNumbers(
+    desiredLength,
+    quizQuestions.length
+  );}
   /**
    * @type {{ question: string; answers: string[]; correct_answers: string[]; }[]}
    */
@@ -68,7 +76,7 @@ export const generateQuiz = (
       }
     );
 
-    question.answers = shuffleAnswers(copiedAnswers);
+    question.answers = shuffled ? shuffleAnswers(copiedAnswers) : copiedAnswers;
     quiz.push(question);
   });
 
@@ -77,14 +85,14 @@ export const generateQuiz = (
 
 //Handle the image attribute if present
 export const compileQuestion = (/** @type {string} */ question) => {
-  if (question.includes("<<")) {
+  if (question.includes("~~")) {
     let position;
 
-    if (/<<$/.test(question)) position = 2;
-    else if (/^<</.test(question)) position = 1;
+    if (/~~$/.test(question)) position = 2;
+    else if (/^~~/.test(question)) position = 1;
     else position = 1;
 
-    const tempArr = question.split(/<<|>>/);
+    const tempArr = question.split(/~~/);
     const img = `<img style="margin: 10px 0; width: 100%;" src="images/${tempArr[position]}" alt="Poza a fost incarcata gresit" />`;
     
     tempArr[position] = img;

@@ -64,7 +64,7 @@
 
 <div class="question-wrapper">
   <div class="question-title">
-    <p class="q-index">{index}.</p>
+    <p class="q-index">{index + 1}.</p>
     <pre>{@html compiledQuestion}</pre>
   </div>
 
@@ -98,8 +98,10 @@
     color: green;
   }
   label {
+    display: flex;
     font-size: 14px;
     span {
+      margin-top: 2px;
       margin-left: 8px;
     }
   }
@@ -138,6 +140,10 @@
     row-gap: 20px;
     margin-left: 20px;
     margin-top: 20px;
+
+    pre {
+      font-size: 14px;
+    }
   }
 
   .question-wrapper {
