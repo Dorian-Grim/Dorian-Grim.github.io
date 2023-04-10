@@ -28,7 +28,7 @@
   </div>{/if}
 <div
   class="timer-wrapper"
-  style={formSubmitted ? "display: none" : ""}
+  style={formSubmitted ? "background-color: grey" : ""}
 >
   {Math.floor(countdown / 60)}:{(countdown % 60).toString().padStart(2, "0")}
 </div>
