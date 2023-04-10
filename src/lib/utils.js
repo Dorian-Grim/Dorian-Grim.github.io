@@ -46,16 +46,14 @@ export const getDisplayValue = (/** @type {boolean} */ value) => {
 export const generateQuiz = (
   /** @type {string | any[]} */ quizQuestions,
   /** @type {number} */ desiredLength,
-  /** @type {boolean} */ shuffled = true
+  /** @type {boolean} */ shuffled = true,
+  /** @type {boolean} */ shuffledAnswers = false
 ) => {
   let indexes;
-  if(!shuffled)
-    indexes = Array.from(Array(desiredLength).keys());
-  else{
-   indexes= getArrayOfRandomNumbers(
-    desiredLength,
-    quizQuestions.length
-  );}
+  if (!shuffled) indexes = Array.from(Array(desiredLength).keys());
+  else {
+    indexes = getArrayOfRandomNumbers(desiredLength, quizQuestions.length);
+  }
   /**
    * @type {{ question: string; answers: string[]; correct_answers: string[]; }[]}
    */
@@ -72,11 +70,13 @@ export const generateQuiz = (
     question.correct_answers = [];
     quizQuestions[index].correct_answers.forEach(
       (/** @type {number} */ val) => {
-        question.correct_answers.push(quizQuestions[index].answers[val-1]);
+        question.correct_answers.push(quizQuestions[index].answers[val - 1]);
       }
     );
 
-    question.answers = shuffled ? shuffleAnswers(copiedAnswers) : copiedAnswers;
+    question.answers = shuffledAnswers
+      ? shuffleAnswers(copiedAnswers)
+      : copiedAnswers;
     quiz.push(question);
   });
 
