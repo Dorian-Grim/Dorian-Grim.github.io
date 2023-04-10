@@ -9,6 +9,7 @@
   } from "../data/store";
   import { trimmedTrivia, triviaForCourse } from "../data/trivia";
   import { generateQuiz } from "$lib/utils";
+  import Timer from "$lib/timer.svelte";
 
   /**
    * @type {{ question: string; answers: string[]; correct_answers: string[]; }[]}
@@ -132,6 +133,7 @@
     >
   </form>
 {:else}
+  <Timer formSubmitted={showAnswers}/>
   <form on:submit|preventDefault={handleSubmit}>
     {#each pickedCourse as question, index}
       {#if question.correct_answers.length > 1}
