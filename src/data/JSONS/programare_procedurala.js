@@ -9,7 +9,7 @@ export const programare_procedurala = [
       "float x[100];",
       "real x(100);",
     ],
-    correct_answers: [1, 2],
+    correct_answers: [2,3],
   },
   {
     questionNumber: "2.",
@@ -237,7 +237,7 @@ export const programare_procedurala = [
   {
     questionNumber: "26.",
     question:
-      "Considerăm tipul de date Punct, capabil să memoreze abscisa şi ordonata unui punct din plan, şi tipul de date Segment, capabil să memoreze două puncte reprezentând extremităţile unui segment din plan, definite astfel:\n\ntypedef struct\n{\n    float x,y;\n  }Punct;\n\ntypedef struct\n{\n    Punct A,B;\n}Segment;\n\nCare dintre următoarele expresii are o valoare nenulă dacă şi numai dacă variabila 𝑠 de tip Segment memorează informații despre un segment vertical (aflat pe axa Oy sau paralel cu axa\nOy)?",
+      "Considerăm tipul de date Punct, capabil să memoreze abscisa şi ordonata unui punct din plan, şi tipul de date Segment, capabil să memoreze două puncte reprezentând extremităţile unui segment din plan, definite astfel:\n\ntypedef struct\n{\n    float x,y;\n  }Punct;\n\ntypedef struct\n{\n    Punct A,B;\n}Segment;\n\nCare dintre următoarele expresii are o valoare nenulă dacă şi numai dacă variabila 𝑠 de tip Segment memorează informații despre un segment vertical (aflat pe axa Oy sau paralel cu axa Oy)?",
     answers: ["s.A == s.B", "s.x == s.y", "A.x == B.x", "s.A.x == s.B.x"],
     correct_answers: [4],
   },
