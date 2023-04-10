@@ -425,18 +425,17 @@
     "answers": ["a. Baudot;", "b. Morse;", "c. Baudot şi Morse."],
     "correct_answers": [1]
   },
-
   {
     "questionNumber": "38.",
-    "question": "Metodele de generare ale cheilor criptografice sunt:\na. Metode algebrice;",
+    "question": "Metodele de generare ale cheilor criptografice sunt:",
     "answers": [
-      "a. Metode algebrice;",
-      "b. Metode aritmetice;",
-      "c. Metode bazate pe teoria haosului;",
-      "d. Metode empirice;",
-      "e. Metode bazate pe experimente fizice."
+      "Metode algebrice;",
+      "Metode aritmetice;",
+      "Metode bazate pe teoria haosului;",
+      "Metode empirice;",
+      "Metode bazate pe experimente fizice."
     ],
-    "correct_answers": [1, 2, 3, 5]
+    "correct_answers": [1,2,3,5]
   },
 
   {

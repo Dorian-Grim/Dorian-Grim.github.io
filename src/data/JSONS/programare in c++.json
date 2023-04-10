@@ -518,9 +518,9 @@
     "answers": [
       "constructor – de patru ori, constructor de copiere – o datã, destructor – de patru ori;",
       "constructor – de trei ori, constructor de copiere - de douã ori, destructor de cinci ori;",
-      "constructor – de douã ori, constructor de copiere – de douã ori, operator= - o datã,\ndestructor – de patru ori;",
-      "constructor – de douã ori, constructor de copiere – o datã, operator= - de douã ori,\ndestructor – de douã ori;",
-      "constructor – de douã ori, constructor de copiere – o datã, operator= - de douã ori,\ndestructor – de patru ori."
+      "constructor – de douã ori, constructor de copiere – de douã ori, operator= - o datã, destructor – de patru ori;",
+      "constructor – de douã ori, constructor de copiere – o datã, operator= - de douã ori, destructor – de douã ori;",
+      "constructor – de douã ori, constructor de copiere – o datã, operator= - de douã ori, destructor – de patru ori."
     ],
     "correct_answers": [3]
   }
