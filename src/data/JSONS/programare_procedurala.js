@@ -1,4 +1,4 @@
-[
+export const programare_procedurala = [
   {
     questionNumber: "1.",
     question:
