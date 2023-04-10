@@ -1,1 +1,580 @@
-[]
+[
+  {
+    "questionNumber": "1.",
+    "question": "Un SGBD distribuit este:\n",
+    "answers": [
+      "O mul\u0163ime de SGBD-uri locale, independente, ce se execut\u0103 \u00een acela\u015fi timp\n",
+      "Un software ce permite gestiunea unei BD distribuite \u015fi face distribu\u0163ia trans- parent\u0103 utilizatorilor\n",
+      "O mul\u0163ime de aplica\u0163ii locale \u015fi globale\n",
+      "O mul\u0163ime de aplica\u0163ii globale\n",
+      "O mul\u0163ime de aplica\u0163ii locale\n"
+    ],
+    "correct_answers": [2]
+  },
+  {
+    "questionNumber": "2.",
+    "question": "O tranzac\u0163ie este:\n",
+    "answers": [
+      "O unitate de program ce realizeaz\u0103 citiri \u015fi scrieri\n",
+      "O mul\u0163ime finit\u0103 \u015fi ordonat\u0103 de opera\u0163ii de citire, scriere \u015fi terminare\n",
+      "O mul\u0163ime finit\u0103 de opera\u0163ii coerente, executate de un SGBD, care manipuleaz\u0103 datele unei baze de date\n",
+      "O mul\u0163ime de instruc\u0163iuni executabile dintr-un limbaj gazd\u0103\n",
+      "O serie finit\u0103 de opera\u0163ii de modificare a datelor dintr-o baz\u0103 de date ORACLE\n"
+    ],
+    "correct_answers": [3]
+  },
+  {
+    "questionNumber": "3.",
+    "question": "Proprietatea de consisten\u0163\u0103 a tranzac\u0163iei const\u0103 din:\n",
+    "answers": [
+      "Eliminarea redundan\u0163elor\n",
+      "Izolarea tranzac\u0163iilor \u00een execu\u0163ie\n",
+      "Transformarea unei st\u0103ri consistente \u00eentr-o stare consistent\u0103\n",
+      "Transparen\u0163a\n",
+      "Durabilitatea\n"
+    ],
+    "correct_answers": [3]
+  },
+  {
+    "questionNumber": "4.",
+    "question": "O baz\u0103 de date distribuit\u0103 se g\u0103se\u015fte implementat\u0103 numai:\n",
+    "answers": [
+      "Pe un calculator performant\n",
+      "Pe mai multe calculatoare izolate, conectate la Internet\n",
+      "Pe un calculator client\n",
+      "\u00centr-o re\u0163ea de calculatoare\n",
+      "Pe un laptop\n"
+    ],
+    "correct_answers": [4]
+  },
+  {
+    "questionNumber": "5.",
+    "question": "Un SGBD paralel este:\n",
+    "answers": [
+      "O mul\u0163ime de SGBD locale independente \u00een execu\u0163ie\n",
+      "Un SGBD ce execut\u0103 in paralel opera\u0163ii de intrare /ie\u015fire dintr-o baz\u0103 de date\n",
+      "Un program ce opereaz\u0103 pe baza algoritmilor paraleli\n",
+      "Un SGBD ce se execut\u0103 pe calculatoare cu mai multe procesoare \u015fi medii de stocare, proiectate s\u0103 execute o mul\u0163ime de opera\u0163ii \u00een paralel, pentru o mare performan\u0163\u0103\n",
+      "Niciuna dintre acestea\n"
+    ],
+    "correct_answers": [4]
+  },
+  {
+    "questionNumber": "6.",
+    "question": "Se d\u0103 tabelul\nSTUDENT(CNP, Nume, Grupa, Adresa)\n\u015fi urm\u0103toarea secven\u0163\u0103 ce reprezint\u0103 o tranzac\u0163ie:\nCREATE table STUDENT_NOU ( CNP NUMBER, Nume VARCHAR(30)) \nINSERT INTO STUDENT_NOU SELECT CNP, Nume from STUDENT\nSavepoint s1\nUPDATE STUDENT_NOU SET Nume = UPPER(Nume)\nSavepoint s2\nDELETE FROM STUDENT_NOU\nRollback to s2\nDELETE FROM STUDENT_NOU WHERE CNP=100 UPDATE STUDENT_NOU SET Nume = 'Ionescu'\nRollback to s2\nUPDATE STUDENT_NOU SET Nume = 'Ionescu' WHERE CNP=100\nRollback\nCare este rezultatul acestei tranzac\u0163ii pentru tabela STUDENT_NOU?\n",
+    "answers": [
+      "Avem un student cu numele \u2018Ionescu\u2019\n",
+      "Nu avem linii \u00een tabel\u0103\n",
+      "Nu putem s\u0103 facem Rollback mai mult de o dat\u0103 pe un punct de reluare\n",
+      "Ultimul UPDATE e\u015fueaz\u0103 deoarece studentul cu CNP-ul 100 a fost \u015fters\n",
+      "Tranzac\u0163ia e\u015fueaz\u0103 deoarece avem mai multe puncte de reluare\n"
+    ],
+    "correct_answers": [2]
+  },
+  {
+    "questionNumber": "7.",
+    "question": "C\u00e2nd crea\u0163i o baz\u0103 de date Microsoft Sql Server, care sunt fi\u015fierele care trebuie create obligatoriu?\n",
+    "answers": [
+      "Un fi\u015fier de date primar\n",
+      "Un fi\u015fier de date primar \u015fi un fi\u015fier de log\n",
+      "Un fi\u015fier de date primar, un fi\u015fier de date secundar \u015fi un fi\u015fier de log\n",
+      "Un fi\u015fier de log primar\n"
+    ],
+    "correct_answers": [2]
+  },
+  {
+    "questionNumber": "8.",
+    "question": "C\u00e2nd se determin\u0103 accesul utilizator la obiecte particulare ale unei baze de date, cum se aplic\u0103 permisiunile?\n",
+    "answers": [
+      "User, fixed role, group role, fixed server\n",
+      "User, group role, fixed role, fixed server\n",
+      "Permisiunile sunt cumulative except\u00e2nd DENY\n",
+      "Permisiunile se scad except\u00e2nd permisiunile user specificate\n"
+    ],
+    "correct_answers": [3]
+  },
+  {
+    "questionNumber": "9.",
+    "question": "Care dintre urm\u0103toarele afirma\u0163ii nu este adev\u0103rat\u0103 despre bazele de date Microsoft SQL Server?\n",
+    "answers": [
+      "Bazele de date sunt grupate \u00een \u201cfilegroups\u201d\n",
+      "Bazele de date trebuie s\u0103 fie \u00een acela\u015fi \u201cfilegroup\u201d\n",
+      "Bazele de date pot cre\u015fte automat cu un procent\n",
+      "Bazele de date pot avea dimensiuni restric\u0163ionate\n"
+    ],
+    "correct_answers": [2]
+  },
+  {
+    "questionNumber": "10.",
+    "question": "Care grup de instruc\u0163iuni se poate utiliza prin acordarea permisiunilor obiect?\n",
+    "answers": [
+      "SELECT, UPDATE, INSERT, CREATE\n",
+      "SELECT, EXECUTE, DELETE, INDEX\n",
+      "SELECT, UPDATE, INSERT, DELETE\n",
+      "SELECT, EXECUTE, DELETE,CREATE\n"
+    ],
+    "correct_answers": [3]
+  },
+  {
+    "questionNumber": "11.",
+    "question": "A\u0163i planificat ca Microsoft SQL Server 2000 s\u0103 fac\u0103 backups ale unei baze de date astfel:\nfull backup la ora 2:00 a.m.; differential backups din 4 \u00een 4 ore; transaction log backups la fiecare 30\u2019. Sistemul cade la 11:24 a.m. Dup\u0103 ce se face un full backup restore, c\u00e2te backups transaction logs \u015fi diferen\u0163iale (num\u0103rul minim) trebuie restaurate pentru a avea pierderi minime \u00een baza de date?\n",
+    "answers": [
+      "1 differential, 2 log\n",
+      "1 differetial, 10 log\n",
+      "2 differential, 2 log\n",
+      "2 differential, 1 log\n"
+    ],
+    "correct_answers": [1]
+  },
+  {
+    "questionNumber": "12.",
+    "question": "Pentru a preveni problemele \u0163in\u00e2nd de proprietarul obiectelor unei baze de date Microsoft SQL Server, ce rol ar trebui s\u0103 fie asignat unui developer?\n",
+    "answers": ["Db-owner\n", "Db-creator\n", "DBA\n", "Db-manager\n"],
+    "correct_answers": [1]
+  },
+  {
+    "questionNumber": "13.",
+    "question": "Rolul Public este un rol special fixat la nivelul unei baze de date Sql Server. Care dintre urm\u0103toarele afirma\u0163ii sunt adev\u0103rate despre el ?\n",
+    "answers": [
+      "Nu poate fi \u015fters\n",
+      "Poate fi \u015fters\n",
+      "E con\u0163inut \u00een orice baz\u0103 de date utilizator, inclusiv master, msdb, tempdb, model\n",
+      "E con\u0163inut numai \u00een bazele de date utilizator\n",
+      "Nu poate avea utilizatori, grupuri sau roluri asignate\n",
+      "P\u0103streaz\u0103 toate permisiunile implicite pentru utilizatorii unei baze de date\n"
+    ],
+    "correct_answers": [1, 3, 5, 6]
+  },
+  {
+    "questionNumber": "14.",
+    "question": "Care dintre afirma\u0163iile urm\u0103toare sunt adev\u0103rate?\n",
+    "answers": [
+      "Numai un index cluster poate fi creat pentru un tabel\n",
+      "\u00centotdeauna crea\u0163i indec\u015fii non-cluster \u00eenaintea cre\u0103rii oric\u0103rui index cluster\n",
+      "Indec\u015fii cluster sunt mai mari dec\u00e2t cei non-cluster\n",
+      "Paginile frunz\u0103 ale indexului cluster sunt paginile de date ale tabelului\n"
+    ],
+    "correct_answers": [1, 4]
+  },
+  {
+    "questionNumber": "15.",
+    "question": "Trebuie s\u0103 modifica\u0163i un tabel din baza de date pe care a\u0163i creat-o; mai mul\u0163i utilizatori au primit permisiunile obiect SELECT, INSERT pentru acel tabel. Ce variant\u0103 ar trebui s\u0103 executa\u0163i pentru a modifica tabelul, f\u0103r\u0103 a afecta permisiunile acordate?\n",
+    "answers": [
+      "DROP TABLE urmat de CREATE TABLE\n",
+      "CREATE TABLE, cu noua configura\u0163ie\n",
+      "ALTER TABLE\n",
+      "MOD TABLE\n",
+      "EXEC sp_help nume_tabela\n"
+    ],
+    "correct_answers": [3]
+  },
+  {
+    "questionNumber": "16.",
+    "question": "C\u00e2nd \u015fterge\u0163i un tabel, ce obiecte din baza de date se \u015fterg de asemenea?\n",
+    "answers": [
+      "Vederile care-l au ca tabel de baz\u0103\n",
+      "Procedurile stocate care-l utilizeaz\u0103\n",
+      "Declan\u015fatorii crea\u0163i pentru el\n",
+      "Func\u0163iile care-l utilizeaz\u0103\n"
+    ],
+    "correct_answers": [3]
+  },
+  {
+    "questionNumber": "17.",
+    "question": "Care sunt caracteristicile unei chei primare?\n",
+    "answers": [
+      "For\u0163eaz\u0103 integritatea referen\u0163ial\u0103 pentru o tabel\u0103\n",
+      "Se creaz\u0103 cu coloanele existente \u00een tabel sau cu o coloan\u0103 creat\u0103 special \u00een acest scop\n",
+      "Permite valori de tip null\n",
+      "Server-ul de baze de date permite numai o cheie primar\u0103 pentru un tabel\n",
+      "La crearea ei, serverul construie\u015fte automat o constr\u00e2ngere de domeniu\n"
+    ],
+    "correct_answers": [1, 2, 4]
+  },
+  {
+    "questionNumber": "18.",
+    "question": "Care dintre urm\u0103toarele afirma\u0163ii sunt adev\u0103rate despre constr\u00e2ngeri?\n",
+    "answers": [
+      "Constr\u00e2ngerile la nivel de coloan\u0103 se aplic\u0103 pe anumite coloane sau combina\u0163ii de coloane\n",
+      "Dac\u0103 nu se specific\u0103 un nume pentru constr\u00e2ngere, server-ul de baze de date ofer\u0103 unul\n",
+      "Indec\u015fii crea\u0163i de constr\u00e2ngerile PRIMARY KEY \u015fi UNIQUE KEY pot fi \u015fter\u015fi folosind instruc\u0163iunea DROP INDEX\n",
+      "Constr\u00e2ngerile pot fi ad\u0103ugate sau \u015fterse dintr-o tabel\u0103 f\u0103r\u0103 a afecta structura tabelei\n"
+    ],
+    "correct_answers": [2, 4]
+  },
+  {
+    "questionNumber": "19.",
+    "question": "Pute\u0163i folosi o procedur\u0103 stocat\u0103 pentru a extrage informa\u0163ii din tabele de baz\u0103 la care nu ave\u0163i permisiuni de acces?\n",
+    "answers": [
+      "Nu, pentru c\u0103 nu ave\u0163i permisiunile cerute pe tabele\n",
+      "Nu, dac\u0103 nu sunte\u0163i membri sysadmin sau db-owner\n",
+      "Da, dac\u0103 ave\u0163i permisiunea EXECUTE pentru procedura stocat\u0103\n",
+      "Da, dac\u0103 a\u0163i creat declan\u015fatori pentru fiecare tabel\n"
+    ],
+    "correct_answers": [3]
+  },
+  {
+    "questionNumber": "20.",
+    "question": "Dac\u0103 utilizatorul student creaz\u0103 o tabel\u0103, cine poate interoga tabela?\n",
+    "answers": [
+      "Numai utilizatorul student\n",
+      "Numai administratorul bazei de date\n",
+      "Utilizatorii care au drept de SELECT pe tabel\u0103\n",
+      "To\u0163i utilizatorii\n",
+      "Utilizatorul student\n"
+    ],
+    "correct_answers": [3, 5]
+  },
+  {
+    "questionNumber": "21.",
+    "question": "S\u0103 se aleag\u0103 r\u0103spunsurile corecte:\n",
+    "answers": [
+      "C\u00e2nd o tabel\u0103 e \u015ftears\u0103, to\u0163i indec\u015fii asocia\u0163i sunt \u015fter\u015fi\n",
+      "\u00centotdeauna se construie\u015fte un index pe coloanele care se actualizeaz\u0103 frecvent\n",
+      "Se poate crea un index ce con\u0163ine c\u00e2mpuri din mai multe tabele\n",
+      "Pentru a ob\u0163ine date ordonate dintr-o tabel\u0103 se pot folosi indec\u015fi\n",
+      "Se recomand\u0103 crearea unui index pe coloanele folosite \u00een jonc\u0163iuni"
+    ],
+    "correct_answers": [1, 4, 5]
+  },
+  {
+    "questionNumber": "22.",
+    "question": "Comanda DROP VIEW vedere are ca efect:\n",
+    "answers": [
+      "\u015eterge \u00eenregistr\u0103rile din tabela virtual\u0103\n",
+      "\u015eterge \u00eenregistr\u0103rile din tabela de baz\u0103\n",
+      "\u015eterge tabela virtual\u0103\n",
+      "\u015eterge tabela de baz\u0103\n",
+      "\u015eterge tabela virtual\u0103 \u015fi tabela de baz\u0103 corespunz\u0103toare\n"
+    ],
+    "correct_answers": [3]
+  },
+  {
+    "questionNumber": "23.",
+    "question": "Serverul Oracle/Microsoft de baze de date creaz\u0103 automat un index c\u00e2nd:\n",
+    "answers": [
+      "Se define\u015fte o constr\u00e2ngere de tip PRIMARY KEY\n",
+      "Se define\u015fte o constr\u00e2ngere de tip NOT NULL\n",
+      "Se define\u015fte o constr\u00e2ngere de tip UNIQUE\n",
+      "Se define\u015fte o constr\u00e2ngere de tip FOREIGN KEY\n",
+      "Se define\u015fte o constr\u00e2ngere de tip CHECK\n"
+    ],
+    "correct_answers": [1, 3]
+  },
+  {
+    "questionNumber": "24.",
+    "question": "Se va crea un index pe o coloan\u0103 c\u00e2nd:\n",
+    "answers": [
+      "Coloana se utilizeaz\u0103 frecvent \u00een clauza WHERE sau \u00eentr-un JOIN\n",
+      "Tabela este de dimensiuni mari\n",
+      "Tabela este de dimensiuni mici\n",
+      "Coloana con\u0163ine un num\u0103r mare de valori nule\n",
+      "Tabela este actualizat\u0103 frecvent\n"
+    ],
+    "correct_answers": [1, 2, 4]
+  },
+  {
+    "questionNumber": "25.",
+    "question": "Secven\u0163a de comenzi:\n    SET AUTOCOMMIT OFF \n    DELETE FROM stoc \n    ROLLBACK\nare ca efect:\n",
+    "answers": [
+      "Nu execut\u0103 nici o \u015ftergere\n",
+      "\u015eterge toate \u00eenregistr\u0103rile din tabela stoc\n",
+      "\u015eterge doar \u00eenregistrarea curent\u0103 din tabela stoc\n",
+      "\u015eterge fizic toate \u00eenregistr\u0103rile din tabela stoc\n",
+      "\u015eterge logic toate \u00eenregistr\u0103rile din tabela stoc\n"
+    ],
+    "correct_answers": [1]
+  },
+  {
+    "questionNumber": "26.",
+    "question": "Care dintre urm\u0103toarele instruc\u0163iuni sunt necesare pentru a defini \u00eenceputul \u015fi sf\u00e2r\u015fitul unei tranzac\u0163ii explicite \u00een Microsoft Transact-SQL ?\n",
+    "answers": [
+      "OPEN TRANSACTION\n",
+      "BEGIN TRANSACTION\n",
+      "INSERT TRANSACTION\n",
+      "END TRANSACTION\n",
+      "ROLLOVER TRANSACTION\n",
+      "COMMIT TRANSACTION\n"
+    ],
+    "correct_answers": [2, 6]
+  },
+  {
+    "questionNumber": "27.",
+    "question": "Ce problem\u0103 de concuren\u0163\u0103 apare c\u00e2nd o tranzac\u0163ie cite\u015fte datele necomise de o alt\u0103 tranzac\u0163ie aflat\u0103 \u00een derulare?\n",
+    "answers": [
+      "Lost update\n",
+      "Dirty Read\n",
+      "Nonrepeatable Read\n",
+      "Phantom Read\n"
+    ],
+    "correct_answers": [2]
+  },
+  {
+    "questionNumber": "28.",
+    "question": "Care dintre urm\u0103toarele constr\u00e2ngeri pot fi f\u0103cute disable?\n",
+    "answers": [
+      "DEFAULT\n",
+      "CHECK\n",
+      "PRIMARY KEY\n",
+      "UNIQUE\n",
+      "FOREIGN KEY\n"
+    ],
+    "correct_answers": [2, 5]
+  },
+  {
+    "questionNumber": "29.",
+    "question": "Trebuie s\u0103 modifica\u0163i o procedur\u0103 stocat\u0103 \u015fi mai mul\u0163i utilizatori au primit permisiunea de execu\u0163ie a ei. Ce instruc\u0163iune ar trebui s\u0103 utiliza\u0163i pentru a o modifica, f\u0103r\u0103 a afecta permisiunile existente?\n",
+    "answers": [
+      "DROP PROC\n",
+      "CREATE PROC\n",
+      "ALTER PROC\n",
+      "MOD PROC\n",
+      "EXEC PROC\n"
+    ],
+    "correct_answers": [3]
+  },
+  {
+    "questionNumber": "30.",
+    "question": "Care sunt tipurile principale de integritate a datelor implementate de constr\u00e2ngerile din serverele rela\u0163ionale de baze de date ?\n",
+    "answers": [
+      "Integritatea de domeniu\n",
+      "Integritatea de atribut\n",
+      "Integritatea entit\u0103\u0163ii\n",
+      "Integritatea referen\u0163ial\u0103\n",
+      "Integritatea tipurilor de date\n"
+    ],
+    "correct_answers": [1, 3, 4]
+  },
+  {
+    "questionNumber": "31.",
+    "question": "Ce caracteristic\u0103 este utilizat\u0103 pentru a preveni conflictele de actualizare, astfel inc\u00e2t utilizatorii s\u0103 nu poat\u0103 citi sau modifica datele c\u00e2nd al\u0163i utilizatori le modific\u0103?\n",
+    "answers": [
+      "Tranzac\u0163iile\n",
+      "Bloc\u0103rile\n",
+      "Interog\u0103rile de tip SQL\n",
+      "Permisiunile de tip UPDATE\n",
+      "Permisiunile de tip SELECT\n"
+    ],
+    "correct_answers": [2]
+  },
+  {
+    "questionNumber": "32.",
+    "question": "A\u0163i creat o vedere folosind comanda: \n    CREATE VIEW dbo.Employee\n        WITH ENCRYPTION\n        AS SELECT Name FROM dbo.HumanResources \n            WHERE isEmployee = 1\n            WITH CHECK OPTION\n    Trebuie s\u0103 \u00eempiedica\u0163i al\u0163i utilizatori s\u0103 copieze vederea. Ce instruc\u0163iune ar trebui s\u0103 folosi\u0163i?\n",
+    "answers": [
+      "ALTER VIEW dbo.Employee \n    WITH ENCRYPTION\n    AS SELECT Name FROM dbo.HumanResources \n    WHERE isEmployee = 1\n",
+      "DENY ALL ON dbo.Employee TO public\n",
+      "ALTER VIEW dbo.Employee\n    AS SELECT Name FROM dbo.HumanResources \n        WHERE isEmployee = 1\n        WITH CHECK OPTION\n",
+      "ALTER VIEW dbo.Employee \n    WITH SCHEMABINDING\n        AS SELECT Name FROM dbo.HumanResources \n            WHERE isEmployee = 1\n",
+      "Nu exista o asemenea instruc\u0163iune\n"
+    ],
+    "correct_answers": [1]
+  },
+  {
+    "questionNumber": "33.",
+    "question": "A\u0163i executat trei proceduri stocate folosind urm\u0103toarele instruc\u0163iuni SQL: \nBEGIN TRANSACTION\nEXEC employeeStats\nSAVE TRANSACTION SV_employee \nEXEC productStats\nSAVE TRANSACTION SV_product \nEXEC webStats\nA ap\u0103rut o eroare \u00een procedura stocat\u0103 productStats \u015fi este nevoie s\u0103 se anuleze modific\u0103rile f\u0103cute de acea procedur\u0103.\nCe instruc\u0163iune ar trebui s\u0103 executa\u0163i?\n",
+    "answers": [
+      "ROLLBACK TRANSACTION\n",
+      "ROLLBACK TRANSACTION SV_employee\n",
+      "ROLLBACK WORK\n",
+      "ROLLBACK ROLLBACK\n",
+      "ROLLBACK TRANSACTION SV_product\n"
+    ],
+    "correct_answers": [2]
+  },
+  {
+    "questionNumber": "34.",
+    "question": "Folosi\u0163i tabela Products pentru a stoca informa\u0163ii despre produse. Printre alte informa\u0163ii, tabela con\u0163ine numele \u015fi pre\u0163ul produselor. Cre\u015fte\u0163i pre\u0163ul produselor astfel:\n    -pre\u0163ul produselor mai mic de 100$ va fi crescut cu 10% ;.\n    -pre\u0163ul produselor cuprins \u00een intervalul 100$ \u015fi 1000$ va fi crescut cu 5%;\n    -pre\u0163ul produselor mai mare de 1000$ va fi crescut cu 1%.\nTrebuie s\u0103 face\u0163i aceste modific\u0103ri pentru toate produsele din tabela Products \u015fi s\u0103 afi\u015fa\u0163i lista cu numele produselor, pre\u0163ul original \u015fi pre\u0163ul crescut. Ce instruc\u0163iune ar trebui folosit\u0103 ?\n",
+    "answers": [
+      "DECLARE @t1 table\n        (name varchar(30),\n        oldprice decimal(7,2),\n    newprice decimal(7,2));\n        UPDATE Products\n        SET price =\n        CASE\n    WHEN price < 100.00 THEN price*1.10\n    WHEN price BETWEEN 100.00 AND 1000.00 THEN price*1.05\n    ELSE price*1.01\n    END\n    OUTPUT DELETED.name, DELETED.price, INSERTED.price INTO @t1\nOUTPUT DELETED.name, DELETED.price, INSERTED.price INTO @t1\n",
+      "UPDATE Products\n        SET price =\n        CASE\n    WHEN price < 100.00 THEN price*1.10\n    WHEN price BETWEEN 100.00 AND 1000.00 THEN price*1.05\n    ELSE price*1.01\n    END\nOUTPUT DELETED.name, DELETED.price\n",
+      "UPDATE Products\n        SET price =\n        CASE\n    WHEN price < 100.00 THEN price*1.10\n    WHEN price BETWEEN 100.00 AND 1000.00 THEN price*1.05\n    ELSE price*1.01\n    END\nOUTPUT DELETED.name, DELETED.price, INSERTED.price\n",
+      "UPDATE Products\n        SET price =\n        CASE\n    WHEN price < 100.00 THEN price*1.10\n    WHEN price BETWEEN 100.00 AND 1000.00 THEN price*1.05\n    ELSE price*1.01\n    END\nOUTPUT DELETED.*, INSERTED.*\n",
+      "UPDATE Products\n        SET price =\n        CASE\n    WHEN price < 100.00 THEN price*1.10\n    WHEN price BETWEEN 100.00 AND 1000.00 THEN price*1.05\n    ELSE price*1.01\n    END\nOUTPUT DELETED.name, DELETED.price, INSERTED.*\n"
+    ],
+    "correct_answers": [3]
+  },
+  {
+    "questionNumber": "35.",
+    "question": "O tabel\u0103 virtual\u0103:\n",
+    "answers": [
+      "Poate fi construit\u0103 dintr-o tabel\u0103 de baz\u0103\n",
+      "Nu poate fi construit\u0103 din mai multe tabele de baz\u0103 legate \u00eentre ele (cu UNION)\n",
+      "Poate con\u0163ine func\u0163ii de grup\n",
+      "Nu poate fi read only\n",
+      "Poate con\u0163ine o restric\u0163ie de validare\n"
+    ],
+    "correct_answers": [1, 3, 5]
+  },
+  {
+    "questionNumber": "36.",
+    "question": "S\u0103 se aleag\u0103 afirma\u0163iile corecte:\n",
+    "answers": [
+      "C\u00e2nd se \u015fterge o tabel\u0103, indec\u015fii asocia\u0163i r\u0103m\u00e2n p\u00e2n\u0103 se \u015fterge \u015fi baza de date\n",
+      "Pentru a ob\u0163ine date ordonate dintr-o tabel\u0103 se pot folosi indec\u015fi\n",
+      "\u00centotdeauna se construie\u015fte un index pe atributele care se actualizeaz\u0103 \u00een mod curent\n",
+      "Se poate construi un index care con\u0163ine c\u00e2mpuri din mai multe tabele\n",
+      "Se recomand\u0103 crearea unui index pe atributele folosite \u00een jonc\u0163iuni\n"
+    ],
+    "correct_answers": [2, 5]
+  },
+  {
+    "questionNumber": "37.",
+    "question": "S\u0103 se aleag\u0103 informa\u0163ile corecte:\n",
+    "answers": [
+      "O vedere poate fi creat\u0103 numai \u00een baza de date curent\u0103\n",
+      "\u00cen comanda CREATE VIEW se poate folosi operatorul UNION\n",
+      "\u00cen comanda CREATE VIEW nu se poate folosi clauza ORDER BY\n",
+      "\u00cen comanda CREATE VIEW se poate folosi SELECT\n",
+      "\u00cen comanda CREATE VIEW se poate folosi clauza SET\n"
+    ],
+    "correct_answers": [1, 3, 4]
+  },
+  {
+    "questionNumber": "38.",
+    "question": "Se poate folosi acela\u015fi nume pentru mai multe tabele dintr-un server de baze de date Microsoft SQL Server ?\n",
+    "answers": [
+      "Nu\n",
+      "Da, dac\u0103 nu apar\u0163in aceleea\u015fi baze de date\n",
+      "Da, dac\u0103 apar\u0163in aceleea\u015fi scheme\n",
+      "Da, dac\u0103 nu apar\u0163in aceleea\u015fi scheme\n",
+      "Da, dac\u0103 nu apar\u0163in aceleea\u015fi instan\u0163e\n"
+    ],
+    "correct_answers": [2, 4, 5]
+  },
+  {
+    "questionNumber": "39.",
+    "question": "Dac\u0103 utilizatorul \u201cstud\u201d creaz\u0103 o vedere, cine poate face interog\u0103ri pe acea vedere?\n",
+    "answers": [
+      "Administratorul bazei de date\n",
+      "Utilizatorii care au permisiunea SELECT pe tabela din care extrage vederea datele\n",
+      "Utilizatorul \u201cstud\u201d\n",
+      "Numai utilizatorul \u201cstud\u201d\n",
+      "To\u0163i utilizatorii care au permisiunea SELECT pe vedere\n"
+    ],
+    "correct_answers": [1, 3, 5]
+  },
+  {
+    "questionNumber": "40.",
+    "question": "Un index Microsoft SQL/Oracle Server poate fi \u015fters de:\n",
+    "answers": [
+      "Proprietarul tabelei\n",
+      "De orice utilizator care are dreptul DROP ANY INDEX\n",
+      "Numai de proprietarul tabelei\n",
+      "De administratorul bazei de date\n",
+      "Numai de administratorul bazei de date\n"
+    ],
+    "correct_answers": [1, 2, 4]
+  },
+  {
+    "questionNumber": "41.",
+    "question": "Un administrator de baz\u0103 de date poate:\n",
+    "answers": [
+      "Crea un utilizator\n",
+      "\u015eterge un utilizator\n",
+      "\u015eterge orice tabel\u0103 sistem\n",
+      "\u0218terge orice index creat pe o tabel\u0103 sistem\n",
+      "S\u0103 salveze orice baz\u0103 de date utilizator\n"
+    ],
+    "correct_answers": [1, 2, 5]
+  },
+  {
+    "questionNumber": "42.",
+    "question": "Secven\u0163a de comenzi Microsoft SQL Server: \n    SET IMPLICIT_TRANSACTIONS OFF\n    BEGIN TRANSACTION\n    DELETE FROM Tabel_sursa\n    ROLLBACK\nare ca efect:\n",
+    "answers": [
+      "\u015eterge toate \u00eenregistr\u0103rile din tabela \u201cTabel_sursa\u201d\n",
+      "\u015eterge doar \u00eenregistrarea curent\u0103 din \u201cTabel_sursa\u201d\n",
+      "Nu efectueaz\u0103 nici o \u015ftergere\n",
+      "\u015eterge to\u0163i indec\u015fii asocia\u0163i tabelei \u201cTabel_sursa\u201d\n",
+      "\u015eterge logic toate \u00eenregistr\u0103rile din tabela \u201cTabel_sursa\u201d\n"
+    ],
+    "correct_answers": [3]
+  },
+  {
+    "questionNumber": "43.",
+    "question": "Compania dumneavoastr\u0103 utilizeaz\u0103 o procedur\u0103 stocat\u0103 numit\u0103 webAnalysis pentru a analiza informa\u021bia de pe un Web site. Procedura \u00eentoarce 1 dac\u0103 analiza a avut loc cu succes \u0219i 0 dac\u0103 a existat o problem\u0103. Dumneavoastr\u0103 crea\u021bi o interogare care\nexecut\u0103 un grup de opera\u021bii de \u00eentre\u021binere zilnice, incluz\u00e2nd procedura webAnalysis. Trebuie s\u0103 comite\u021bi modific\u0103rile f\u0103cute de procedur\u0103, dac\u0103 analiza a \u00eenregistrat succes, f\u0103r\u0103 s\u0103 afecta\u021bi execu\u021bia altor task-uri executate de interogare. Care set de instruc\u021biuni ar trebui s\u0103 folosi\u021bi?\n",
+    "answers": [
+      "BEGIN TRANSACTION;\nDECLARE @success int;\nEXEC @success = webAnalysis;\nIF @success = 0\n        ROLLBACK;\n    ELSE\n    COMMIT;\n",
+      "BEGIN TRANSACTION;\nDECLARE @success int;\nEXEC @success = webAnalysis;\n    IF @success = 0\n        ROLLBACK;\n",
+      "BEGIN TRANSACTION;\n    DECLARE @success int;\n    EXEC @success = webAnalysis;\n    COMMIT;\n    IF @success = 0\n        ROLLBACK;\n",
+      "DECLARE @success int;\n    EXEC @success = webAnalysis;\n    IF @success = 0\n        ROLLBACK;\n    ELSE\n        COMMIT;\n"
+    ],
+    "correct_answers": [1]
+  },
+  {
+    "questionNumber": "44.",
+    "question": "Insera\u021bi date \u00eentr-o tabel\u0103 care folose\u0219te un trigger INSTEAD OF pentru a le valida, \u00eenainte de a le ad\u0103uga; dac\u0103 datele nu sunt corecte, ele nu sunt inserate \u00een tabel\u0103. Trebuie s\u0103 scrie\u021bi o instruc\u021biune INSERT \u0219i s\u0103 returna\u021bi o list\u0103 a liniilor care au fost validate \u0219i ad\u0103ugate \u00een tabel\u0103. Ce ar trebui s\u0103 face\u021bi?\n",
+    "answers": [
+      "Crea\u021bi o variabil\u0103 de tip tabel\u0103 pentru a stoca datele inserate. Folosi\u021bi clauza OUTPUT INTO \u00een instruc\u021biunea INSERT pentru a popula variabila tabel\u0103 cu liniile inserate. Executa\u021bi instruc\u021biunea SELECT pe variabila tabel\u0103 pentru a returna liniile inserate.\n",
+      "Crea\u021bi o variabil\u0103 de tip tabel\u0103 pentru a stoca datele inserate. Folosi\u021bi clauza OUTPUT INTO \u00een instruc\u021biunea INSERT pentru a popula variabila tabel\u0103 cu liniile inserate. Executa\u021bi instruc\u021biunea SELECT care \u00eentoarce toate liniile din tabel\u0103 \u0219i variabila tabel\u0103.\n",
+      "Folosi\u021bi clauza OUTPUT \u00een instruc\u021biunea INSERT pentru a returna liniile inserate.\n",
+      "Crea\u021bi o variabil\u0103 de tip tabel\u0103 \u0219i o popula\u021bi cu con\u021binutul ini\u021bial al tabelei. Insera\u021bi datele \u00een tabel\u0103 . Executa\u021bi o instruc\u021biune SELECT care extrage toate liniile din tabel\u0103, dar care nu sunt \u00een variabila tabel\u0103.\n"
+    ],
+    "correct_answers": [2, 4]
+  },
+  {
+    "questionNumber": "45.",
+    "question": "Tabela Employees include urm\u0103toarele coloane:\n-id int UNIQUE;\n-name nvarchar(50).\nTrebuie s\u0103 crea\u021bi o procedur\u0103 stocat\u0103 care s\u0103 permit\u0103 utilizatorilor s\u0103 transmit\u0103 ID-ul unui angajat \u0219i s\u0103 extrag\u0103 numele angajatului pe care sa-l memoreze \u00eentr-o variabil\u0103 nvarchar(50). Ce instruc\u021biune ar trebui s\u0103 utiliza\u021bi?\n",
+    "answers": [
+      "CREATE PROCEDURE getName\n@ID int\n    AS\nDECLARE @outputName nvarchar(50);\nSELECT @outputName = name FROM Employees WHERE id = @ID;\nRETURN @outputName;\n",
+      "CREATE PROCEDURE getName\n@ID int,\n@Name nvarchar(50) OUTPUT\n    AS\nSELECT @Name = name FROM Employees WHERE id = @ID;\n",
+      "CREATE PROCEDURE getName\n@ID int,\n@Name nvarchar(50)\n    AS\nSELECT @Name = name FROM Employees WHERE id = @ID;\n",
+      "CREATE PROCEDURE getName\n@ID int\n    AS\nSELECT name FROM Employees WHERE id = @ID;\n"
+    ],
+    "correct_answers": [2]
+  },
+  {
+    "questionNumber": "46.",
+    "question": "Baza de date folosit\u0103 de dumneavoastr\u0103 con\u021bine o tabel\u0103 numit\u0103 Employees, care are o coloan\u0103 de tip nvarchar(MAX) numit\u0103 lastName.Ave\u021bi deja un index clustered numit id_index pe coloana id a tabelei. Unul dintre utilizatorii dumneavoastr\u0103 reclam\u0103 timpii de interogare lungi ob\u021binu\u021bi c\u00e2nd folose\u0219te coloana lastName \u00een clauza WHERE a instruc\u021biunii SELECT. Ce instruc\u021biune ar trebui s\u0103 folosi\u021bi?\n",
+    "answers": [
+      "ALTER INDEX id_index \nON Employees (id, lastName);\n",
+      "CREATE INDEX id_name_index \nON Employees (id)\nINCLUDE (lastName);\n",
+      "CREATE CLUSTERED INDEX name_index \nON Employees (lastName);\n",
+      "CREATE INDEX name_index \nON Employees (lastName);\n"
+    ],
+    "correct_answers": [4]
+  },
+  {
+    "questionNumber": "47.",
+    "question": "O baz\u0103 de date folosit\u0103 de dumneavoastr\u0103 include o tabel\u0103 numit\u0103 Contractors. Aplica\u021biile folosesc frecvent urm\u0103toarea instruc\u021biune pentru a accesa \u00eenregistr\u0103rile actualizate dup\u0103 1 ianuarie 2014:\nSELECT id, name FROM Contractors \n    WHERE expertise = @searchWord\n        AND lastUpdated > '20140101';\nTrebuie s\u0103 reduce\u021bi timpul necesar execu\u021biei acestei instruc\u021biuni. Care este solu\u021bia optim\u0103 pentru a ob\u021bine acest deziderat?\n",
+    "answers": [
+      "CREATE INDEX expertise_index\nON Contractors (lastUpdated, expertise);\n",
+      "CREATE INDEX expertise_index ON \nContractors(lastUpdated) \nINCLUDE (expertise);\n",
+      "CREATE INDEX expertise_index \nON Contractors (expertise) \nWHERE lastUpdated > '20140101';\n",
+      "CREATE INDEX expertise_index\nON Constractors (expertise, lastUpdated);\n"
+    ],
+    "correct_answers": [3]
+  },
+  {
+    "questionNumber": "48.",
+    "question": "In baza de date folosit\u0103 de dumneavoastr\u0103 ave\u021bi o tabel\u0103 numit\u0103 Personal, al c\u0103rei proprietar este student. S-a creat o vedere numit\u0103 Angajati, pentru a limita accesul la tabela Personal, care are ca proprietar pe Ana. Unuia dintre utilizatorii bazei de date i-a fost acordat\u0103 permisiunea INSERT pe vederea Angajati \u0219i i-a fost interzis\u0103 permisiunea INSERT pe tabela Personal; c\u00e2nd \u00eencearc\u0103 s\u0103 insereze o linie \u00een vederea Angajati, instruc\u021biunea INSERT e\u0219ueaz\u0103. Trebuie s\u0103 rezolva\u021bi aceast\u0103 problem\u0103. Ce ar trebui s\u0103 face\u021bi?\n",
+    "answers": [
+      "Acorda\u021bi proprietarului tabelei Personal permisiunea SELECT pe vederea Angajati.\n",
+      "Acorda\u021bi proprietarului vederii Angajati permisiunea INSERT pe tabela Personal.\n",
+      "Schimba\u021bi proprietarul vederii Angajati \u00een student.\n",
+      "Acorda\u021bi permisiunea INSERT pe tabela Personal utilizatorului.\n"
+    ],
+    "correct_answers": [3]
+  },
+  {
+    "questionNumber": "49.",
+    "question": "A\u021bi creat o vedere folosind comanda:\nCREATE VIEW dbo.AngajatiNoi\n    AS SELECT\n        Nume,\n        SalariuLunar,\n        (SalariuLunar * 12) AS SalariuAnual,\n        Data_Ang\n        FROM dbo.ResurseUmane\n        WHERE Nume IS NOT NULL\n            AND Data_Ang > '1/1/2014'\n    WITH CHECK OPTION;\nTrebuie s\u0103 insera\u021bi o linie folosind aceast\u0103 vedere. Ce instruc\u021biune ar trebui s\u0103 folosi\u021bi?\n",
+    "answers": [
+      "INSERT INTO dbo. AngajatiNoi (Nume, SalariuAnual, Data_Ang) VALUES ('Popa Ion', 50000, '3/12/2014');\n",
+      "INSERT INTO dbo. AngajatiNoi (Nume, SalariuLunar, Data_Ang) VALUES ('Mihnea George', 4000, '5/13/2014');\n",
+      "INSERT INTO dbo. AngajatiNoi (Nume, SalariuLunar, Data_Ang) VALUES ('Stan Remus\u2019, 2500, '11/5/2010');\n",
+      "INSERT INTO dbo. AngajatiNoi (Nume) VALUES ('Tonoiu Petre');\n"
+    ],
+    "correct_answers": [2]
+  },
+  {
+    "questionNumber": "50.",
+    "question": "A\u021bi creat o tabel\u0103 folosind instruc\u021biunea:\nCREATE TABLE dbo.Products (ID int IDENTITY(1,1) NOT NULL,\n    Name nvarchar(60) NOT NULL, Cost decimal(10,2),\n    SalePrice decimal(10,2), CurrentStock bigint, NumberSold bigint)\nUn utilizator necesit\u0103 urm\u0103toarele tipuri de acces:\n-SELECT pe coloanele Name \u0219i SalePrice;\n-SELECT pe stocul disponibil(diferen\u021ba dintre CurrentStock \u0219i NumberSold );\n-ALTER pe coloanele Name \u0219i SalePrice.\nTrebuie s\u0103 acorda\u021bi permisiuni pentru a satisface aceste cerin\u021be, f\u0103r\u0103 a da permisiuni suplimentare sau a restric\u021biona accesul. Ce ar trebui s\u0103 face\u021bi?\n",
+    "answers": [
+      "Acorda\u021bi utilizatorului permisiunile SELECT \u0219i ALTER pe vederea definit\u0103 de instruc\u021biunea: CREATE VIEW dbo.CustomerProduct AS SELECT Name, SalePrice, (CurrentStock - NumberSold) AS AvailableStock FROM dbo.Products.\n",
+      "Acorda\u021bi utilizatorului permisiunea SELECT pe coloanele Name, SalePrice, CurrentStock \u0219i NumberSold \u0219i permisiunea ALTER pe coloanele Name \u0219i SalePrice din tabela Products.\n",
+      "Acorda\u021bi utilizatorului permisiunea ALTER pe vederea definit\u0103 de instruc\u021biunea: CREATE VIEW dbo.CustomerProductSelect AS SELECT Name, SalePrice, (CurrentStock - NumberSold) AS AvailableStock FROM dbo.Products.\n",
+      "Crea\u021bi dou\u0103 proceduri stocate, una care s\u0103 execute instruc\u021biunea SELECT din tabel\u0103 \u0219i alta care s\u0103 permit\u0103 ALTER pe coloanele Name \u0219i SalePrice, apoi acorda\u021bi permisiunea EXECUTE pe proceduri."
+    ],
+    "correct_answers": [1, 4]
+  }
+]

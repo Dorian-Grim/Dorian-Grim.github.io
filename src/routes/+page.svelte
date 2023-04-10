@@ -38,7 +38,7 @@
 
   function handleStart() {
     if ($courseName === "random") {
-      pickedCourse = generateQuiz(trimmedTrivia, numberOfQ);
+      pickedCourse = generateQuiz(trimmedTrivia, numberOfQ, false);
       gameStarted = true;
       return;
     }
