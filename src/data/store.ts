@@ -15,5 +15,6 @@ export const validateCourse = writable([]);
 export const AllTriviaQuestions = readable(trimmedTrivia);
 export const userQuizSelections = writable(/** @type {[]} */ []);
 
+export const failedQuestions = writable(/** @type {number} */ 0);
 
 // Quiz

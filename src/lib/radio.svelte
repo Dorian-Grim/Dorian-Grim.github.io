@@ -1,5 +1,5 @@
 <script>
-  import { userQuizSelections } from "../data/store";
+  import { userQuizSelections, failedQuestions } from "../data/store";
 
   /**
    * @type {string[]}
@@ -19,7 +19,7 @@
    * @type {string}
    */
   const compiledQuestion = question;
-  
+
   // if needed add this to compiledQuestion
   /*
     + ` <span class="required" /><span style="color: #014446;">(5 Points)</span>`
@@ -47,6 +47,8 @@
     errors = [...errors];
   }
 
+  let checker = false;
+
   $: if (showAnswers) {
     $userQuizSelections[index] = { userSelectedAnswers };
 
@@ -54,10 +56,14 @@
       const userSelected = userSelectedAnswers === val;
       const answerIsCorrect = correct_answers.includes(val);
 
+      if ((answerIsCorrect && !userSelected) || (!answerIsCorrect && userSelected)) checker = true;
+
       if (answerIsCorrect) errors[index] = "correct";
       if (userSelected && !answerIsCorrect) errors[index] = "wrong";
     });
     errors = [...errors];
+
+    if(checker) failedQuestions.update(n => n + 1);
   }
 </script>
 

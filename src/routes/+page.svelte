@@ -6,6 +6,7 @@
     courseName,
     numberOfQuestions,
     maxNumberOfQuestions,
+    failedQuestions,
   } from "../data/store";
   import { trimmedTrivia, triviaForCourse } from "../data/trivia";
   import { generateQuiz } from "$lib/utils";
@@ -38,7 +39,7 @@
 
   function handleStart() {
     if ($courseName === "random") {
-      pickedCourse = generateQuiz(trimmedTrivia, numberOfQ, false);
+      pickedCourse = generateQuiz(trimmedTrivia, numberOfQ);
       gameStarted = true;
       return;
     }
@@ -67,7 +68,6 @@
     showAnswers = true;
   }
 </script>
-
 {#if generateAnswered}
   {#each everything as question, index}
     {#if question.correct_answers.length > 1}
@@ -136,7 +136,7 @@
   </form>
 {:else}
   <Timer formSubmitted={showAnswers}/>
-  <form on:submit|preventDefault={handleSubmit}>
+  <form style="position: relative;" on:submit|preventDefault={handleSubmit}>
     {#each pickedCourse as question, index}
       {#if question.correct_answers.length > 1}
         <Checkbox {...question} {index} bind:showAnswers />
@@ -154,6 +154,9 @@
       </label>
     </div>
     <button type="submit" class="submit-btn">Submit form</button>
+    {#if showAnswers}
+        <h4 style="position: absolute; bottom: 0; right: 0; background-color: grey; padding: 10px 20px; color: white; font-weight: 600; font-size: 20px;">Ai nimerit {numberOfQ - $failedQuestions} din {numberOfQ}</h4>
+    {/if}
   </form>
 {/if}
 
