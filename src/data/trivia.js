@@ -2,6 +2,7 @@ import algoritmi_structuri_date from "./JSONS/algoritmi si structuri de date.jso
 import baze_de_date from "./JSONS/baze de date.json";
 import comert_electronic from "./JSONS/comert electronic.json";
 import criptografie from "./JSONS/criptografie.json";
+import cloud_computing from "./JSONS/cloud_computing.json";
 import programare_in_c from "./JSONS/programare in c++.json";
 import programare_in_java from "./JSONS/programare in java.json";
 import {programare_procedurala} from "./JSONS/programare_procedurala"
@@ -15,6 +16,7 @@ export const trivia = {
   algoritmi_structuri_date,
   baze_de_date,
   comert_electronic,
+  cloud_computing,
   criptografie,
   programare_in_c,
   programare_in_java,

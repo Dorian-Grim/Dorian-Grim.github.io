@@ -19,6 +19,7 @@
     "random",
     "algoritmi_structuri_date",
     "baze_de_date",
+    "cloud_computing",
     "comert_electronic",
     "criptografie",
     "programare_in_c",
