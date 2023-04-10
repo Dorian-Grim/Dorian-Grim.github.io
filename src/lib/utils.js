@@ -72,7 +72,7 @@ export const generateQuiz = (
     question.correct_answers = [];
     quizQuestions[index].correct_answers.forEach(
       (/** @type {number} */ val) => {
-        question.correct_answers.push(quizQuestions[index].answers[val]);
+        question.correct_answers.push(quizQuestions[index].answers[val-1]);
       }
     );
 
@@ -81,22 +81,4 @@ export const generateQuiz = (
   });
 
   return quiz;
-};
-
-//Handle the image attribute if present
-export const compileQuestion = (/** @type {string} */ question) => {
-  if (question.includes("~~")) {
-    let position;
-
-    if (/~~$/.test(question)) position = 2;
-    else if (/^~~/.test(question)) position = 1;
-    else position = 1;
-
-    const tempArr = question.split(/~~/);
-    const img = `<img style="margin: 10px 0; width: 100%;" src="images/${tempArr[position]}" alt="Poza a fost incarcata gresit" />`;
-    
-    tempArr[position] = img;
-    return tempArr.join("");
-  }
-  return null;
 };

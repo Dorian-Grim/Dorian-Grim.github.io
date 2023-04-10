@@ -1,5 +1,4 @@
 <script>
-  import { compileQuestion } from "$lib/utils.js";
   import { userQuizSelections } from "../data/store";
 
   /**
@@ -19,7 +18,7 @@
   /**
    * @type {string}
    */
-  const compiledQuestion = compileQuestion(question) || question;
+  const compiledQuestion = question;
   
   // if needed add this to compiledQuestion
   /*
@@ -79,7 +78,7 @@
             value={answer}
             disabled={showAnswers}
           />
-          <span><pre>{answer}</pre></span>
+          <span><pre>{@html answer}</pre></span>
         </label>
       </div>
     {/each}

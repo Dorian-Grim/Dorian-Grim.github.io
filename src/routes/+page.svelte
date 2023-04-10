@@ -58,7 +58,8 @@
    */
   let everything;
   function showEverything() {
-    everything = generateQuiz(trimmedTrivia, trimmedTrivia.length, false);
+    pickedCourse = triviaForCourse($courseName);
+    everything = generateQuiz(pickedCourse, pickedCourse.length, false);
     generateAnswered = true;
     showAnswers = true;
   }
