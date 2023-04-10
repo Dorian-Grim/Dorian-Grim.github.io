@@ -25,7 +25,7 @@
   },
   {
     "questionNumber": "3.",
-    "question": "Fie secvența:\nclass C{\n          int a;\n          public:\n          virtual void metoda1()=0;\n          virtual void metoda2()=0;\n};\nint main(){\n    C *pob;         //declarația 1\n    C ob;           //declarația 2\n    C *vpob[5];     //declarația 3\n    C vob[5];       //declarația 4\n    return 0;\n}\n\nDeclarațiile admise în acest caz sunt:",
+    "question": "Fie secvența:\nclass C{\n          int a;\n          public:\n                  virtual void metoda1()=0;\n                  virtual void metoda2()=0;\n};\nint main(){\n    C *pob;            //declarația 1\n    C ob;                //declarația 2\n    C *vpob[5];      //declarația 3\n    C vob[5];          //declarația 4\n    return 0;\n}\n\nDeclarațiile admise în acest caz sunt:",
     "answers": [
       "Declarațiile 1 și 2;",
       "Declarația 1;",
@@ -71,7 +71,7 @@
   },
   {
     "questionNumber": "7.",
-    "question": "Fie programul:\n\n#include &lt;iostream.h>\nclass B{\n          public:\n              B(){cout&lt;&lt;\"B()\"&lt;&lt;endl;}\n              B(B &b){cout&lt;&lt;\"B(B &b)\"&lt;&lt;endl;}\n};\nclass D: public B{\n          public:\n              D(){cout&lt;&lt;\"D()\"&lt;&lt;endl;}\n              D(D &d){cout&lt;&lt;\"D(D &d)\"&lt;&lt;endl;}\n};\n    int main(){\n    B b;\n    B b1(b);\n    D d;\n    D d1(d);\n    return 0;\n}\n\nProgramul afișează:",
+    "question": "Fie programul:\n\n#include &lt;iostream.h>\nclass B{\n          public:\n              B(){cout&lt;&lt;\"B()\"&lt;&lt;endl;}\n              B(B &b){cout&lt;&lt;\"B(B &b)\"&lt;&lt;endl;}\n};\nclass D: public B{\n          public:\n              D(){cout&lt;&lt;\"D()\"&lt;&lt;endl;}\n              D(D &d){cout&lt;&lt;\"D(D &d)\"&lt;&lt;endl;}\n};\nint main(){\n    B b;\n    B b1(b);\n    D d;\n    D d1(d);\n    return 0;\n}\n\nProgramul afișează:",
     "answers": [
       "B() B(B&b) B() D() B(B &b) D(D &d)",
       "B() B() B(B&b) B() D() B(B &b) D() B(B &b)",
@@ -240,7 +240,7 @@
   },
   {
     "questionNumber": "23.",
-    "question": "Fie programul:\n\n#include &lt;iostream.h>\nclass Cerc{\n          float raza;\n          public:\n                Cerc(float r){raza=r;}\n                float get_raza(){return raza;}\n                void operator++(){raza++;}\n};\nclass Cilindru : public Cerc{\n          float inaltime;\n          public:\n                Cilindru(float raza, float i):Cerc(raza){inaltime=i;}\n                void operator++(){inaltime++;}\n                float get_inaltime(){return inaltime;}\n};\nint main(){\n          Cerc *pc;\n          Cilindru c(2,6);\n          pc=&c;\n          ++ *pc;\n          cout&lt;&lt;pc->get_raza()&lt;&lt;\" \"&lt;&lt;c.get_inaltime()&lt;&lt;endl;\nreturn 0;\n}\n\nProgramul afișează:",
+    "question": "Fie programul:\n\n#include &lt;iostream.h>\nclass Cerc{\n          float raza;\n          public:\n                Cerc(float r){raza=r;}\n                float get_raza(){return raza;}\n                void operator++(){raza++;}\n};\nclass Cilindru : public Cerc{\n          float inaltime;\n          public:\n                Cilindru(float raza, float i):Cerc(raza){inaltime=i;}\n                void operator++(){inaltime++;}\n                float get_inaltime(){return inaltime;}\n};\nint main(){\n          Cerc *pc;\n          Cilindru c(2,6);\n          pc=&c;\n          ++ *pc;\n          cout&lt;&lt;pc->get_raza()&lt;&lt;\" \"&lt;&lt;c.get_inaltime()&lt;&lt;endl;\n          return 0;\n}\n\nProgramul afișează:",
     "answers": ["2 5", "2 6", "3 6", "2 5"],
     "correct_answers": [3]
   },
@@ -353,7 +353,7 @@
   },
   {
     "questionNumber": "34.",
-    "question": "Fie următorul program:\n\n#include&lt;iostream.h>\nclass B1{int x;};\nclass B2{int y;};\nclass B3{int z;};\nclass B4{int t;};\nclass D: public B1, private B2, protected B3,B4 {public : int m;};\nint main(){\n    D d;\n    cout&lt;&lt;d.m; //varianta 1\n    cout&lt;&lt;d.x; //varianta 2\n    cout&lt;&lt;d.y; //varianta 3\n    return 0;\n}\n\nVariantele care permit accesul la variabile pentru afișare sunt:",
+    "question": "Fie următorul program:\n\n#include&lt;iostream.h>\nclass B1{int x;};\nclass B2{int y;};\nclass B3{int z;};\nclass B4{int t;};\nclass D: public B1, private B2, protected B3,B4 {public : int m;};\nint main(){\n    D d;\n    cout&lt;&lt;d.m;         //varianta 1\n    cout&lt;&lt;d.x;          //varianta 2\n    cout&lt;&lt;d.y;          //varianta 3\n    return 0;\n}\n\nVariantele care permit accesul la variabile pentru afișare sunt:",
     "answers": ["1+3;", "1+2;", "1+2+3;", "1"],
     "correct_answers": [4]
   },
@@ -365,7 +365,7 @@
   },
   {
     "questionNumber": "36.",
-    "question": "Considerăm următorul program:\n\nclass c{\n          int a;\n          public:\n                virtual void metoda1()=0;\n                virtual void metoda2(int)=0;\n};\nint main{\n    c *pob;           //declaraţia 1\n    c ob;              //declaraţia 2\n    c *vpob[3];     //declaraţia 3\n    c vob[3];        //declaraţia 4\n    return 0;\n}\n\nDeclaraţiile admise:",
+    "question": "Considerăm următorul program:\n\nclass c{\n          int a;\n          public:\n                virtual void metoda1()=0;\n                virtual void metoda2(int)=0;\n};\nint main{\n    c *pob;               //declaraţia 1\n    c ob;                   //declaraţia 2\n    c *vpob[3];         //declaraţia 3\n    c vob[3];             //declaraţia 4\n    return 0;\n}\n\nDeclaraţiile admise:",
     "answers": ["1+2;", "1+2+3+4", "nici una", "1+3;"],
     "correct_answers": [4]
   },
@@ -377,10 +377,10 @@
   },
   {
     "questionNumber": "38.",
-    "question": "Fie următorul program:\n\n#include&lt;iostream.h>\nclass B{\n          public:\n                int x;\n                B(int i=16) { x=i; }\n                B f(B ob) { return x+ob.x; }\n};\nclass D: public B{\n          public:\n                D(int i=25) { x=i; }\n                B f(B ob) { return x+ob.x+1; }\n                void afisare(){ cout&lt;&lt;x; }\n};\nint main(){\n    B *p1=new D, *p2=new B, *p3=new B(p1->f(*p2));\n  cout&lt;&lt;p3->x;\n  return 0;\n}\n\nProgramul afişează:",
+    "question": "Fie următorul program:\n\n#include&lt;iostream.h>\nclass B{\n          public:\n                int x;\n                B(int i=16) { x=i; }\n                B f(B ob) { return x+ob.x; }\n};\nclass D: public B{\n          public:\n                D(int i=25) { x=i; }\n                B f(B ob) { return x+ob.x+1; }\n                void afisare(){ cout&lt;&lt;x; }\n};\nint main(){\n     B *p1=new D, *p2=new B, *p3=new B(p1->f(*p2));\n     cout&lt;&lt;p3->x;\n     return 0;\n}\n\nProgramul afişează:",
     "answers": [
       "41",
-      "eroare, nu se poate instanţia un obiect al unei clase derivate printr-un pointer la un obiect de\ntip clasa de bază;",
+      "eroare, nu se poate instanţia un obiect al unei clase derivate printr-un pointer la un obiect de tip clasa de bază;",
       "44",
       "45"
     ],
@@ -514,7 +514,7 @@
   },
   {
     "questionNumber": "50.",
-    "question": "În programul urmãtor:\n\n#include &lt;iostream>\nusing namespace std;\nclass Persoana{\n          int varsta;\n          char* nume;\n          public:\n                    Persoana(int v=0, char* n=\"Oarecare\"):varsta(v){\n                                this->nume = new char[strlen(n)+1];\n                                strcpy(this->nume,n);\n                                cout&lt;&lt;\"Constructor\"&lt;&lt;endl;}\n                    Persoana(Persoana& p){\n                                this->varsta = p.varsta;\n                                this->nume = new char[strlen(p.nume)+1];\n                                strcpy(this->nume, p.nume);\n                                cout&lt;&lt;\"Constructor de copiere\"&lt;&lt;endl;}\n                    void operator=(Persoana& p){\n                                this->varsta = p.varsta;\n                                delete[] this->nume;\n                                this->nume = new char[strlen(p.nume)+1];\n                                strcpy(this->nume, p.nume);\n                                cout&lt;&lt;\"Operator=\"&lt;&lt;endl;}\n                    ~Persoana(){ cout&lt;&lt;\"Destructor\"&lt;&lt;endl;}};\nint main()\n{\n          Persoana p1, p2(20, \"Gigel\");\n          Persoana p3 = p1;\n          p3 = p2;\n          Persoana p4 = p1;\n}\n\nSunt apelate urmãtoarele:",
+    "question": "În programul urmãtor:\n\n#include &lt;iostream>\nusing namespace std;\nclass Persoana{\n          int varsta;\n          char* nume;\n          public:\n                    Persoana(int v=0, char* n=\"Oarecare\"):varsta(v){\n                                this->nume = new char[strlen(n)+1];\n                                strcpy(this->nume,n);\n                                cout&lt;&lt;\"Constructor\"&lt;&lt;endl;}\n                    Persoana(Persoana& p){\n                                this->varsta = p.varsta;\n                                this->nume = new char[strlen(p.nume)+1];\n                                strcpy(this->nume, p.nume);\n                                cout&lt;&lt;\"Constructor de copiere\"&lt;&lt;endl;}\n                    void operator=(Persoana& p){\n                                this->varsta = p.varsta;\n                                delete[] this->nume;\n                                this->nume = new char[strlen(p.nume)+1];\n                                strcpy(this->nume, p.nume);\n                                cout&lt;&lt;\"Operator=\"&lt;&lt;endl;}\n                    ~Persoana(){ cout&lt;&lt;\"Destructor\"&lt;&lt;endl;}};\n\nint main()\n{\n          Persoana p1, p2(20, \"Gigel\");\n          Persoana p3 = p1;\n          p3 = p2;\n          Persoana p4 = p1;\n}\n\nSunt apelate urmãtoarele:",
     "answers": [
       "constructor – de patru ori, constructor de copiere – o datã, destructor – de patru ori;",
       "constructor – de trei ori, constructor de copiere - de douã ori, destructor de cinci ori;",
