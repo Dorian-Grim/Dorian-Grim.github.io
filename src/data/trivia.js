@@ -4,6 +4,7 @@ import comert_electronic from "./JSONS/comert electronic.json";
 import criptografie from "./JSONS/criptografie.json";
 import programare_in_c from "./JSONS/programare in c++.json";
 import programare_in_java from "./JSONS/programare in java.json";
+import programare_procedurala from "./JSONS/programare_procedurala.json"
 import retele_de_calculatoare from "./JSONS/retele de calculatoare.json";
 import sgbd from "./JSONS/sgbd.json";
 import sisteme_de_operare from "./JSONS/sisteme de operare.json";
@@ -17,6 +18,7 @@ export const trivia = {
   criptografie,
   programare_in_c,
   programare_in_java,
+  programare_procedurala,
   retele_de_calculatoare,
   sgbd,
   sisteme_de_operare,

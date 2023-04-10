@@ -23,6 +23,7 @@
     "criptografie",
     "programare_in_c",
     "programare_in_java",
+    "programare_procedurala",
     "retele_de_calculatoare",
     "sgbd",
     "sisteme_de_operare",

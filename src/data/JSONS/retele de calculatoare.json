@@ -316,7 +316,6 @@
     "questionNumber": "42.",
     "question": "Metrica (costul) unei rute poate fi:",
     "answers": [
-      "unei rute poate fi:",
       "Un număr intre 0 si 255 asociat unui protocol de rutare pentru ierarhizarea acestuia",
       "Un criteriu sau un set de criterii de apreciere a calității acesteia",
       "Un număr care exprimă gradul de încredere al unei rute stabilită prin rularea unor protocoare de rutare",
@@ -389,7 +388,6 @@
     "questionNumber": "49.",
     "question": "DHCP (Dynamic Host Configuration Protocol) este o aplicație client-server prin care:",
     "answers": [
-      "este o aplicație client-server prin care:",
       "Serverul furnizează stației client numele de domeniu si adresa IP necesare funcționării în rețea",
       "Se determină adresa IP corespunzătoare unui unei stații cu nume de domeniu cunoscut",
       "Se atribuie adrese fizice stațiilor dintr-o rețea",
