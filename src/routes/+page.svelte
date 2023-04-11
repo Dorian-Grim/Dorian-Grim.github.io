@@ -68,6 +68,7 @@
     showAnswers = true;
   }
 </script>
+
 {#if generateAnswered}
   {#each everything as question, index}
     {#if question.correct_answers.length > 1}
@@ -135,7 +136,7 @@
     >
   </form>
 {:else}
-  <Timer formSubmitted={showAnswers}/>
+  <Timer formSubmitted={showAnswers} />
   <form style="position: relative;" on:submit|preventDefault={handleSubmit}>
     {#each pickedCourse as question, index}
       {#if question.correct_answers.length > 1}
@@ -145,17 +146,26 @@
       {/if}
     {/each}
 
-    <div class="checkbox">
-      <label>
-        <input type="checkbox" />
-        <span style="margin-left: 13px;">
-          Send me an email receipt of my responses</span
-        >
-      </label>
-    </div>
-    <button type="submit" class="submit-btn">Submit form</button>
+    {#if !showAnswers}
+      <button type="submit" class="submit-btn">Submit form</button>
+    {/if}
+
     {#if showAnswers}
-        <h4 style="position: absolute; bottom: 0; right: 0; background-color: grey; padding: 10px 20px; color: white; font-weight: 600; font-size: 20px;">Ai nimerit {numberOfQ - $failedQuestions} din {numberOfQ}</h4>
+      <button
+        type="button"
+        class="submit-btn"
+        style="position: sticky; bottom: 20px;"
+        on:click={() => {
+          showAnswers = false;
+          gameStarted = false;
+          failedQuestions.update((n) => 0);
+        }}>Genereaza inca un quizz</button
+      >
+      <h4
+        style="position: absolute; bottom: 0; right: 0; background-color: grey; padding: 10px 20px; color: white; font-weight: 600; font-size: 20px;"
+      >
+        Ai nimerit {numberOfQ - $failedQuestions} din {numberOfQ}
+      </h4>
     {/if}
   </form>
 {/if}
