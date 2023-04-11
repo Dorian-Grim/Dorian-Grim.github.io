@@ -48,8 +48,9 @@
   }
 
   let checker = false;
+  let showThisAnswer = false;
 
-  $: if (showAnswers) {
+  $: if (showAnswers || showThisAnswer) {
     $userQuizSelections[index] = { userSelectedAnswers };
 
     answers.forEach((val, index) => {
@@ -69,7 +70,7 @@
 
 <div class="question-wrapper">
   <div class="question-title">
-    <p class="q-index">{index + 1}.</p>
+    <p class="q-index" on:click={() => {showThisAnswer = true}}>{index + 1}.</p>
     <pre>{@html compiledQuestion}</pre>
   </div>
 
