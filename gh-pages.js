@@ -4,10 +4,10 @@ publish(
   "build",
   {
     branch: "gh-pages",
-    repo: "https://github.com/7soapte/utm-info-quizz.git",
+    repo: "https://github.com/Dorian-Grim/Dorian-Grim.github.io.git",
     user: {
-      name: "Andrei Dumitrache",
-      email: "andrei.dumitrache@hotmail.com",
+      name: "Dorian",
+      email: "buragairineldorian@gmail.com",
     },
     dotfiles: true,
   },
