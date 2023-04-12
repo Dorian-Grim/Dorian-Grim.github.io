@@ -1,7 +1,6 @@
 <script>
-  import Checkbox from "$lib/checkbox.svelte";
-  import Radio from "$lib/radio.svelte";
   import Select from "$lib/select.svelte";
+  import UserUi from "$lib/userUI.svelte";
   import {
     courseName,
     numberOfQuestions,
@@ -71,11 +70,7 @@
 
 {#if generateAnswered}
   {#each everything as question, index}
-    {#if question.correct_answers.length > 1}
-      <Checkbox {...question} {index} {showAnswers} {generateAnswered} />
-    {:else}
-      <Radio {...question} {index} {showAnswers} {generateAnswered} />
-    {/if}
+    <UserUi {...question} {index} {showAnswers} {generateAnswered} />
   {/each}
 {:else if !gameStarted}
   <button style="margin-bottom: 20px;" on:click={showEverything}
