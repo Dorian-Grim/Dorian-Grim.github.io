@@ -4,7 +4,7 @@ publish(
   "build",
   {
     branch: "gh-pages",
-    repo: "https://github.com/Dorian-Grim/Dorian-Grim.github.io.git",
+    repo: "https://github.com/Dorian-Grim/utm-info-quizz.git",
     user: {
       name: "Dorian",
       email: "buragairineldorian@gmail.com",
