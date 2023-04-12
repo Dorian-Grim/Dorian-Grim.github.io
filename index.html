@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="./favicon.ico" />
+    <meta name="viewport" content="width=device-width" />
+    <link href="https://fonts.cdnfonts.com/css/segoe-ui-4" rel="stylesheet" />
+    <title>Quizz for days</title>
+
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        padding: 0;
+        margin: 0;
+        font-family: "Segoe UI", sans-serif;
+        color: rgb(51, 51, 51);
+      }
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      p {
+        margin: 0;
+      }
+      p,
+      pre {
+        white-space: break-spaces;
+        font-family: "Segoe UI", sans-serif;
+        font-size: 17px;
+      }
+      .quiz-wrapper {
+        background-color: #e8f2f4;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+      }
+      .quiz-body {
+        background-color: white;
+        display: flex;
+        flex-direction: column;
+        box-shadow: 0 0 11px rgba(0, 0, 0, 0.12);
+        max-width: 850px;
+        width: 100%;
+        padding: 20px 30px 70px;
+      }
+      @media (max-width: 600px) {
+        .quiz-body {
+          padding: 0 5px 20px 5px;
+        }
+      }
+    </style>
+    <meta http-equiv="content-security-policy" content="">
+		<link href="./_app/immutable/assets/_page.eee1e3eb.css" rel="stylesheet">
+		<link rel="modulepreload" href="./_app/immutable/entry/start.8f2d6072.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/index.be198b1e.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/singletons.7999bf5d.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/index.bed23f6d.js">
+		<link rel="modulepreload" href="./_app/immutable/entry/app.ea5753d4.js">
+		<link rel="modulepreload" href="./_app/immutable/entry/layout.svelte.06017ff2.js">
+		<link rel="modulepreload" href="./_app/immutable/entry/_layout.js.984db11e.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/_layout.da46b06b.js">
+		<link rel="modulepreload" href="./_app/immutable/entry/_page.svelte.1272e153.js">
+  </head>
+  <body data-sveltekit-preload-data="hover" class="quiz-wrapper">
+    <div class="quiz-body">
+
+
+<button style="margin-bottom: 20px;">vezi totul</button>
+  <form><div style="margin-bottom: 20px;"><p>Alege un curs anume sau random din toate:</p>
+
+      <select class="svelte-1vgry9p"><option value="random">random
+    </option><option value="algoritmi_structuri_date">algoritmi_structuri_date
+    </option><option value="baze_de_date">baze_de_date
+    </option><option value="cloud_computing">cloud_computing
+    </option><option value="comert_electronic">comert_electronic
+    </option><option value="criptografie">criptografie
+    </option><option value="programare_in_c">programare_in_c
+    </option><option value="programare_in_java">programare_in_java
+    </option><option value="programare_procedurala">programare_procedurala
+    </option><option value="retele_de_calculatoare">retele_de_calculatoare
+    </option><option value="sgbd">sgbd
+    </option><option value="sisteme_de_operare">sisteme_de_operare
+    </option><option value="tehnici_avansate_programare">tehnici_avansate_programare
+    </option><option value="tehnologii_web">tehnologii_web
+    </option></select></div>
+    <div><p>Alege cate intrebari vrei sa primesti, nr max pt materie 638:
+      </p>
+      <input style="min-width: 50px; padding: 7px 20px; font-size: 16px; margin-top: 10px;" type="number" min="1" max="638" class="svelte-n1kvot" value="1">
+      <button class="input-btn svelte-n1kvot">select 10</button>
+      <button class="input-btn svelte-n1kvot">select 20</button>
+
+      <button class="input-btn svelte-n1kvot">select 40</button>
+      <button class="input-btn svelte-n1kvot">MAX
+      </button></div>
+    <button type="submit" class="submit-btn svelte-n1kvot" style="margin-left: 0">Start</button></form>
+
+
+			
+			<script>
+				{
+					__sveltekit_1f5kq72 = {
+						env: {},
+						base: new URL(".", location).pathname.slice(0, -1),
+						element: document.currentScript.parentElement
+					};
+
+					const data = [null,null];
+
+					Promise.all([
+						import("./_app/immutable/entry/start.8f2d6072.js"),
+						import("./_app/immutable/entry/app.ea5753d4.js")
+					]).then(([kit, app]) => {
+						kit.start(app, __sveltekit_1f5kq72.element, {
+							node_ids: [0, 2],
+							data,
+							form: null,
+							error: null
+						});
+					});
+				}
+			</script>
+		</div>
+  </body>
+</html>
