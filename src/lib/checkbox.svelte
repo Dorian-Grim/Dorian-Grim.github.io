@@ -68,9 +68,8 @@
 </script>
 
 <div class="question-wrapper">
-  <button on:click|preventDefault={() => {showThisAnswer = true}}>Check answers</button>
   <div class="question-title">
-    <p class="q-index">{index + 1}.</p>
+    <p class="q-index" on:click|preventDefault={() => {showThisAnswer = true}}>{index + 1}.</p>
     <pre>{@html compiledQuestion}</pre>
   </div>
 
