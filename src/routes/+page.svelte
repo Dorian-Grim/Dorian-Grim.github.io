@@ -5,7 +5,7 @@
     courseName,
     numberOfQuestions,
     maxNumberOfQuestions,
-    failedQuestions,
+    failedQuestions
   } from "../data/store";
   import { trimmedTrivia, triviaForCourse } from "../data/trivia";
   import { generateQuiz } from "$lib/utils";
@@ -35,7 +35,7 @@
   let gameStarted = false;
   let showAnswers = false;
   let numberOfQ = 1;
-
+  let useTimer = true;
   function handleStart() {
     if ($courseName === "random") {
       pickedCourse = generateQuiz(trimmedTrivia, numberOfQ);
@@ -83,6 +83,8 @@
       <Select {courses} />
     </div>
     <div>
+      <p>Vrei timer?</p>
+      <input type=checkbox bind:checked={useTimer}>
       <p>
         Alege cate intrebari vrei sa primesti, nr max pt materie {$maxNumberOfQuestions}:
       </p>
@@ -131,7 +133,9 @@
     >
   </form>
 {:else}
-  <Timer formSubmitted={showAnswers} />
+  {#if useTimer}
+    <Timer formSubmitted={showAnswers} />
+  {/if}
   <form style="position: relative;" on:submit|preventDefault={handleSubmit}>
     {#each pickedCourse as question, index}
       <UserUi {...question} {index} bind:showAnswers />
