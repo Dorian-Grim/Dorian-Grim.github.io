@@ -48,8 +48,8 @@
   }
 
   let checker = false;
-
-  $: if (showAnswers) {
+  let showThisAnswer = false;
+  $: if (showAnswers || showThisAnswer) {
     $userQuizSelections[index] = { userSelectedAnswers };
 
     answers.forEach((val, index) => {
@@ -68,23 +68,7 @@
 </script>
 
 <div class="question-wrapper">
-  <button on:click|preventDefault={() => 
-  {
-    console.log(correct_answers, userSelectedAnswers, answers)
-    answers.forEach((val, index) => {
-      const userSelected = userSelectedAnswers.includes(val);
-      const answerIsCorrect = correct_answers.includes(val);
-
-      if ((answerIsCorrect && !userSelected) || (!answerIsCorrect && userSelected)) checker = true;
-
-      if (answerIsCorrect) errors[index] = "correct";
-      if (userSelected && !answerIsCorrect) errors[index] = "wrong";
-    });
-    errors = [...errors];
-
-    if(checker) failedQuestions.update(n => n + 1);
-  }
-    }>Check answers</button>
+  <button on:click|preventDefault={() => {showThisAnswer = true}}>Check answers</button>
   <div class="question-title">
     <p class="q-index">{index + 1}.</p>
     <pre>{@html compiledQuestion}</pre>
