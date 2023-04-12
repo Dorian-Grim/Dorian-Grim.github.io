@@ -134,11 +134,7 @@
   <Timer formSubmitted={showAnswers} />
   <form style="position: relative;" on:submit|preventDefault={handleSubmit}>
     {#each pickedCourse as question, index}
-      {#if question.correct_answers.length > 1}
-        <Checkbox {...question} {index} bind:showAnswers />
-      {:else}
-        <Radio {...question} {index} bind:showAnswers />
-      {/if}
+      <UserUi {...question} {index} bind:showAnswers />
     {/each}
 
     {#if !showAnswers}

@@ -28,8 +28,10 @@
    * @type {string}
    */
   let type = correct_answers.length == 1 ? "radio" : "checkbox"
-
-  let userSelectedAnswers = type == "radio" ? "" : [];
+/**
+   * @type {string[]}
+   */
+  let userSelectedAnswers = [];
 
   /**
    * @type {("wrong"|"correct"|"")[]}
@@ -41,7 +43,7 @@
   if (generateAnswered) {
     answers.forEach((val, index) => {
       if (correct_answers.includes(val)) {
-        userSelectedAnswers = val;
+        userSelectedAnswers.push(val);
         errors[index] = "correct";
       }
     });
@@ -53,8 +55,9 @@
   $: if (showAnswers || showThisAnswer) {
     $userQuizSelections[index] = { userSelectedAnswers };
 
-    answers.forEach((val, index) => {
-      const userSelected = correct_answers.length == 1 ? userSelectedAnswers === val : userSelectedAnswers.includes(val);
+    answers.forEach((val, index) => 
+    {
+      const userSelected = userSelectedAnswers.includes(val);
       const answerIsCorrect = correct_answers.includes(val);
 
       if ((answerIsCorrect && !userSelected) || (!answerIsCorrect && userSelected)) checker = true;
@@ -67,12 +70,11 @@
     if(checker) failedQuestions.update(n => n + 1);
   }
   // https://stackoverflow.com/questions/57392773/error-type-attribute-cannot-be-dynamic-if-input-uses-two-way-binding
-  export let val2;
   const handleInput = e => 
   {
-    // in here, you can switch on type and implement
-    // whatever behaviour you need
-    val2 = type.match(/^(radio|checkbox)$/) ? +e.target.value : e.target.value;
+    // // in here, you can switch on type and implement
+    // // whatever behaviour you need
+    userSelectedAnswers.push(e.target.defaultValue)
   };
 </script>
 
@@ -87,7 +89,7 @@
       <div class="{type} {errors[i]}">
         <label>
           <input
-            {type}
+            type={type}
             on:input={handleInput}
             name="answers{index}"
             value={answer}
