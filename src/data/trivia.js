@@ -11,15 +11,9 @@ for (const jsonPATH in JSONS)
 /**
  * @type {any[]}
  */
-export const trimmedTrivia = [];
+export let trimmedTrivia = [];
+for (const course in trivia) trimmedTrivia = trimmedTrivia.concat(trivia[course]);
 
-Object.entries(trivia).map(([, value]) => 
-{
-  value.forEach((/** @type {any} */ element) => 
-  {
-    trimmedTrivia.push(element)
-  });
-});
 export const triviaForCourse = (/** @type {string} */ course) => 
 {
   if (course === "random") return trimmedTrivia;
