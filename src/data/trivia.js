@@ -5,8 +5,7 @@ const JSONS = import.meta.glob("./JSONS/*.json");
 export const trivia = {}
 for (const jsonPATH in JSONS) 
 {
-  const module = await import(/* @vite-ignore */jsonPATH);
-  trivia[jsonPATH.split("/")[2].split(".")[0].replaceAll(" ", "_")] = module.default
+  const module = import(/* @vite-ignore */jsonPATH).then(module => trivia[jsonPATH.split("/")[2].split(".")[0].replaceAll(" ", "_")] = module.default);
 }
 /**
  * @type {any[]}
