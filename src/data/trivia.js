@@ -2,10 +2,12 @@ const JSONS = import.meta.glob("./JSONS/*.json");
 /**
  * @type any
  */
-export const trivia = {}
-for (const jsonPATH in JSONS) 
+export const trivia = {};
+for (const path in JSONS) 
 {
-  const module = import(/* @vite-ignore */jsonPATH).then(module => trivia[jsonPATH.split("/")[2].split(".")[0].replaceAll(" ", "_")] = module.default);
+  // @ts-ignore
+  // I can't cast it as NodeModule in a .js file, only on .ts /shrug
+  await JSONS[path]().then(module => trivia[path.split("/")[2].split(".")[0].replaceAll(" ", "_")] = module.default)
 }
 /**
  * @type {any[]}
