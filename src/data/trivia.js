@@ -5,7 +5,7 @@ import criptografie from "./JSONS/criptografie.json";
 import cloud_computing from "./JSONS/cloud_computing.json";
 import programare_in_c from "./JSONS/programare in c++.json";
 import programare_in_java from "./JSONS/programare in java.json";
-import {programare_procedurala} from "./JSONS/programare_procedurala"
+import programare_procedurala from "./JSONS/programare_procedurala.json"
 import retele_de_calculatoare from "./JSONS/retele de calculatoare.json";
 import sgbd from "./JSONS/sgbd.json";
 import sisteme_de_operare from "./JSONS/sisteme de operare.json";
