@@ -2,13 +2,12 @@ const JSONS = import.meta.glob("./JSONS/*.json");
 /**
  * @type any
  */
-const trivia = {}
+export const trivia = {}
 for (const jsonPATH in JSONS) 
 {
   const module = await import(/* @vite-ignore */jsonPATH);
   trivia[jsonPATH.split("/")[2].split(".")[0].replaceAll(" ", "_")] = module.default
 }
-
 /**
  * @type {any[]}
  */

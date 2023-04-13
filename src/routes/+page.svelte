@@ -7,7 +7,7 @@
     maxNumberOfQuestions,
     failedQuestions
   } from "../data/store";
-  import { trimmedTrivia, triviaForCourse } from "../data/trivia";
+  import { trivia, trimmedTrivia, triviaForCourse } from "../data/trivia";
   import { generateQuiz } from "$lib/utils";
   import Timer from "$lib/timer.svelte";
 
@@ -15,23 +15,8 @@
    * @type {{ question: string; answers: string[]; correct_answers: string[]; }[]}
    */
   let pickedCourse = trimmedTrivia;
-  const courses = [
-    "random",
-    "algoritmi_structuri_date",
-    "baze_de_date",
-    "cloud_computing",
-    "comert_electronic",
-    "criptografie",
-    "programare_in_c",
-    "programare_in_java",
-    "programare_procedurala",
-    "retele_de_calculatoare",
-    "sgbd",
-    "sisteme_de_operare",
-    "tehnici_avansate_programare",
-    "tehnologii_web",
-  ];
-
+  const courses = Object.keys(trivia);
+  courses.unshift("random")
   let gameStarted = false;
   let showAnswers = false;
   let numberOfQ = 1;
