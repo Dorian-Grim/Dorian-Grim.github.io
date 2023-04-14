@@ -1,6 +1,6 @@
-
 on:
-  deployment:
-      env:
+  page_build:
+    jobs:   
+    - env:
         CI: true
         API_KEY: ${{ secrets.API_KEY }}
