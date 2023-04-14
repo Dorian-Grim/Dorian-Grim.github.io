@@ -5,11 +5,11 @@ jobs:
   pages-build-deployment:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
         with:
           node-version: '12'
           check-latest: true
+      - run: echo Exporting env secrets
       - env:
           CI: true
           API_KEY: ${{ secrets.API_KEY }}
