@@ -1,8 +1,11 @@
+name: define secrets
 on:
   page_build:
-    jobs:
-      build:
-        steps:
-        - env:
-            CI: true
-            API_KEY: ${{ secrets.API_KEY }}
+  
+jobs:
+  pages-build-deployment:
+    runs-on: ubuntu-latest
+    steps:
+    - env:
+        CI: true
+        API_KEY: ${{ secrets.API_KEY }}
