@@ -69,7 +69,7 @@
     </div>
     <div>
       <p>Vrei timer?</p>
-      <input type=checkbox bind:checked={useTimer}>
+      <input type=checkbox bind:checked={useTimer} style="height: 20px;width: 20px">
       <p>
         Alege cate intrebari vrei sa primesti, nr max pt materie {$maxNumberOfQuestions}:
       </p>
@@ -150,7 +150,7 @@
   </form>
 {/if}
 
-<style lang="scss">
+<style lang="scss" global>
   .input-btn {
     min-width: 50px;
     padding: 7px 20px;
@@ -207,7 +207,6 @@
   }
   .checkbox {
     position: relative;
-    margin: 20px 0 0 20px;
   }
 
   fieldset[disabled] .checkbox label {

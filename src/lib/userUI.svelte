@@ -1,4 +1,6 @@
 <script>
+// @ts-nocheck
+
   import { userQuizSelections, failedQuestions } from "../data/store";
 
   /**
@@ -80,6 +82,7 @@
 
 <div class="question-wrapper">
   <div class="question-title">
+    <!-- svelte-ignore a11y-click-events-have-key-events -->
     <p class="q-index" on:click|preventDefault={() => {showThisAnswer = true}}>{index + 1}.</p>
     <pre>{@html compiledQuestion}</pre>
   </div>
@@ -171,14 +174,14 @@
     line-height: normal;
   }
 
-  input[type="{buttonType}"] {
+  input[type="radio"] {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
     padding: 0;
   }
 
-  input[type="{}"] {
+  input[type="radio"] {
     line-height: normal;
     margin: 4px 0 0;
     margin-top: 1px\9;
