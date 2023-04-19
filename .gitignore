@@ -25,3 +25,4 @@ _output
 .eslintcache
 .svelte-kit
 gh-pages.js
+src/data/JSONS
