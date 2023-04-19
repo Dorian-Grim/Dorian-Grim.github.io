@@ -1,13 +1,14 @@
 <script>
+  import {store, trivia, trimmedTrivia, triviaForCourse} from "../auth"
   import Select from "$lib/select.svelte";
   import UserUi from "$lib/userUI.svelte";
+  import LoginComponent from "../LoginComponent.svelte";
   import {
     courseName,
     numberOfQuestions,
     maxNumberOfQuestions,
     failedQuestions
   } from "../data/store";
-  import { trivia, trimmedTrivia, triviaForCourse } from "../data/trivia";
   import { generateQuiz } from "$lib/utils";
   import Timer from "$lib/timer.svelte";
 
@@ -52,12 +53,12 @@
     showAnswers = true;
   }
 </script>
-
-{#if generateAnswered}
+{#if $store != null }
+	{#if generateAnswered}
   {#each everything as question, index}
     <UserUi {...question} {index} {showAnswers} {generateAnswered} />
   {/each}
-{:else if !gameStarted}
+  {:else if !gameStarted}
   <button style="margin-bottom: 20px;" on:click={showEverything}
     >vezi totul</button
   >
@@ -149,7 +150,9 @@
     {/if}
   </form>
 {/if}
-
+{:else }
+	<LoginComponent />
+{/if}
 <style lang="scss" global>
   .input-btn {
     min-width: 50px;

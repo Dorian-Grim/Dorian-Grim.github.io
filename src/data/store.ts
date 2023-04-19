@@ -1,20 +1,18 @@
-import { readable, writable, derived, get } from "svelte/store";
-import { trimmedTrivia } from "./trivia";
-
+import { trimmedTrivia, w, r } from "../auth";
 // Settings
-export const maxNumberOfQuestions = writable(trimmedTrivia.length);
-export const numberOfQuestions = writable(1);
-export const courseName = writable("random");
+export const maxNumberOfQuestions = w(trimmedTrivia.length);
+export const numberOfQuestions = w(1);
+export const courseName = w("random");
 
 // App State
-export const hasQuizBegun = writable(false);
-export const showAnswersDefault = writable(false);
-export const validateCourse = writable([]);
+export const hasQuizBegun = w(false);
+export const showAnswersDefault = w(false);
+export const validateCourse = w([]);
 
 // Data
-export const AllTriviaQuestions = readable(trimmedTrivia);
-export const userQuizSelections = writable(/** @type {[]} */ []);
+export const AllTriviaQuestions = r(trimmedTrivia);
+export const userQuizSelections = w(/** @type {[]} */ []);
 
-export const failedQuestions = writable(/** @type {number} */ 0);
+export const failedQuestions = w(/** @type {number} */ 0);
 
 // Quiz

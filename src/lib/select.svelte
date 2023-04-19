@@ -1,6 +1,6 @@
 <script>
   import { courseName, maxNumberOfQuestions } from "../data/store";
-  import { triviaForCourse } from "../data/trivia";
+  import { triviaForCourse } from "../auth";
   /**
    * @type {any}
    */
