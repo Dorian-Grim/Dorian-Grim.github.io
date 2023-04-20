@@ -1,6 +1,5 @@
 <script>
 	import { getUserDetails, auth } from '../lib/conf';
-
 	let username = '',password = '',error = '';
 	async function login() 
     {
@@ -8,10 +7,8 @@
 
 		if ( user ) 
         {
-			// @ts-ignore
 			$auth = user
 			if ( error ) error = ''
-            location.reload();
 		}
 		else error = 'Incorrect username and password.'
 	}

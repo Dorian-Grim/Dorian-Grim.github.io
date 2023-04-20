@@ -1,7 +1,27 @@
 import { writable, readable } from 'svelte/store';
 
+/** @type {any} */
 export const trivia = {};
-let f = async (/** @type {string|null} */ auth) => 
+export let courses = ["random"];
+export let trimmedTrivia = Object.values(trivia).flat(1);
+// Settings
+export let maxNumberOfQuestions = writable(trimmedTrivia.length);
+export let numberOfQuestions = writable(1);
+export let courseName = writable("random");
+
+// App State
+export let hasQuizBegun = writable(false);
+export let showAnswersDefault = writable(false);
+export let validateCourse = writable([]);
+
+// Data
+export let AllTriviaQuestions = readable(trimmedTrivia);
+export let userQuizSelections = writable(/** @type {[]} */ []);
+
+export let failedQuestions = writable(/** @type {number} */ 0);
+
+// Quiz
+let f = async (/** @type {any} */ auth) => 
 {
     let r = {"OUT": "", "JSONS": []};
     await fetch('https://utmquizz.kroko.ro',
@@ -42,12 +62,27 @@ let f = async (/** @type {string|null} */ auth) =>
             },
         });
     })
-    .then(async (stream) => r = JSON.parse(await (new Response(stream, { headers: { "Content-Type": "text/html" } }).text())))
+    .then(async stream => r = JSON.parse(await (new Response(stream, { headers: { "Content-Type": "text/html" } }).text())))
     if (r["OUT"] == "JSONS") 
     {
-        // @ts-ignore
         for (const course in r["JSONS"]) trivia[course] = JSON.parse(r["JSONS"][course])
-        // @ts-ignore
+        courses = courses.concat(Object.keys(trivia))
+        trimmedTrivia = Object.values(trivia).flat(1)
+        // Settings
+        maxNumberOfQuestions = writable(trimmedTrivia.length);
+        numberOfQuestions = writable(1);
+        courseName = writable("random");
+
+        // App State
+        hasQuizBegun = writable(false);
+        showAnswersDefault = writable(false);
+        validateCourse = writable([]);
+
+        // Data
+        AllTriviaQuestions = readable(trimmedTrivia);
+        userQuizSelections = writable(/** @type {[]} */ []);
+
+        failedQuestions = writable(/** @type {number} */ 0);
         localStorage.setItem("auth", auth);
         return 1;
     }
@@ -66,33 +101,11 @@ export const getUserDetails = async ( /** @type {string} */ username, /** @type 
 }
 
 /**
- * @type {any[]}
+ * @type {any}
  */
-export let trimmedTrivia = [];
-// @ts-ignore
-for (const course in trivia) trimmedTrivia = trimmedTrivia.concat(trivia[course]);
-
 export const triviaForCourse = (/** @type {string} */ course) => 
 {
   if (course === "random") return trimmedTrivia;
   // @ts-ignore
   return trivia[course] ? trivia[course] : null;
 };
-
-// Settings
-export const maxNumberOfQuestions = writable(trimmedTrivia.length);
-export const numberOfQuestions = writable(1);
-export const courseName = writable("random");
-
-// App State
-export const hasQuizBegun = writable(false);
-export const showAnswersDefault = writable(false);
-export const validateCourse = writable([]);
-
-// Data
-export const AllTriviaQuestions = readable(trimmedTrivia);
-export const userQuizSelections = writable(/** @type {[]} */ []);
-
-export const failedQuestions = writable(/** @type {number} */ 0);
-
-// Quiz

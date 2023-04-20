@@ -1,16 +1,11 @@
 <script>
-  import { triviaForCourse, courseName, maxNumberOfQuestions } from "./conf";
+  import { triviaForCourse, courseName, maxNumberOfQuestions, courses } from "./conf";
   /**
    * @type {any}
    */
   let selected;
-
-  /**
-   * @type {any[]}
-   */
-  export let courses = [];
-
-  function updateTriviaOnChange() {
+  function updateTriviaOnChange() 
+  {
     $courseName = selected;
     $maxNumberOfQuestions = triviaForCourse($courseName)
       ? triviaForCourse($courseName).length
@@ -18,16 +13,16 @@
   }
 </script>
 
-<select bind:value={selected} on:change={updateTriviaOnChange}>
-  {#each courses as course}
-    <option value={course}>
-      {course}
-    </option>
-  {/each}
-</select>
-
+  <select bind:value={selected} on:change={updateTriviaOnChange}>
+    {#each courses as course}
+      <option value={course}>
+        {course}
+      </option>
+    {/each}
+  </select>
 <style>
-  select {
+  select 
+  {
     width: 300px;
     padding: 7px 20px;
     font-size: 16px;
