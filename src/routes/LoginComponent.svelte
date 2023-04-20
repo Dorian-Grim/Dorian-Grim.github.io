@@ -1,5 +1,5 @@
 <script>
-	import { getUserDetails, store } from '../lib/conf';
+	import { getUserDetails, auth } from '../lib/conf';
 
 	let username = '',password = '',error = '';
 	async function login() 
@@ -9,7 +9,7 @@
 		if ( user ) 
         {
 			// @ts-ignore
-			$store = user
+			$auth = user
 			if ( error ) error = ''
             location.reload();
 		}

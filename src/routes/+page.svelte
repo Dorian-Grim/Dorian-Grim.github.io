@@ -1,7 +1,7 @@
 <script>
   import 
   {
-    store, 
+    auth, 
     trivia, 
     trimmedTrivia, 
     triviaForCourse,
@@ -57,105 +57,107 @@
     showAnswers = true;
   }
 </script>
-{#if $store != null }
+{#if $auth == null}
+  <article>loading...</article>
+{:else if $auth != null }
 	{#if generateAnswered}
-  {#each everything as question, index}
-    <UserUi {...question} {index} {showAnswers} {generateAnswered} />
-  {/each}
-  {:else if !gameStarted}
-  <button style="margin-bottom: 20px;" on:click={showEverything}
-    >vezi totul</button
-  >
-  <form on:submit|preventDefault={handleStart}>
-    <div style="margin-bottom: 20px;">
-      <p>Alege un curs anume sau random din toate:</p>
-
-      <Select {courses} />
-    </div>
-    <div>
-      <p>Vrei timer?</p>
-      <input type=checkbox bind:checked={useTimer} style="height: 20px;width: 20px">
-      <p>
-        Alege cate intrebari vrei sa primesti, nr max pt materie {$maxNumberOfQuestions}:
-      </p>
-      <input
-        style="min-width: 50px; padding: 7px 20px; font-size: 16px; margin-top: 10px;"
-        type="number"
-        bind:value={numberOfQ}
-        on:change={() => numberOfQuestions.set(numberOfQ)}
-        min="1"
-        max={$maxNumberOfQuestions}
-      />
-      {#if $maxNumberOfQuestions >= 10}
-        <button
-          on:click|preventDefault={() => (numberOfQ = 10)}
-          class="input-btn"
-        >
-          select 10</button
-        >
-      {/if}
-      {#if $maxNumberOfQuestions >= 20}
-        <button
-          on:click|preventDefault={() => (numberOfQ = 20)}
-          class="input-btn"
-        >
-          select 20</button
-        >
-      {/if}
-
-      {#if $maxNumberOfQuestions >= 40}
-        <button
-          on:click|preventDefault={() => (numberOfQ = 40)}
-          class="input-btn"
-        >
-          select 40</button
-        >
-      {/if}
-      <button
-        on:click|preventDefault={() => (numberOfQ = $maxNumberOfQuestions)}
-        class="input-btn"
-      >
-        MAX
-      </button>
-    </div>
-    <button type="submit" class="submit-btn" style="margin-left: 0"
-      >Start</button
-    >
-  </form>
-{:else}
-  {#if useTimer}
-    <Timer formSubmitted={showAnswers} />
-  {/if}
-  <form style="position: relative;" on:submit|preventDefault={handleSubmit}>
-    {#each pickedCourse as question, index}
-      <UserUi {...question} {index} bind:showAnswers />
+    {#each everything as question, index}
+      <UserUi {...question} {index} {showAnswers} {generateAnswered} />
     {/each}
+  {:else if !gameStarted}
+    <button style="margin-bottom: 20px;" on:click={showEverything}
+      >vezi totul</button
+    >
+    <form on:submit|preventDefault={handleStart}>
+      <div style="margin-bottom: 20px;">
+        <p>Alege un curs anume sau random din toate:</p>
 
-    {#if !showAnswers}
-      <button type="submit" class="submit-btn">Submit form</button>
-    {/if}
+        <Select {courses} />
+      </div>
+      <div>
+        <p>Vrei timer?</p>
+        <input type=checkbox bind:checked={useTimer} style="height: 20px;width: 20px">
+        <p>
+          Alege cate intrebari vrei sa primesti, nr max pt materie {$maxNumberOfQuestions}:
+        </p>
+        <input
+          style="min-width: 50px; padding: 7px 20px; font-size: 16px; margin-top: 10px;"
+          type="number"
+          bind:value={numberOfQ}
+          on:change={() => numberOfQuestions.set(numberOfQ)}
+          min="1"
+          max={$maxNumberOfQuestions}
+        />
+        {#if $maxNumberOfQuestions >= 10}
+          <button
+            on:click|preventDefault={() => (numberOfQ = 10)}
+            class="input-btn"
+          >
+            select 10</button
+          >
+        {/if}
+        {#if $maxNumberOfQuestions >= 20}
+          <button
+            on:click|preventDefault={() => (numberOfQ = 20)}
+            class="input-btn"
+          >
+            select 20</button
+          >
+        {/if}
 
-    {#if showAnswers}
-      <button
-        type="button"
-        class="submit-btn"
-        style="position: sticky; bottom: 20px;"
-        on:click={() => {
-          showAnswers = false;
-          gameStarted = false;
-          failedQuestions.update((n) => 0);
-        }}>Genereaza inca un quizz</button
+        {#if $maxNumberOfQuestions >= 40}
+          <button
+            on:click|preventDefault={() => (numberOfQ = 40)}
+            class="input-btn"
+          >
+            select 40</button
+          >
+        {/if}
+        <button
+          on:click|preventDefault={() => (numberOfQ = $maxNumberOfQuestions)}
+          class="input-btn"
+        >
+          MAX
+        </button>
+      </div>
+      <button type="submit" class="submit-btn" style="margin-left: 0"
+        >Start</button
       >
-      <h4
-        style="position: absolute; bottom: 0; right: 0; background-color: grey; padding: 10px 20px; color: white; font-weight: 600; font-size: 20px;"
-      >
-        Ai nimerit {numberOfQ - $failedQuestions} din {numberOfQ}
-      </h4>
+    </form>
+  {:else}
+    {#if useTimer}
+      <Timer formSubmitted={showAnswers} />
     {/if}
-  </form>
-{/if}
-{:else }
-	<LoginComponent />
+    <form style="position: relative;" on:submit|preventDefault={handleSubmit}>
+      {#each pickedCourse as question, index}
+        <UserUi {...question} {index} bind:showAnswers />
+      {/each}
+
+      {#if !showAnswers}
+        <button type="submit" class="submit-btn">Submit form</button>
+      {/if}
+
+      {#if showAnswers}
+        <button
+          type="button"
+          class="submit-btn"
+          style="position: sticky; bottom: 20px;"
+          on:click={() => {
+            showAnswers = false;
+            gameStarted = false;
+            failedQuestions.update((n) => 0);
+          }}>Genereaza inca un quizz</button
+        >
+        <h4
+          style="position: absolute; bottom: 0; right: 0; background-color: grey; padding: 10px 20px; color: white; font-weight: 600; font-size: 20px;"
+        >
+          Ai nimerit {numberOfQ - $failedQuestions} din {numberOfQ}
+        </h4>
+      {/if}
+    </form>
+  {/if}
+  {:else}
+    <LoginComponent />
 {/if}
 <style lang="scss" global>
   .input-btn {
