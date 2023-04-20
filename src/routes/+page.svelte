@@ -59,7 +59,7 @@
 </script>
 {#if $auth == null}
   <article>loading...</article>
-{:else if $auth != null }
+{:else if $auth == 1 }
 	{#if generateAnswered}
     {#each everything as question, index}
       <UserUi {...question} {index} {showAnswers} {generateAnswered} />
@@ -156,8 +156,8 @@
       {/if}
     </form>
   {/if}
-  {:else}
-    <LoginComponent />
+{:else if $auth == 0}
+  <LoginComponent />
 {/if}
 <style lang="scss" global>
   .input-btn {

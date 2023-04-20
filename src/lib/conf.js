@@ -57,7 +57,7 @@ let f = async (/** @type {string|null} */ auth) =>
         return 0;
     }
 }
-export const auth = writable(typeof localStorage !== 'undefined' ? localStorage.getItem("auth") ? await f(localStorage.getItem("auth")) : null : null );
+export const auth = writable(typeof localStorage !== 'undefined' ? localStorage.getItem("auth") ? await f(localStorage.getItem("auth")) : await f(localStorage.getItem("auth")) : null );
 
 export const getUserDetails = async ( /** @type {string} */ username, /** @type {string} */ password ) => 
 {
