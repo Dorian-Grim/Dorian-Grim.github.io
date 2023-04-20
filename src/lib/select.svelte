@@ -1,6 +1,5 @@
 <script>
-  import { courseName, maxNumberOfQuestions } from "../data/store";
-  import { triviaForCourse } from "../auth";
+  import { triviaForCourse, courseName, maxNumberOfQuestions } from "./conf";
   /**
    * @type {any}
    */

@@ -1,7 +1,7 @@
 <script>
 // @ts-nocheck
 
-  import { userQuizSelections, failedQuestions } from "../data/store";
+  import { userQuizSelections, failedQuestions } from "./conf";
 
   /**
    * @type {string[]}

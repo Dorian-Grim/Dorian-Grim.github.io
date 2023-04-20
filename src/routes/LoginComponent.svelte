@@ -1,5 +1,5 @@
 <script>
-	import { getUserDetails, store } from './auth';
+	import { getUserDetails, store } from '../lib/conf';
 
 	let username = '',password = '',error = '';
 	async function login() 

@@ -1,14 +1,18 @@
 <script>
-  import {store, trivia, trimmedTrivia, triviaForCourse} from "../auth"
-  import Select from "$lib/select.svelte";
-  import UserUi from "$lib/userUI.svelte";
-  import LoginComponent from "../LoginComponent.svelte";
-  import {
+  import 
+  {
+    store, 
+    trivia, 
+    trimmedTrivia, 
+    triviaForCourse,
     courseName,
     numberOfQuestions,
     maxNumberOfQuestions,
     failedQuestions
-  } from "../data/store";
+  } from "../lib/conf"
+  import Select from "$lib/select.svelte";
+  import UserUi from "$lib/userUI.svelte";
+  import LoginComponent from "./LoginComponent.svelte";
   import { generateQuiz } from "$lib/utils";
   import Timer from "$lib/timer.svelte";
 
