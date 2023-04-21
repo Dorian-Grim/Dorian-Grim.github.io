@@ -26,16 +26,14 @@ let f = async (/** @type {any} */ auth) =>
     let r = {"OUT": "", "JSONS": []};
     await fetch('https://utmquizz.kroko.ro',
     {
-        // @ts-ignore
+        method: 'POST',
         headers:
         {
-            method: 'GET',
             Authorization: auth
         }
     })
-    .then((response) => 
+    .then((/** @type {any} */response) => 
     {
-        // @ts-ignore
         const reader = response.body.getReader();
         return new ReadableStream(
         {
@@ -45,7 +43,7 @@ let f = async (/** @type {any} */ auth) =>
                 function push() 
                 {
                     // "done" is a Boolean and value a "Uint8Array"
-                    reader.read().then(({ done, value }) => 
+                    reader.read().then((/** @type {any} */{ done, value }) => 
                     {
                         // If there is no more data to read
                         if (done) 

@@ -19,21 +19,19 @@
   let gameStarted = false;
   let showAnswers = false;
   let numberOfQ = 1;
-  let useTimer = true;
+  let useTimer = false;
   function handleStart() 
   {
-    if ($courseName === "random") 
-    {
-      pickedCourse = generateQuiz(trimmedTrivia, numberOfQ);
-      gameStarted = true;
-      return;
-    }
-    pickedCourse = triviaForCourse($courseName);
-
-    pickedCourse = generateQuiz(pickedCourse, numberOfQ);
+    pickedCourse = generateQuiz($courseName === "random" ? trimmedTrivia : triviaForCourse($courseName), numberOfQ);
+    gameStarted = true;
+    localStorage.setItem("history", JSON.stringify(pickedCourse))
+  }
+  let loadHistory = () =>
+  {
+    // @ts-ignore
+    pickedCourse = JSON.parse(localStorage.getItem("history"))
     gameStarted = true;
   }
-
   function handleSubmit() 
   {
     showAnswers = true;
@@ -57,7 +55,6 @@
       <UserUi {...question} {index} {showAnswers} {generateAnswered} />
     {/each}
   {:else if !gameStarted}
-    <button style="margin-bottom: 20px;" on:click={showEverything}>vezi totul</button>
     <form on:submit|preventDefault={handleStart}>
       <div style="margin-bottom: 20px;">
         <p>Alege un curs anume sau random din toate:</p>
@@ -97,7 +94,9 @@
           MAX
         </button>
       </div>
-      <button type="submit" class="submit-btn" style="margin-left: 0">Start</button>
+      <button type="submit" class="submit-btn">Start</button>
+      <button class="resume-btn" on:click|preventDefault={loadHistory}>Reia quiz</button>
+      <button class="all-btn" on:click={showEverything}>Vezi totul</button>
     </form>
   {:else}
     {#if useTimer}
@@ -148,10 +147,11 @@
     }
   }
 
-  .submit-btn {
+  .submit-btn, .resume-btn, .all-btn
+  {
     border: 1px solid transparent;
     color: #fff;
-    margin: 20px 0 0 20px;
+    margin: 20px 0 0 0px;
     background: #03787c;
     cursor: pointer;
     color: #fff;
