@@ -18,7 +18,7 @@
   let pickedCourse = trimmedTrivia;
   let gameStarted = false;
   let showAnswers = false;
-  let numberOfQ = 1;
+  let numberOfQ = 30;
   let useTimer = false;
   function handleStart() 
   {
