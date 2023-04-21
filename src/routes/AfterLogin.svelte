@@ -74,22 +74,13 @@
           min="1"
           max={$maxNumberOfQuestions}
         />
-        {#if $maxNumberOfQuestions >= 10}
-          <button on:click|preventDefault={() => (numberOfQ = 10)} class="input-btn">
-            select 10
-          </button>
-        {/if}
-        {#if $maxNumberOfQuestions >= 20}
-          <button on:click|preventDefault={() => (numberOfQ = 20)} class="input-btn">
-            select 20
-          </button>
-        {/if}
-
-        {#if $maxNumberOfQuestions >= 40}
-          <button on:click|preventDefault={() => (numberOfQ = 40)} class="input-btn">
-            select 40
-          </button>
-        {/if}
+        {#each [10, 20, 30, 40] as nQ}
+          {#if $maxNumberOfQuestions >= nQ}
+            <button on:click|preventDefault={() => (numberOfQ = nQ)} class="input-btn">
+              select {nQ}
+            </button>
+          {/if}
+        {/each}  
         <button on:click|preventDefault={() => (numberOfQ = $maxNumberOfQuestions)} class="input-btn">
           MAX
         </button>
@@ -136,6 +127,7 @@
   }
 
   .input-btn {
+    margin-left: 3px;
     border: 1px solid transparent;
     background-color: darkgray;
     font-weight: 700;
