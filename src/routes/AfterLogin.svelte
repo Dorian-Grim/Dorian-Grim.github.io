@@ -35,6 +35,7 @@
   function handleSubmit() 
   {
     showAnswers = true;
+    localStorage.removeItem("history");
   }
   let generateAnswered = false;
   /**
