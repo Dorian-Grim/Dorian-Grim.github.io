@@ -6,7 +6,8 @@
     courseName,
     numberOfQuestions,
     maxNumberOfQuestions,
-    failedQuestions
+    failedQuestions,
+    userQuizSelections
   } from "../lib/conf"
   import Select from "$lib/select.svelte";
   import UserUi from "$lib/userUI.svelte";
@@ -23,19 +24,37 @@
   function handleStart() 
   {
     pickedCourse = generateQuiz($courseName === "random" ? trimmedTrivia : triviaForCourse($courseName), numberOfQ);
+    pickedCourse["userSelections"] = new Array(pickedCourse.length).fill(showAnswers);
+    localStorage.removeItem("userSelections");
+    const items = { ...localStorage };
+    Object.keys(items).map(k => 
+    {
+      if (k == "userSelections" || k.includes("error") || k.includes("checked")) localStorage.removeItem(k);
+    });
     gameStarted = true;
     localStorage.setItem("history", JSON.stringify(pickedCourse))
   }
   let loadHistory = () =>
   {
-    // @ts-ignore
-    pickedCourse = JSON.parse(localStorage.getItem("history"))
-    gameStarted = true;
+    let l = localStorage.getItem("history"), s = localStorage.getItem("userSelections");
+    if (l)
+    {
+      pickedCourse = JSON.parse(l)
+      pickedCourse["userSelections"] = new Array(pickedCourse.length).fill(showAnswers);
+      if (s) 
+      {
+        pickedCourse["userSelections"] = [];
+        JSON.parse(s).forEach(value => pickedCourse["userSelections"].push(value.userSelectedAnswers.length == 0 ? false : true))
+      }
+      gameStarted = true;
+    }
   }
   function handleSubmit() 
   {
     showAnswers = true;
-    localStorage.removeItem("history");
+    pickedCourse["userSelections"] = [];
+    $userQuizSelections.forEach(value => pickedCourse["userSelections"].push(value.userSelectedAnswers.length == 0 ? false : true))
+    localStorage.setItem("userSelections", JSON.stringify($userQuizSelections))
   }
   let generateAnswered = false;
   /**
@@ -87,7 +106,7 @@
         </button>
       </div>
       <button type="submit" class="submit-btn">Start</button>
-      <button class="resume-btn" on:click|preventDefault={loadHistory}>Reia quiz</button>
+      {#if localStorage.getItem("history")}<button class="resume-btn" on:click|preventDefault={loadHistory}>Reia quiz</button>{/if}
       <button class="all-btn" on:click={showEverything}>Vezi totul</button>
     </form>
   {:else}
@@ -96,11 +115,11 @@
     {/if}
     <form style="position: relative;" on:submit|preventDefault={handleSubmit}>
       {#each pickedCourse as question, index}
-        <UserUi {...question} {index} bind:showAnswers />
+        <UserUi {...question} {index} bind:showAnswers={pickedCourse["userSelections"][index]}/>
       {/each}
 
       {#if !showAnswers}
-        <button type="submit" class="submit-btn">Submit form</button>
+        <button type="submit" style="position: sticky; bottom: 20px;" class="submit-btn">Submit form</button>
       {/if}
 
       {#if showAnswers}
@@ -108,7 +127,8 @@
           type="button"
           class="submit-btn"
           style="position: sticky; bottom: 20px;"
-          on:click={() => {
+          on:click={() => 
+          {
             showAnswers = false;
             gameStarted = false;
             failedQuestions.update((n) => 0);

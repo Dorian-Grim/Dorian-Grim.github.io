@@ -1,7 +1,6 @@
 <script>
 // @ts-nocheck
-
-  import { userQuizSelections, failedQuestions } from "./conf";
+  import { userQuizSelections, failedQuestions} from "./conf";
 
   /**
    * @type {string[]}
@@ -39,11 +38,16 @@
    * @type {("wrong"|"correct"|"")[]}
    */
   let errors = [];
+  /**
+   * @type {[]}
+   */
+  let checked = [];
 
   $userQuizSelections[index] = { userSelectedAnswers };
-
-  if (generateAnswered) {
-    answers.forEach((val, index) => {
+  if (generateAnswered) 
+  {
+    answers.forEach((val, index) => 
+    {
       if (correct_answers.includes(val)) {
         userSelectedAnswers.push(val);
         errors[index] = "correct";
@@ -51,25 +55,37 @@
     });
     errors = [...errors];
   }
-
   let checker = false;
   let showThisAnswer = false;
-  $: if (showAnswers || showThisAnswer) {
+  /**
+   * @type {string[]}
+   */
+  
+  $: if (showAnswers || showThisAnswer) 
+  {
     $userQuizSelections[index] = { userSelectedAnswers };
+    
+    // let e = localStorage.getItem("errors")
+    // if (e) errors = JSON.parse(e)
+    // else
+    // {
+      answers.forEach((val, index) => 
+      {
+        const userSelected = userSelectedAnswers.includes(val);
+        const answerIsCorrect = correct_answers.includes(val);
+        checked.push(userSelected ? "checked" : "");
+        if ((answerIsCorrect && !userSelected) || (!answerIsCorrect && userSelected)) checker = true;
 
-    answers.forEach((val, index) => 
-    {
-      const userSelected = userSelectedAnswers.includes(val);
-      const answerIsCorrect = correct_answers.includes(val);
-
-      if ((answerIsCorrect && !userSelected) || (!answerIsCorrect && userSelected)) checker = true;
-
-      if (answerIsCorrect) errors[index] = "correct";
-      if (userSelected && !answerIsCorrect) errors[index] = "wrong";
-    });
-    errors = [...errors];
-
-    if(checker) failedQuestions.update(n => n + 1);
+        if (answerIsCorrect) errors[index] = "correct";
+        if (userSelected && !answerIsCorrect) errors[index] = "wrong";
+      });
+      errors = [...errors];
+      let sERRORS = localStorage.getItem(`errors${index}`)
+      let sCHECKED = localStorage.getItem(`checked${index}`)
+      if (!generateAnswered && !sERRORS) localStorage.setItem(`errors${index}`, JSON.stringify(errors))
+      if (!generateAnswered && !sCHECKED) localStorage.setItem(`checked${index}`, JSON.stringify(checked))
+      if(checker) failedQuestions.update(n => n + 1);
+    // }
   }
   // https://stackoverflow.com/questions/57392773/error-type-attribute-cannot-be-dynamic-if-input-uses-two-way-binding
   const handleInput = e => 
@@ -83,13 +99,17 @@
 <div class="question-wrapper">
   <div class="question-title">
     <!-- svelte-ignore a11y-click-events-have-key-events -->
-    <p class="q-index" on:click|preventDefault={() => {showThisAnswer = true}}>{index + 1}.</p>
+    <p class="q-index" on:click|preventDefault={() => 
+    {
+      localStorage.setItem("userSelections", JSON.stringify($userQuizSelections));
+      showThisAnswer = true
+    }}>{index + 1}.</p>
     <pre>{@html compiledQuestion}</pre>
   </div>
 
   <div class="answer-wrapper">
     {#each answers as answer, i}
-      <div class="{type} {errors[i]}">
+      <div class="{type} {localStorage.getItem(`errors${index}`) ? JSON.parse(localStorage.getItem(`errors${index}`))[i] : errors[i]}">
         <label>
           <input
             type={type}
@@ -97,6 +117,7 @@
             name="answers{index}"
             value={answer}
             disabled={showAnswers || showThisAnswer}
+            checked={localStorage.getItem(`checked${index}`) ? JSON.parse(localStorage.getItem(`checked${index}`))[i] : ""}
           />
           <span><pre>{@html answer}</pre></span>
         </label>
