@@ -63,6 +63,11 @@
   let everything;
   function showEverything() 
   {
+    const items = { ...localStorage };
+    Object.keys(items).map(k => 
+    {
+      if (k.includes("error") || k.includes("checked")) localStorage.removeItem(k);
+    });
     pickedCourse = triviaForCourse($courseName);
     everything = generateQuiz(pickedCourse, pickedCourse.length, false);
     generateAnswered = true;
