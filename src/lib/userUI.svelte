@@ -1,7 +1,23 @@
 <script>
 // @ts-nocheck
-  import { userQuizSelections, failedQuestions} from "./conf";
+  import { userQuizSelections, failedQuestions, useMarkdown, trivia} from "./conf";
+  import { marked } from 'marked';
+  import highlight from 'highlight.js';
+  import 'highlight.js/styles/monokai.css';
 
+  let markDown = code => 
+  {
+    return $useMarkdown ? marked(
+    code,
+    {
+      highlight: (code, language) => 
+      {
+        const highlightedCode = language ? highlight.highlight(code, {language}).value : code;
+        return language ? `<pre><code class="hljs ${language}">${highlightedCode}</code></pre>` : code;
+      }
+    }) : code;
+  }
+  
   /**
    * @type {string[]}
    */
@@ -16,11 +32,13 @@
     "lipsa rasp 3",
     "lipsa rasp 4",
   ];
+  export let course = '';
+  export let id = '';
   /**
    * @type {string}
    */
-  const compiledQuestion = question;
-
+  const compiledQuestion = markDown(question);
+  
   // if needed add this to compiledQuestion
   /*
     + ` <span class="required" /><span style="color: #014446;">(5 Points)</span>`
@@ -97,7 +115,26 @@
 </script>
 
 <div class="question-wrapper">
-  <div class="question-title">
+  <div class="question-title" on:contextmenu|preventDefault=
+  {
+    () => 
+    {
+      let filter = trivia[course].filter(obj =>  {return obj.questionNumber === id})[0];
+      let questionText = filter.question
+      let answerText = filter.answers
+      alert(`This is from ${course}, question ${id}`);
+      // TODO
+      // 1. make some sort of editable view for users
+      // 2. do the http request with basic auth
+      // 3. read the file based on `course`.json var in php
+      // 4. find question by `id`
+      // 5. modify, write back to file
+      //    a. user has to refresh the app, but can use the history feature to resume the quiz
+      // 6. find answer by `i`
+      //    a. modify the answer, write to file
+      // 7. before you start modifiying them, backup the jsons.
+    }
+  }>
     <!-- svelte-ignore a11y-click-events-have-key-events -->
     <p class="q-index" on:click|preventDefault={() => 
     {
@@ -119,7 +156,10 @@
             disabled={showAnswers || showThisAnswer}
             checked={localStorage.getItem(`checked${index}`) ? JSON.parse(localStorage.getItem(`checked${index}`))[i] : ""}
           />
-          <span><pre>{@html answer}</pre></span>
+          <span on:contextmenu|preventDefault={() => 
+          {
+            console.log(`right cluck answer ${i}`)
+          }}><pre>{@html markDown(answer)}</pre></span>
         </label>
       </div>
     {/each}
@@ -127,6 +167,11 @@
 </div>
 
 <style lang="scss">
+  .q-index:hover 
+  {
+    color: green;
+    cursor: pointer;
+  }
   pre {
     margin: 0;
     display: inline-block;

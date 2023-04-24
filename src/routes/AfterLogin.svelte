@@ -1,4 +1,4 @@
-<script>
+<script> 
   import 
   { 
     trimmedTrivia, 
@@ -7,7 +7,8 @@
     numberOfQuestions,
     maxNumberOfQuestions,
     failedQuestions,
-    userQuizSelections
+    userQuizSelections,
+    useMarkdown
   } from "../lib/conf"
   import Select from "$lib/select.svelte";
   import UserUi from "$lib/userUI.svelte";
@@ -21,6 +22,7 @@
   let showAnswers = false;
   let numberOfQ = 30;
   let useTimer = false;
+
   function handleStart() 
   {
     pickedCourse = generateQuiz($courseName === "random" ? trimmedTrivia : triviaForCourse($courseName), numberOfQ);
@@ -88,6 +90,8 @@
       <div>
         <p>Vrei timer?</p>
         <input type=checkbox bind:checked={useTimer} style="height: 20px;width: 20px">
+        <p>Markdown pe cod? (monokai)</p>
+        <input type=checkbox bind:checked={$useMarkdown} style="height: 20px;width: 20px">
         <p>
           Alege cate intrebari vrei sa primesti, nr max pt materie {$maxNumberOfQuestions}:
         </p>

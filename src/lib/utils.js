@@ -61,6 +61,8 @@ export const generateQuiz = (
 
   indexes.forEach((index) => {
     let question = {};
+    question.id = quizQuestions[index].questionNumber;
+    question.course = quizQuestions[index].course;
     question.question = quizQuestions[index].question;
     let copiedAnswers = [...quizQuestions[index].answers];
 

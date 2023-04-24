@@ -8,7 +8,7 @@ export let trimmedTrivia = Object.values(trivia).flat(1);
 export let maxNumberOfQuestions = writable(trimmedTrivia.length);
 export let numberOfQuestions = writable(1);
 export let courseName = writable("random");
-
+export let useMarkdown = writable(/** @type {Boolean} */ true);
 // App State
 export let hasQuizBegun = writable(false);
 export let showAnswersDefault = writable(false);
@@ -63,7 +63,16 @@ let f = async (/** @type {any} */ auth) =>
     .then(async stream => r = JSON.parse(await (new Response(stream, { headers: { "Content-Type": "text/html" } }).text())))
     if (r["OUT"] == "JSONS") 
     {
-        for (const course in r["JSONS"]) trivia[course] = JSON.parse(r["JSONS"][course])
+        for (const course in r["JSONS"]) 
+        {
+            trivia[course] = JSON.parse(r["JSONS"][course])
+            trivia[course] = trivia[course].map(val => 
+            {
+                val.questionNumber = val.questionNumber.replace(".","");
+                val["course"] = course // I need this for when I update questions generated from random
+                return val;
+            })
+        }
         courses = courses.concat(Object.keys(trivia))
         trimmedTrivia = Object.values(trivia).flat(1)
         // Settings
