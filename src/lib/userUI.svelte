@@ -10,6 +10,13 @@
     return $useMarkdown ? marked(
     code,
     {
+      renderer: new marked.Renderer(),
+      pedantic: false,
+      gfm: true,
+      breaks: false,
+      sanitize: false,
+      smartypants: false,
+      xhtml: false,
       highlight: (code, language) => 
       {
         const highlightedCode = language ? highlight.highlight(code, {language}).value : code;
@@ -60,7 +67,10 @@
    * @type {[]}
    */
   let checked = [];
-
+  let unmodifiedQuestion = '';
+  let unmodifiedAnswers = [];
+  let modifiedQuestion = '';
+  let modifiedAnswers = [];
   $userQuizSelections[index] = { userSelectedAnswers };
   if (generateAnswered) 
   {
@@ -114,36 +124,83 @@
   };
 </script>
 
-<div class="question-wrapper">
-  <div class="question-title" on:contextmenu|preventDefault=
-  {
-    () => 
-    {
-      let filter = trivia[course].filter(obj =>  {return obj.questionNumber === id})[0];
-      let questionText = filter.question
-      let answerText = filter.answers
-      alert(`This is from ${course}, question ${id}`);
-      // TODO
-      // 1. make some sort of editable view for users
-      // 2. do the http request with basic auth
-      // 3. read the file based on `course`.json var in php
-      // 4. find question by `id`
-      // 5. modify, write back to file
-      //    a. user has to refresh the app, but can use the history feature to resume the quiz
-      // 6. find answer by `i`
-      //    a. modify the answer, write to file
-      // 7. before you start modifiying them, backup the jsons.
-    }
-  }>
+<div id="course_{course}_{id}" class="question-wrapper">
+  <div class="question-title">
     <!-- svelte-ignore a11y-click-events-have-key-events -->
     <p class="q-index" on:click|preventDefault={() => 
     {
       localStorage.setItem("userSelections", JSON.stringify($userQuizSelections));
       showThisAnswer = true
     }}>{index + 1}.</p>
-    <pre>{@html compiledQuestion}</pre>
-  </div>
+    <pre
+    on:contextmenu|preventDefault=
+    {
+      (e) => 
+      {
+        if (unmodifiedQuestion == '')
+        {
+          let target = $useMarkdown ? e.target.parentElement : e.target;
+          console.log(e.target)
+          let filter = trivia[course].filter(obj =>  {return obj.questionNumber === id})[0];
+          unmodifiedQuestion = filter.question
+          unmodifiedAnswers = filter.answers
+          target.innerHTML = $useMarkdown ? `<p>${unmodifiedQuestion}</p>` : unmodifiedQuestion
+          target.setAttribute("contenteditable", true)
+          target.focus()
+          document.querySelector(`.edit-buttons`).style = "visibility:visible;"
+        }
+        else alert("Finish or cancel the mods") // aici ai un bug daca te muti pe alta intrebare
 
+
+
+
+        console.log(`This is from ${course}, question ${id}`);
+        // TODO
+        // 1. make some sort of editable view for users
+        // 2. do the http request with basic auth
+        // 3. read the file based on `course`.json var in php
+        // 4. find question by `id`
+        // 5. modify, write back to file
+        //    a. user has to refresh the app, but can use the history feature to resume the quiz
+        // 6. find answer by `i`
+        //    a. modify the answer, write to file
+        // 7. before you start modifiying them, backup the jsons.
+      }
+    } 
+    on:input={(e) => 
+    {
+      const newText = e.target.textContent
+      modifiedQuestion = newText;
+      document.querySelector(`.edit-buttons`).style = "visibility:visible;"
+    }}>{@html compiledQuestion}</pre>
+  </div>
+  <div class='edit-buttons'>
+    <button class='submit-btn save-btn' on:click|preventDefault={(e) => 
+    {
+      e.target.parentElement.style = "visibility:hidden"
+      console.log("clicked check")
+      console.log(unmodifiedQuestion)
+      console.log(modifiedQuestion)
+      console.log(modifiedQuestion === unmodifiedQuestion)
+      //fetch logic
+      modifiedAnswers = []
+      modifiedQuestion = ''
+      unmodifiedQuestion = ''
+      unmodifiedAnswers = []
+    }}>✓</button>
+    <button class='submit-btn cancel-btn' on:click|preventDefault={(e) => 
+    {
+      e.target.parentElement.style = "visibility:hidden"
+      // theres a bug here, right click works, but clicking this somehow gets the id from the previous question
+      console.log("clicked cancel", `#course_${course}_${id}`, document.querySelector(`#course_${course}_${id} .question-title pre ${$useMarkdown ? "p" : ""}`))
+      document.querySelector(`#course_${course}_${id} .question-title pre ${$useMarkdown ? "p" : ""}`).textContent = unmodifiedQuestion;
+      document.querySelector(`#course_${course}_${id} .question-title pre`).setAttribute("contenteditable", false)
+      modifiedAnswers = []
+      modifiedQuestion = ''
+      unmodifiedQuestion = ''
+      unmodifiedAnswers = []
+    }}>X</button>
+  </div>
   <div class="answer-wrapper">
     {#each answers as answer, i}
       <div class="{type} {localStorage.getItem(`errors${index}`) ? JSON.parse(localStorage.getItem(`errors${index}`))[i] : errors[i]}">
@@ -156,10 +213,10 @@
             disabled={showAnswers || showThisAnswer}
             checked={localStorage.getItem(`checked${index}`) ? JSON.parse(localStorage.getItem(`checked${index}`))[i] : ""}
           />
-          <span on:contextmenu|preventDefault={() => 
+          <span on:contextmenu|preventDefault on:input|preventDefault={(e) => 
           {
-            console.log(`right cluck answer ${i}`)
-          }}><pre>{@html markDown(answer)}</pre></span>
+            console.log(`modded ${i}`, e.target.textContent)
+          }}><pre contenteditable="true">{@html markDown(answer)}</pre></span>
         </label>
       </div>
     {/each}
@@ -297,4 +354,7 @@
   .radio input[type="radio"]:focus {
     outline: 1px dashed;
   }
+  .cancel-btn {background: #ff4237}
+  .cancel-btn:hover {background: #64221d}
+  .edit-buttons {z-index: 1;visibility: hidden; position: fixed;right: 0px;bottom: 20px;}
 </style>

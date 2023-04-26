@@ -66,7 +66,7 @@ let f = async (/** @type {any} */ auth) =>
         for (const course in r["JSONS"]) 
         {
             trivia[course] = JSON.parse(r["JSONS"][course])
-            trivia[course] = trivia[course].map(val => 
+            trivia[course] = trivia[course].map((/** @type {{ [x: string]: string; questionNumber: string; }} */ val) => 
             {
                 val.questionNumber = val.questionNumber.replace(".","");
                 val["course"] = course // I need this for when I update questions generated from random
