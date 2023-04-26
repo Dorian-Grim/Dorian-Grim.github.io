@@ -24,7 +24,7 @@
       }
     }) : code;
   }
-  
+  let test = (code) => highlight.highlightAuto(code).value;
   /**
    * @type {string[]}
    */
@@ -92,28 +92,22 @@
   $: if (showAnswers || showThisAnswer) 
   {
     $userQuizSelections[index] = { userSelectedAnswers };
-    
-    // let e = localStorage.getItem("errors")
-    // if (e) errors = JSON.parse(e)
-    // else
-    // {
-      answers.forEach((val, index) => 
-      {
-        const userSelected = userSelectedAnswers.includes(val);
-        const answerIsCorrect = correct_answers.includes(val);
-        checked.push(userSelected ? "checked" : "");
-        if ((answerIsCorrect && !userSelected) || (!answerIsCorrect && userSelected)) checker = true;
+    answers.forEach((val, index) => 
+    {
+      const userSelected = userSelectedAnswers.includes(val);
+      const answerIsCorrect = correct_answers.includes(val);
+      checked.push(userSelected ? "checked" : "");
+      if ((answerIsCorrect && !userSelected) || (!answerIsCorrect && userSelected)) checker = true;
 
-        if (answerIsCorrect) errors[index] = "correct";
-        if (userSelected && !answerIsCorrect) errors[index] = "wrong";
-      });
-      errors = [...errors];
-      let sERRORS = localStorage.getItem(`errors${index}`)
-      let sCHECKED = localStorage.getItem(`checked${index}`)
-      if (!generateAnswered && !sERRORS) localStorage.setItem(`errors${index}`, JSON.stringify(errors))
-      if (!generateAnswered && !sCHECKED) localStorage.setItem(`checked${index}`, JSON.stringify(checked))
-      if(checker) failedQuestions.update(n => n + 1);
-    // }
+      if (answerIsCorrect) errors[index] = "correct";
+      if (userSelected && !answerIsCorrect) errors[index] = "wrong";
+    });
+    errors = [...errors];
+    let sERRORS = localStorage.getItem(`errors${index}`)
+    let sCHECKED = localStorage.getItem(`checked${index}`)
+    if (!generateAnswered && !sERRORS) localStorage.setItem(`errors${index}`, JSON.stringify(errors))
+    if (!generateAnswered && !sCHECKED) localStorage.setItem(`checked${index}`, JSON.stringify(checked))
+    if(checker) failedQuestions.update(n => n + 1);
   }
   // https://stackoverflow.com/questions/57392773/error-type-attribute-cannot-be-dynamic-if-input-uses-two-way-binding
   const handleInput = e => 
@@ -124,36 +118,66 @@
   };
 </script>
 
-<div id="course_{course}_{id}" class="question-wrapper">
+<div id="course_{course.replaceAll("+", "")}_{id}" class="question-wrapper">
   <div class="question-title">
+    <div class='edit-buttons'>
+      <button class='submit-btn save-btn'>✓</button>
+      <button class='submit-btn cancel-btn'>X</button>
+    </div>
     <!-- svelte-ignore a11y-click-events-have-key-events -->
     <p class="q-index" on:click|preventDefault={() => 
     {
       localStorage.setItem("userSelections", JSON.stringify($userQuizSelections));
       showThisAnswer = true
-    }}>{index + 1}.</p>
-    <pre
+    }}>{index + 1}.</p><pre
     on:contextmenu|preventDefault=
     {
       (e) => 
       {
-        if (unmodifiedQuestion == '')
+        let cssID = `#course_${course.replaceAll("+", "")}_${id}`
+        
+        let target = document.querySelector(cssID), pre = target.querySelector("pre"), edits = target.querySelector(".edit-buttons");
+        let filter = trivia[course].filter(obj =>  {return obj.questionNumber === id})[0];
+        unmodifiedQuestion = filter.question
+        unmodifiedAnswers = filter.answers
+        pre.setAttribute("contenteditable", true)
+        pre.focus()
+        edits.style = "visibility:visible;"
+        console.log(`editing question ${id}`)
+        let saveQ = (e) => 
         {
-          let target = $useMarkdown ? e.target.parentElement : e.target;
-          console.log(e.target)
-          let filter = trivia[course].filter(obj =>  {return obj.questionNumber === id})[0];
-          unmodifiedQuestion = filter.question
-          unmodifiedAnswers = filter.answers
-          target.innerHTML = $useMarkdown ? `<p>${unmodifiedQuestion}</p>` : unmodifiedQuestion
-          target.setAttribute("contenteditable", true)
-          target.focus()
-          document.querySelector(`.edit-buttons`).style = "visibility:visible;"
+          e.preventDefault();
+          edits.style = "visibility:hidden"
+          console.log("clicked q check")
+          console.log(unmodifiedQuestion)
+          console.log(modifiedQuestion)
+          console.log(modifiedQuestion === unmodifiedQuestion)
+          //fetch logic
+          if (modifiedQuestion) pre.innerHTML = markDown(modifiedQuestion);
+          pre.setAttribute("contenteditable", false)
+          modifiedAnswers = []
+          modifiedQuestion = ''
+          console.log("here save", id, course)
+          edits.querySelector(`.save-btn`).removeEventListener("click", saveQ)
+          edits.querySelector(`.cancel-btn`).removeEventListener("click", cancelQ)
+        },
+        cancelQ = (e) => 
+        {
+          e.preventDefault();
+          edits.style = "visibility:hidden"
+          console.log("clicked q cancel")
+          pre.innerHTML = markDown(unmodifiedQuestion);
+          pre.setAttribute("contenteditable", false)
+          modifiedAnswers = []
+          modifiedQuestion = ''
+          console.log("here cancel", unmodifiedQuestion)
+          edits.querySelector(`.save-btn`).removeEventListener("click", saveQ)
+          edits.querySelector(`.cancel-btn`).removeEventListener("click", cancelQ)
         }
-        else alert("Finish or cancel the mods") // aici ai un bug daca te muti pe alta intrebare
-
-
-
-
+        console.log(`#course_${cssID} .save-btn`)
+        
+        edits.querySelector(`.save-btn`).addEventListener("click", saveQ, { once: true })
+        edits.querySelector(`.cancel-btn`).addEventListener("click", cancelQ, { once: true })
         console.log(`This is from ${course}, question ${id}`);
         // TODO
         // 1. make some sort of editable view for users
@@ -171,36 +195,8 @@
     {
       const newText = e.target.textContent
       modifiedQuestion = newText;
-      document.querySelector(`.edit-buttons`).style = "visibility:visible;"
-    }}>{@html compiledQuestion}</pre>
-  </div>
-  <div class='edit-buttons'>
-    <button class='submit-btn save-btn' on:click|preventDefault={(e) => 
-    {
-      e.target.parentElement.style = "visibility:hidden"
-      console.log("clicked check")
-      console.log(unmodifiedQuestion)
-      console.log(modifiedQuestion)
-      console.log(modifiedQuestion === unmodifiedQuestion)
-      //fetch logic
-      modifiedAnswers = []
-      modifiedQuestion = ''
-      unmodifiedQuestion = ''
-      unmodifiedAnswers = []
-    }}>✓</button>
-    <button class='submit-btn cancel-btn' on:click|preventDefault={(e) => 
-    {
-      e.target.parentElement.style = "visibility:hidden"
-      // theres a bug here, right click works, but clicking this somehow gets the id from the previous question
-      console.log("clicked cancel", `#course_${course}_${id}`, document.querySelector(`#course_${course}_${id} .question-title pre ${$useMarkdown ? "p" : ""}`))
-      document.querySelector(`#course_${course}_${id} .question-title pre ${$useMarkdown ? "p" : ""}`).textContent = unmodifiedQuestion;
-      document.querySelector(`#course_${course}_${id} .question-title pre`).setAttribute("contenteditable", false)
-      modifiedAnswers = []
-      modifiedQuestion = ''
-      unmodifiedQuestion = ''
-      unmodifiedAnswers = []
-    }}>X</button>
-  </div>
+    }}>{@html compiledQuestion}</pre></div>
+  
   <div class="answer-wrapper">
     {#each answers as answer, i}
       <div class="{type} {localStorage.getItem(`errors${index}`) ? JSON.parse(localStorage.getItem(`errors${index}`))[i] : errors[i]}">
@@ -213,15 +209,56 @@
             disabled={showAnswers || showThisAnswer}
             checked={localStorage.getItem(`checked${index}`) ? JSON.parse(localStorage.getItem(`checked${index}`))[i] : ""}
           />
-          <span on:contextmenu|preventDefault on:input|preventDefault={(e) => 
+          <span on:contextmenu|preventDefault=
           {
-            console.log(`modded ${i}`, e.target.textContent)
-          }}><pre contenteditable="true">{@html markDown(answer)}</pre></span>
-        </label>
-      </div>
-    {/each}
-  </div>
-</div>
+            (e) =>
+            {
+              let cssID = `#course_${course.replaceAll("+", "")}_${id} .answer-wrapper`
+              let target = document.querySelector(cssID), pre = target.querySelectorAll("pre")[i], edits = document.querySelector(`#course_${course.replaceAll("+", "")}_${id} .edit-buttons`);
+              let filter = trivia[course].filter(obj =>  {return obj.questionNumber === id})[0];
+              unmodifiedQuestion = filter.question
+              unmodifiedAnswers = filter.answers
+              pre.setAttribute("contenteditable", true)
+              pre.focus()
+              edits.style = "visibility:visible;"
+              console.log(`editing question ${id} answer ${i}`)
+              let saveA = (e) => 
+              {
+                e.preventDefault();
+                edits.style = "visibility:hidden"
+                console.log(`saved A ${i} from q ${id}`, pre)
+                if (modifiedAnswers[i]) pre.innerHTML = markDown(modifiedAnswers[i]);
+                pre.setAttribute("contenteditable", false)
+                modifiedAnswers = []
+                modifiedQuestion = ''
+                edits.querySelector(`.save-btn`).removeEventListener("click", saveA)
+                edits.querySelector(`.cancel-btn`).removeEventListener("click", cancelA)
+              },
+              cancelA = (e) => 
+              {
+                e.preventDefault();
+                edits.style = "visibility:hidden"
+                console.log(`canceled A ${i} from q ${id}`, pre)
+                pre.innerHTML = markDown(unmodifiedAnswers[i]);
+                pre.setAttribute("contenteditable", false)
+                modifiedAnswers = []
+                modifiedQuestion = ''
+                edits.querySelector(`.save-btn`).removeEventListener("click", saveA)
+                edits.querySelector(`.cancel-btn`).removeEventListener("click", cancelA)
+              }
+              console.log(`#course_${cssID} .save-btn`)
+              
+              edits.querySelector(`.save-btn`).addEventListener("click", saveA, { once: true })
+              edits.querySelector(`.cancel-btn`).addEventListener("click", cancelA, { once: true })
+            }
+          } 
+          on:input|preventDefault={(e) => 
+          {
+            const target = e.target, newText = target.textContent
+            modifiedAnswers[i] = newText;
+            console.log("moded answer", modifiedAnswers[i])
+          }}><pre contenteditable="true">{@html markDown(answer)}</pre></span></label></div>
+    {/each}</div></div>
 
 <style lang="scss">
   .q-index:hover 
@@ -356,5 +393,5 @@
   }
   .cancel-btn {background: #ff4237}
   .cancel-btn:hover {background: #64221d}
-  .edit-buttons {z-index: 1;visibility: hidden; position: fixed;right: 0px;bottom: 20px;}
+  .edit-buttons {z-index: 1;visibility: hidden; position: absolute;left: 0px;top: -67px;}
 </style>
