@@ -271,7 +271,7 @@
     {#each answers as answer, i}
       <div class="{type} {localStorage.getItem(`errors${index}`) ? JSON.parse(localStorage.getItem(`errors${index}`))[i] : errors[i]}">
         <label>
-          <input
+        <input
             type={type}
             on:input={handleInput}
             name="answers{index}"
@@ -368,9 +368,11 @@
   }
   .wrong {
     color: red;
+    background: pink;
   }
   .correct {
     color: green;
+    background: #abe388;
   }
   
   label {
