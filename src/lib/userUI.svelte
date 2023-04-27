@@ -342,6 +342,7 @@
   pre {
     margin: 0;
     display: inline-block;
+    padding-left: 3px;
   }
   .wrong {
     color: red;
