@@ -183,10 +183,21 @@
     }}>{index + 1}.</p><pre
     on:keydown={event => 
     {
+      console.log(event.key, )
       if (event.key === 'Enter') 
       {
-        document.execCommand('insertLineBreak')
         event.preventDefault()
+        document.execCommand('insertLineBreak')
+      }
+      if (event.key == 'Tab' && event.shiftKey) 
+      {
+        event.preventDefault();
+        document.execCommand("outdent");
+      } 
+      else if (event.key == 'Tab') 
+      {
+        event.preventDefault();
+        document.execCommand("indent");
       }
     }}
     on:contextmenu|preventDefault=
@@ -320,12 +331,23 @@
           }
           on:keydown={event => 
           {
+            console.log(event.key, )
             if (event.key === 'Enter') 
             {
-              document.execCommand('insertLineBreak')
               event.preventDefault()
+              document.execCommand('insertLineBreak')
             }
-          }} 
+            if (event.key == 'Tab' && event.shiftKey) 
+            {
+              event.preventDefault();
+              document.execCommand("outdent");
+            } 
+            else if (event.key == 'Tab') 
+            {
+              event.preventDefault();
+              document.execCommand("indent");
+            }
+          }}
           on:input|preventDefault={(e) => 
           {
             const target = e.target, newText = target.textContent
