@@ -7,6 +7,13 @@
 
   let markDown = code => 
   {
+    code = code.replaceAll('&amp;', '&')
+    code = code.replaceAll('&lt;', '<')
+    code = code.replaceAll('&gt;', '>')
+    code = code.replaceAll('&quot;', '"')
+    code = code.replaceAll('&#39;', "'")
+    code = code.replaceAll('&#x2F;', '/')
+
     return $useMarkdown ? marked(
     code,
     {
@@ -24,6 +31,50 @@
       }
     }) : code;
   }
+  let auth = localStorage.getItem("auth")
+  let f = async (data) => await fetch('https://utmquizz.kroko.ro/writeJSONS.php',
+  {
+      method: 'POST',
+      headers:
+      {
+          Authorization: auth
+      },
+      body: JSON.stringify(data)
+  })
+  .then((/** @type {any} */response) => 
+  {
+      const reader = response.body.getReader();
+      return new ReadableStream(
+      {
+          start(controller) 
+          {
+              // The following function handles each data chunk
+              function push() 
+              {
+                  // "done" is a Boolean and value a "Uint8Array"
+                  reader.read().then((/** @type {any} */{ done, value }) => 
+                  {
+                      // If there is no more data to read
+                      if (done) 
+                      {
+                          controller.close();
+                          return;
+                      }
+                      // Get the data and send it to the browser via the controller
+                      controller.enqueue(value);
+                      push();
+                  });
+              }
+              push();
+          },
+      });
+  })
+  .then(async stream => 
+  {
+    let r = JSON.parse(await (new Response(stream, { headers: { "Content-Type": "application/json" } }).text()))
+    console.log(r)
+    return r
+  })
   let test = (code) => highlight.highlightAuto(code).value;
   /**
    * @type {string[]}
@@ -118,7 +169,7 @@
   };
 </script>
 
-<div id="course_{course.replaceAll("+", "")}_{id}" class="question-wrapper">
+<div id="course_{course.replaceAll("+", "p")}_{id}" class="question-wrapper">
   <div class="question-title">
     <div class='edit-buttons'>
       <button class='submit-btn save-btn'>✓</button>
@@ -134,8 +185,8 @@
     {
       (e) => 
       {
-        let cssID = `#course_${course.replaceAll("+", "")}_${id}`
         
+        let cssID = `#course_${course.replaceAll("+", "p")}_${id}`
         let target = document.querySelector(cssID), pre = target.querySelector("pre"), edits = target.querySelector(".edit-buttons");
         let filter = trivia[course].filter(obj =>  {return obj.questionNumber === id})[0];
         unmodifiedQuestion = filter.question
@@ -144,17 +195,19 @@
         pre.focus()
         edits.style = "visibility:visible;"
         console.log(`editing question ${id}`)
-        let saveQ = (e) => 
+        let saveQ = async (e) => 
         {
           e.preventDefault();
           edits.style = "visibility:hidden"
-          console.log("clicked q check")
-          console.log(unmodifiedQuestion)
-          console.log(modifiedQuestion)
-          console.log(modifiedQuestion === unmodifiedQuestion)
-          //fetch logic
-          if (modifiedQuestion) pre.innerHTML = markDown(modifiedQuestion);
           pre.setAttribute("contenteditable", false)
+          let data = {"course": course, "id": id, "q": modifiedQuestion, "a": modifiedAnswers}
+          if (modifiedQuestion) 
+          {
+            pre.innerHTML = markDown(modifiedQuestion);
+            let out = await f(data);
+            if (out["DATA"]["phpmessage"] != "No errors")
+              alert(`Modificarea pentru ${course}, intrebarea ${id}, nu a fost salvata. Eroare la salvarea JSON-ului: ${out["DATA"]["phpmessage"]}`)
+          }
           modifiedAnswers = []
           modifiedQuestion = ''
           console.log("here save", id, course)
@@ -165,7 +218,6 @@
         {
           e.preventDefault();
           edits.style = "visibility:hidden"
-          console.log("clicked q cancel")
           pre.innerHTML = markDown(unmodifiedQuestion);
           pre.setAttribute("contenteditable", false)
           modifiedAnswers = []
@@ -174,13 +226,12 @@
           edits.querySelector(`.save-btn`).removeEventListener("click", saveQ)
           edits.querySelector(`.cancel-btn`).removeEventListener("click", cancelQ)
         }
-        console.log(`#course_${cssID} .save-btn`)
-        
+        edits.querySelector(`.save-btn`).removeEventListener("click", saveQ)
+        edits.querySelector(`.cancel-btn`).removeEventListener("click", cancelQ)
         edits.querySelector(`.save-btn`).addEventListener("click", saveQ, { once: true })
         edits.querySelector(`.cancel-btn`).addEventListener("click", cancelQ, { once: true })
-        console.log(`This is from ${course}, question ${id}`);
+        console.log(`This is from ${course}, question ${id}`, trivia);
         // TODO
-        // 1. make some sort of editable view for users
         // 2. do the http request with basic auth
         // 3. read the file based on `course`.json var in php
         // 4. find question by `id`
@@ -213,8 +264,8 @@
           {
             (e) =>
             {
-              let cssID = `#course_${course.replaceAll("+", "")}_${id} .answer-wrapper`
-              let target = document.querySelector(cssID), pre = target.querySelectorAll("pre")[i], edits = document.querySelector(`#course_${course.replaceAll("+", "")}_${id} .edit-buttons`);
+              let cssID = `#course_${course.replaceAll("+", "p")}_${id} .answer-wrapper`
+              let target = document.querySelector(cssID), pre = target.querySelectorAll("pre")[i], edits = document.querySelector(`#course_${course.replaceAll("+", "p")}_${id} .edit-buttons`);
               let filter = trivia[course].filter(obj =>  {return obj.questionNumber === id})[0];
               unmodifiedQuestion = filter.question
               unmodifiedAnswers = filter.answers
@@ -222,12 +273,19 @@
               pre.focus()
               edits.style = "visibility:visible;"
               console.log(`editing question ${id} answer ${i}`)
-              let saveA = (e) => 
+              let saveA = async (e) => 
               {
                 e.preventDefault();
                 edits.style = "visibility:hidden"
                 console.log(`saved A ${i} from q ${id}`, pre)
-                if (modifiedAnswers[i]) pre.innerHTML = markDown(modifiedAnswers[i]);
+                let data = {"course": course, "id": id, "q": modifiedQuestion, "a": modifiedAnswers}
+                if (modifiedAnswers[i]) 
+                {
+                  pre.innerHTML = markDown(modifiedAnswers[i])
+                  let out = await f(data);
+                  if (out["DATA"]["phpmessage"] != "No errors")
+                    alert(`Modificarea pentru ${course}, intrebarea ${id}, raspunsul ${i} nu a fost salvata. Eroare la salvarea JSON-ului: ${out["DATA"]["phpmessage"]}`)
+                };
                 pre.setAttribute("contenteditable", false)
                 modifiedAnswers = []
                 modifiedQuestion = ''
@@ -245,9 +303,9 @@
                 modifiedQuestion = ''
                 edits.querySelector(`.save-btn`).removeEventListener("click", saveA)
                 edits.querySelector(`.cancel-btn`).removeEventListener("click", cancelA)
-              }
-              console.log(`#course_${cssID} .save-btn`)
-              
+              } 
+              edits.querySelector(`.save-btn`).removeEventListener("click", saveA)
+              edits.querySelector(`.cancel-btn`).removeEventListener("click", cancelA)
               edits.querySelector(`.save-btn`).addEventListener("click", saveA, { once: true })
               edits.querySelector(`.cancel-btn`).addEventListener("click", cancelA, { once: true })
             }
@@ -256,7 +314,6 @@
           {
             const target = e.target, newText = target.textContent
             modifiedAnswers[i] = newText;
-            console.log("moded answer", modifiedAnswers[i])
           }}><pre contenteditable="true">{@html markDown(answer)}</pre></span></label></div>
     {/each}</div></div>
 
