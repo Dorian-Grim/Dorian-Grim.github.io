@@ -352,7 +352,7 @@
           {
             const target = e.target, newText = target.textContent
             modifiedAnswers[i] = newText;
-          }}><pre contenteditable="true">{@html markDown(answer)}</pre></span></label></div>
+          }}><pre>{@html markDown(answer)}</pre></span></label></div>
     {/each}</div></div>
 
 <style lang="scss">
