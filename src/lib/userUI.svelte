@@ -181,6 +181,14 @@
       localStorage.setItem("userSelections", JSON.stringify($userQuizSelections));
       showThisAnswer = true
     }}>{index + 1}.</p><pre
+    on:keydown={event => 
+    {
+      if (event.key === 'Enter') 
+      {
+        document.execCommand('insertLineBreak')
+        event.preventDefault()
+      }
+    }}
     on:contextmenu|preventDefault=
     {
       (e) => 
@@ -309,7 +317,15 @@
               edits.querySelector(`.save-btn`).addEventListener("click", saveA, { once: true })
               edits.querySelector(`.cancel-btn`).addEventListener("click", cancelA, { once: true })
             }
-          } 
+          }
+          on:keydown={event => 
+          {
+            if (event.key === 'Enter') 
+            {
+              document.execCommand('insertLineBreak')
+              event.preventDefault()
+            }
+          }} 
           on:input|preventDefault={(e) => 
           {
             const target = e.target, newText = target.textContent
