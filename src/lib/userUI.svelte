@@ -172,7 +172,7 @@
   <section id="question-proof-container">
     <section class='content' id='question-proof-text'>
       <header id='content-title-bar'>
-        <article id='content-title'>Cursul <span id='course-id'></span> întrebarea <span id='course-q-id'></span></article>
+        <article id='content-title'>Explicație pentru întrebarea <span id='course-q-id'></span> din cursul <span id='course-id'></span></article>
         <article id='content-title-bar-controls'><button class='cancel-btn' on:click|preventDefault={() => 
         {
           document.querySelector('#question-proof-container').style.display = "none"
@@ -233,10 +233,12 @@
             let course_q_id = document.querySelector('#course-q-id')?.textContent;
             document.querySelector("#content-control-buttons .markdown").disabled = true;
             document.querySelector("#content-control-buttons .previz").disabled = false;
-            let data = {"course": course_id, "id": course_q_id, "explanation": trivia[course_id][course_q_id]['explanation'], "q": '', "a": []}
+            let exp = document.querySelector("#content-control-buttons .markdown").disabled ? document.querySelector('#question-explanation-code').textContent : trivia[course_id][course_q_id]['explanation'];
+            let data = {"course": course_id, "id": course_q_id, "explanation": exp, "q": '', "a": []}
             let out = await f(data);
             if (out["DATA"]["phpmessage"] != "No errors")
-              alert(`Explicația pentru ${course}, intrebarea ${id}, nu a fost salvata. Eroare la salvarea JSON-ului: ${out["DATA"]["phpmessage"]}`)
+              alert(`Explicația pentru ${course_id}, intrebarea ${course_q_id}, nu a fost salvata. Eroare la salvarea JSON-ului: ${out["DATA"]["phpmessage"]}`)
+            else trivia[course_id][course_q_id - 1]['explanation'] = exp;
             document.querySelector('#question-proof-container').style.display = "none"
           }}>Salvare</button>
         </article>
@@ -258,7 +260,7 @@
       document.querySelector('#course-id').textContent = course
       document.querySelector('#course-q-id').textContent = id
       document.querySelector("#question-explanation-code").focus()
-      document.querySelector("#question-explanation-code").textContent = trivia[course][id]['explanation'] ? trivia[course][id]['explanation'] : '';
+      document.querySelector("#question-explanation-code").textContent = trivia[course][id - 1]['explanation'] ? trivia[course][id - 1]['explanation'] : '';
     }}
     on:click|preventDefault={() => 
     {
