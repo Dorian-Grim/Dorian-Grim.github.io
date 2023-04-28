@@ -168,7 +168,82 @@
     userSelectedAnswers.push(e.target.defaultValue)
   };
 </script>
-
+{#if index == 0}
+  <section id="question-proof-container">
+    <section class='content' id='question-proof-text'>
+      <header id='content-title-bar'>
+        <article id='content-title'>Cursul <span id='course-id'></span> întrebarea <span id='course-q-id'></span></article>
+        <article id='content-title-bar-controls'><button class='cancel-btn' on:click|preventDefault={() => 
+        {
+          document.querySelector('#question-proof-container').style.display = "none"
+          document.querySelector('#question-explanation-code').setAttribute("contenteditable", true);
+          document.querySelector("#content-control-buttons .markdown").disabled = true;
+          document.querySelector("#content-control-buttons .previz").disabled = false;
+        }}>X</button></article>
+      </header>
+      <section class='content-text' on:keydown={event => 
+      {
+        if (event.key === 'Enter') 
+        {
+          event.preventDefault()
+          document.execCommand('insertLineBreak')
+        }
+        if (event.key == 'Tab' && event.shiftKey) 
+        {
+          event.preventDefault();
+          document.execCommand("outdent");
+        } 
+        else if (event.key == 'Tab') 
+        {
+          event.preventDefault();
+          document.execCommand("indent");
+        }
+      }}>
+      <pre id="question-explanation-code" contenteditable="true"></pre>
+      </section>
+      <footer>
+        <article id='content-control-buttons'>
+          <button class='submit-btn markdown' on:click|preventDefault={(e) =>
+          {
+            let target = e.target;
+            target.disabled = true;
+            document.querySelector("#content-control-buttons .previz").disabled = false;
+            let course_id = document.querySelector('#course-id')?.textContent;
+            let course_q_id = document.querySelector('#course-q-id')?.textContent;
+            let t = document.querySelector('#question-explanation-code')
+            t.setAttribute("contenteditable", true);
+            t.focus();
+            t.innerHTML = trivia[course_id][course_q_id]['explanation'] ? trivia[course_id][course_q_id]['explanation'] : '';
+          }} disabled>Markdown</button>
+          <button class='submit-btn previz' on:click|preventDefault={(e) =>
+          {
+            let target = e.target;
+            target.disabled = true;
+            document.querySelector("#content-control-buttons .markdown").disabled = false;
+            let course_id = document.querySelector('#course-id')?.textContent;
+            let course_q_id = document.querySelector('#course-q-id')?.textContent;
+            let t = document.querySelector('#question-explanation-code');
+            t.setAttribute("contenteditable", false);
+            trivia[course_id][course_q_id]['explanation'] = t.textContent;
+            t.innerHTML = markDown(t.textContent);
+          }}>Previzualizare</button>
+          <button class='submit-btn submit' on:click|preventDefault={async () =>
+          {
+            let course_id = document.querySelector('#course-id')?.textContent;
+            let course_q_id = document.querySelector('#course-q-id')?.textContent;
+            document.querySelector("#content-control-buttons .markdown").disabled = true;
+            document.querySelector("#content-control-buttons .previz").disabled = false;
+            let data = {"course": course_id, "id": course_q_id, "explanation": trivia[course_id][course_q_id]['explanation'], "q": '', "a": []}
+            let out = await f(data);
+            if (out["DATA"]["phpmessage"] != "No errors")
+              alert(`Explicația pentru ${course}, intrebarea ${id}, nu a fost salvata. Eroare la salvarea JSON-ului: ${out["DATA"]["phpmessage"]}`)
+            document.querySelector('#question-proof-container').style.display = "none"
+          }}>Salvare</button>
+        </article>
+      </footer>
+    </section>
+  </section>
+{/if}
 <div id="course_{course.replaceAll("+", "p")}_{id}" class="question-wrapper">
   <div class="question-title">
     <div class='edit-buttons'>
@@ -176,14 +251,22 @@
       <button class='submit-btn cancel-btn'>X</button>
     </div>
     <!-- svelte-ignore a11y-click-events-have-key-events -->
-    <p class="q-index" on:click|preventDefault={() => 
+    <p class="q-index" 
+    on:contextmenu|preventDefault={() =>
+    {
+      document.querySelector("#question-proof-container").style.display = "block";
+      document.querySelector('#course-id').textContent = course
+      document.querySelector('#course-q-id').textContent = id
+      document.querySelector("#question-explanation-code").focus()
+      document.querySelector("#question-explanation-code").textContent = trivia[course][id]['explanation'] ? trivia[course][id]['explanation'] : '';
+    }}
+    on:click|preventDefault={() => 
     {
       localStorage.setItem("userSelections", JSON.stringify($userQuizSelections));
       showThisAnswer = true
     }}>{index + 1}.</p><pre
     on:keydown={event => 
     {
-      console.log(event.key, )
       if (event.key === 'Enter') 
       {
         event.preventDefault()
@@ -204,12 +287,12 @@
     {
       (e) => 
       {
-        
         let cssID = `#course_${course.replaceAll("+", "p")}_${id}`
         let target = document.querySelector(cssID), pre = target.querySelector("pre"), edits = target.querySelector(".edit-buttons");
         let filter = trivia[course].filter(obj =>  {return obj.questionNumber === id})[0];
         unmodifiedQuestion = filter.question
         unmodifiedAnswers = filter.answers
+        pre.textContent = unmodifiedQuestion
         pre.setAttribute("contenteditable", true)
         pre.focus()
         edits.style = "visibility:visible;"
@@ -226,6 +309,7 @@
             let out = await f(data);
             if (out["DATA"]["phpmessage"] != "No errors")
               alert(`Modificarea pentru ${course}, intrebarea ${id}, nu a fost salvata. Eroare la salvarea JSON-ului: ${out["DATA"]["phpmessage"]}`)
+            else trivia[course][id - 1]['question'] = modifiedQuestion;
           }
           modifiedAnswers = []
           modifiedQuestion = ''
@@ -289,6 +373,7 @@
               unmodifiedQuestion = filter.question
               unmodifiedAnswers = filter.answers
               pre.setAttribute("contenteditable", true)
+              pre.textContent = unmodifiedAnswers[i];
               pre.focus()
               edits.style = "visibility:visible;"
               console.log(`editing question ${id} answer ${i}`)
@@ -304,6 +389,8 @@
                   let out = await f(data);
                   if (out["DATA"]["phpmessage"] != "No errors")
                     alert(`Modificarea pentru ${course}, intrebarea ${id}, raspunsul ${i} nu a fost salvata. Eroare la salvarea JSON-ului: ${out["DATA"]["phpmessage"]}`)
+                  else trivia[course][id - 1]['answers'][i] = out['DATA']['toBeWrittenToJSON']['answers'][i]
+                  // [i] = modifiedAnswers[i];
                 };
                 pre.setAttribute("contenteditable", false)
                 modifiedAnswers = []
@@ -331,7 +418,6 @@
           }
           on:keydown={event => 
           {
-            console.log(event.key, )
             if (event.key === 'Enter') 
             {
               event.preventDefault()
@@ -489,7 +575,66 @@
   .radio input[type="radio"]:focus {
     outline: 1px dashed;
   }
-  .cancel-btn {background: #ff4237}
+  .save-btn {background: #03787c; border: 0px solid};
+  .save-btn:hover {background: #014446};
+  .cancel-btn {border: 0px;background: #ff4237}
   .cancel-btn:hover {background: #64221d}
   .edit-buttons {z-index: 1;visibility: hidden; position: absolute;left: 0px;top: -67px;}
+  #question-explanation-code
+  {
+    height: 100%;
+    width: 100%;
+    overflow: auto;
+    padding: 20px;
+  }
+  .content-text
+  {
+    width: 100%; 
+    height: 100%;
+    padding: 20px;
+    display: inline-block;
+  }
+  #content-title
+  {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    padding-left: 10px;
+  }
+  #content-title-bar-controls
+  {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+  }
+  .content footer
+  {
+    position: absolute;
+    bottom: 0px;
+  }
+  .content 
+  {
+    padding: 20px 0px 20px 0px;
+    width: 80%;
+    height: 80%;
+    background-color: white;
+    position: absolute; 
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    max-width: 100%;
+    max-height: 100%;
+  }
+  #question-proof-container
+  {
+    z-index: 1;
+    background: rgba(0,0,0,0.5);
+    display: none;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    left: 0;
+  }
 </style>
