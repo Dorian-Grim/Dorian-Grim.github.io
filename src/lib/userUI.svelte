@@ -176,9 +176,9 @@
         <article id='content-title-bar-controls'><button class='cancel-btn' on:click|preventDefault={() => 
         {
           document.querySelector('#question-proof-container').style.display = "none"
-          document.querySelector('#question-explanation-code').setAttribute("contenteditable", true);
-          document.querySelector("#content-control-buttons .markdown").disabled = true;
-          document.querySelector("#content-control-buttons .previz").disabled = false;
+          document.querySelector('#question-explanation-code').setAttribute("contenteditable", false);
+          document.querySelector("#content-control-buttons .markdown").disabled = false;
+          document.querySelector("#content-control-buttons .previz").disabled = true;
         }}>X</button></article>
       </header>
       <section class='content-text' on:keydown={event => 
@@ -213,8 +213,8 @@
             let t = document.querySelector('#question-explanation-code')
             t.setAttribute("contenteditable", true);
             t.focus();
-            t.innerHTML = trivia[course_id][course_q_id]['explanation'] ? trivia[course_id][course_q_id]['explanation'] : '';
-          }} disabled>Markdown</button>
+            t.textContent = trivia[course_id][course_q_id-1]['explanation'] ? trivia[course_id][course_q_id-1]['explanation'] : '';
+          }}>Editare</button>
           <button class='submit-btn previz' on:click|preventDefault={(e) =>
           {
             let target = e.target;
@@ -224,16 +224,16 @@
             let course_q_id = document.querySelector('#course-q-id')?.textContent;
             let t = document.querySelector('#question-explanation-code');
             t.setAttribute("contenteditable", false);
-            trivia[course_id][course_q_id]['explanation'] = t.textContent;
+            trivia[course_id][course_q_id - 1]['explanation'] = t.textContent;
             t.innerHTML = markDown(t.textContent);
-          }}>Previzualizare</button>
+          }} disabled>Previzualizare</button>
           <button class='submit-btn submit' on:click|preventDefault={async () =>
           {
             let course_id = document.querySelector('#course-id')?.textContent;
             let course_q_id = document.querySelector('#course-q-id')?.textContent;
-            document.querySelector("#content-control-buttons .markdown").disabled = true;
-            document.querySelector("#content-control-buttons .previz").disabled = false;
-            let exp = document.querySelector("#content-control-buttons .markdown").disabled ? document.querySelector('#question-explanation-code').textContent : trivia[course_id][course_q_id]['explanation'];
+            let exp = document.querySelector("#content-control-buttons .markdown").disabled ? document.querySelector('#question-explanation-code').textContent : trivia[course_id][course_q_id - 1]['explanation'];
+            document.querySelector("#content-control-buttons .markdown").disabled = false;
+            document.querySelector("#content-control-buttons .previz").disabled = true;
             let data = {"course": course_id, "id": course_q_id, "explanation": exp, "q": '', "a": []}
             let out = await f(data);
             if (out["DATA"]["phpmessage"] != "No errors")
@@ -259,8 +259,8 @@
       document.querySelector("#question-proof-container").style.display = "block";
       document.querySelector('#course-id').textContent = course
       document.querySelector('#course-q-id').textContent = id
-      document.querySelector("#question-explanation-code").focus()
-      document.querySelector("#question-explanation-code").textContent = trivia[course][id - 1]['explanation'] ? trivia[course][id - 1]['explanation'] : '';
+      document.querySelector("#question-explanation-code").setAttribute("contenteditable", false)
+      document.querySelector("#question-explanation-code").innerHTML = markDown(trivia[course][id - 1]['explanation'] ? trivia[course][id - 1]['explanation'] : '');
     }}
     on:click|preventDefault={() => 
     {
@@ -401,7 +401,6 @@
                     })
                     localStorage.setItem("history", JSON.stringify(lH))
                   }
-                  // [i] = modifiedAnswers[i];
                 };
                 pre.setAttribute("contenteditable", false)
                 modifiedAnswers = []
