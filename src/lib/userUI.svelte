@@ -291,7 +291,8 @@
       {
         let cssID = `#course_${course.replaceAll("+", "p")}_${id}`
         let target = document.querySelector(cssID), pre = target.querySelector("pre"), edits = target.querySelector(".edit-buttons");
-        let filter = trivia[course].filter(obj =>  {return obj.questionNumber === id})[0];
+        let filter = trivia[course].filter(obj =>  {return obj.questionNumber === id })[0];
+        let lH = JSON.parse(localStorage.getItem("history"))
         unmodifiedQuestion = filter.question
         unmodifiedAnswers = filter.answers
         pre.textContent = unmodifiedQuestion
@@ -311,7 +312,15 @@
             let out = await f(data);
             if (out["DATA"]["phpmessage"] != "No errors")
               alert(`Modificarea pentru ${course}, intrebarea ${id}, nu a fost salvata. Eroare la salvarea JSON-ului: ${out["DATA"]["phpmessage"]}`)
-            else trivia[course][id - 1]['question'] = modifiedQuestion;
+            else 
+            {
+              trivia[course][id - 1]['question'] = modifiedQuestion;
+              lH.forEach((value, key) => 
+              {
+                if (value.id === id && value.course === course) lH[key]['question'] = modifiedQuestion
+              })
+              localStorage.setItem("history", JSON.stringify(lH))
+            }
           }
           modifiedAnswers = []
           modifiedQuestion = ''
@@ -336,15 +345,6 @@
         edits.querySelector(`.save-btn`).addEventListener("click", saveQ, { once: true })
         edits.querySelector(`.cancel-btn`).addEventListener("click", cancelQ, { once: true })
         console.log(`This is from ${course}, question ${id}`, trivia);
-        // TODO
-        // 2. do the http request with basic auth
-        // 3. read the file based on `course`.json var in php
-        // 4. find question by `id`
-        // 5. modify, write back to file
-        //    a. user has to refresh the app, but can use the history feature to resume the quiz
-        // 6. find answer by `i`
-        //    a. modify the answer, write to file
-        // 7. before you start modifiying them, backup the jsons.
       }
     } 
     on:input={(e) => 
@@ -372,6 +372,7 @@
               let cssID = `#course_${course.replaceAll("+", "p")}_${id} .answer-wrapper`
               let target = document.querySelector(cssID), pre = target.querySelectorAll("pre")[i], edits = document.querySelector(`#course_${course.replaceAll("+", "p")}_${id} .edit-buttons`);
               let filter = trivia[course].filter(obj =>  {return obj.questionNumber === id})[0];
+              let lH = JSON.parse(localStorage.getItem("history"))
               unmodifiedQuestion = filter.question
               unmodifiedAnswers = filter.answers
               pre.setAttribute("contenteditable", true)
@@ -391,7 +392,15 @@
                   let out = await f(data);
                   if (out["DATA"]["phpmessage"] != "No errors")
                     alert(`Modificarea pentru ${course}, intrebarea ${id}, raspunsul ${i} nu a fost salvata. Eroare la salvarea JSON-ului: ${out["DATA"]["phpmessage"]}`)
-                  else trivia[course][id - 1]['answers'][i] = out['DATA']['toBeWrittenToJSON']['answers'][i]
+                  else 
+                  {
+                    trivia[course][id - 1]['answers'][i] = out['DATA']['toBeWrittenToJSON']['answers'][i]
+                    lH.forEach((value, key) => 
+                    {
+                      if (value.id === id && value.course === course) lH[key]['answers'][i] = out['DATA']['toBeWrittenToJSON']['answers'][i]
+                    })
+                    localStorage.setItem("history", JSON.stringify(lH))
+                  }
                   // [i] = modifiedAnswers[i];
                 };
                 pre.setAttribute("contenteditable", false)
