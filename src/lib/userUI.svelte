@@ -167,8 +167,33 @@
     // // whatever behaviour you need
     userSelectedAnswers.push(e.target.defaultValue)
   };
+  const issueRightClick = (v) =>
+  {
+    let cid = document.querySelector('#context-menu-holder').getAttribute("cid"), qid = document.querySelector('#context-menu-holder').getAttribute("qid")
+    console.log(cid, qid, v)
+    document.querySelector('#context-menu-holder').style.visibility = 'hidden'
+    let element;
+    if (v == "expl")
+      element  = document.querySelector(`#course_${cid}_${qid} .q-index`)
+    else if (v == "q")
+      element = document.querySelector(`#course_${cid}_${qid} .question-title pre`)
+    else
+      element = document.querySelectorAll(`#course_${cid}_${qid} .answer-wrapper span`)[v]
+    var e = element.ownerDocument.createEvent('MouseEvents');
+    e.initMouseEvent('contextmenu', true, true,
+    element.ownerDocument.defaultView, 1, 0, 0, 0, 0, false,
+    false, false, false,2, null);
+    element.dispatchEvent(e)
+  }
 </script>
 {#if index == 0}
+  <section id="context-menu-holder" style='display: grid;position: fixed;top: 0'>
+    <button class="submit-btn" on:click|preventDefault={() => issueRightClick("expl")}>Explicație</button>
+    <button class="submit-btn" on:click|preventDefault={() => issueRightClick("q")}>Enunț</button>
+    {#each answers as answer2, i2}
+      <button class="submit-btn" on:click|preventDefault={() => issueRightClick(i2 + 1)}>Editare răspuns {i2 + 1}</button>
+    {/each}
+  </section>
   <section id="question-proof-container">
     <section class='content' id='question-proof-text'>
       <header id='content-title-bar'>
@@ -247,7 +272,7 @@
   </section>
 {/if}
 <div id="course_{course.replaceAll("+", "p")}_{id}" class="question-wrapper">
-  <div class="question-title">
+  <div class="question-title" style='display:inline-flex;'>
     <div class='edit-buttons'>
       <button class='submit-btn save-btn'>✓</button>
       <button class='submit-btn cancel-btn'>X</button>
@@ -266,7 +291,13 @@
     {
       localStorage.setItem("userSelections", JSON.stringify($userQuizSelections));
       showThisAnswer = true
-    }}>{index + 1}.</p><pre
+    }}>{index + 1}.</p>
+    <span style='cursor: pointer' on:click|preventDefault={(e) =>
+    {
+      document.querySelector('#context-menu-holder').style.visibility = 'visible'
+      document.querySelector('#context-menu-holder').setAttribute("qid", id)
+      document.querySelector('#context-menu-holder').setAttribute("cid", course)
+    }}>⁞</span><pre
     on:keydown={event => 
     {
       if (event.key === 'Enter') 
@@ -589,7 +620,8 @@
   .save-btn:hover {background: #014446};
   .cancel-btn {border: 0px;background: #ff4237}
   .cancel-btn:hover {background: #64221d}
-  .edit-buttons {z-index: 1;visibility: hidden; position: absolute;left: 0px;top: -67px;}
+  .edit-buttons, #context-menu-holder {z-index: 1;visibility: hidden; position: absolute;left: 0px;top: -67px;}
+  #context-menu-holder {top: -34px;}
   #question-explanation-code
   {
     height: 100%;
