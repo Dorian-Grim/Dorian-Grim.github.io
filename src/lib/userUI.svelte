@@ -490,7 +490,7 @@
     cursor: pointer;
   }
   pre {
-    margin: 0;
+    margin: 0!important;
     display: inline-block;
     padding-left: 3px;
   }
@@ -543,11 +543,12 @@
   .answer-wrapper {
     display: flex;
     flex-direction: column;
-    row-gap: 20px;
+    // row-gap: 20px;
     margin-left: 20px;
-    margin-top: 20px;
+    // margin-top: 20px;
 
     pre {
+      margin: 0px!important;
       font-size: 14px;
     }
   }
