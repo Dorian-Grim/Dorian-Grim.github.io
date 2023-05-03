@@ -177,7 +177,7 @@
     else if (v == "q")
       element = document.querySelector(`#course_${c}_${qid} .question-title pre`)
     else
-      element = document.querySelectorAll(`#course_${c}_${qid} .answer-wrapper span`)[v]
+      element = document.querySelectorAll(`#course_${c}_${qid} .answer-wrapper pre[qid]`)[v]
     var e = element.ownerDocument.createEvent('MouseEvents');
     e.initMouseEvent('contextmenu', true, true,
     element.ownerDocument.defaultView, 1, 0, 0, 0, 0, false,
