@@ -297,7 +297,8 @@
       document.querySelector(`#course_${course}_${id} #context-menu-holder`).style.visibility = 'visible'
       document.querySelector(`#course_${course}_${id} #context-menu-holder`).setAttribute("qid", id)
       document.querySelector(`#course_${course}_${id} #context-menu-holder`).setAttribute("cid", course)
-    }}>⁞</span><pre
+    }}>⁞</span>
+    <pre
     on:keydown={event => 
     {
       if (event.key === 'Enter') 
@@ -401,7 +402,7 @@
             (e) =>
             {
               let cssID = `#course_${course.replaceAll("+", "p")}_${id} .answer-wrapper`
-              let target = document.querySelector(cssID), pre = target.querySelectorAll("pre")[i], edits = document.querySelector(`#course_${course.replaceAll("+", "p")}_${id} .edit-buttons`);
+              let target = document.querySelector(cssID), pre = target.querySelectorAll("pre[qid]")[i], edits = document.querySelector(`#course_${course.replaceAll("+", "p")}_${id} .edit-buttons`);
               let filter = trivia[course].filter(obj =>  {return obj.questionNumber === id})[0];
               let lH = JSON.parse(localStorage.getItem("history"))
               unmodifiedQuestion = filter.question
@@ -411,7 +412,7 @@
               pre.focus()
               edits.style = "visibility:visible;"
               console.log(`editing question ${id} answer ${i}`)
-              let saveA = async (e) => 
+              let saveA = async (e, ii2 = i) => 
               {
                 e.preventDefault();
                 edits.style = "visibility:hidden"
@@ -479,7 +480,7 @@
           {
             const target = e.target, newText = target.textContent
             modifiedAnswers[i] = newText;
-          }}><pre>{@html markDown(answer)}</pre></span></label></div>
+          }}><pre qid={i}>{@html markDown(answer)}</pre></span></label></div>
     {/each}</div></div>
 
 <style lang="scss">
