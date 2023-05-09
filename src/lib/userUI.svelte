@@ -167,11 +167,9 @@
     // // whatever behaviour you need
     // console.log(document.querySelectorAll(`input[name=${a}]`)[i].value)
     let localSelection = []
-    document.querySelectorAll(`input[name=${a}]:checked`).forEach(inputE =>
-    {
-      localSelection.push(inputE.value)
-    })
+    document.querySelectorAll(`input[name=${a}]:checked`).forEach(inputE => localSelection.push(inputE.value))
     userSelectedAnswers = localSelection
+    $userQuizSelections[index] = { userSelectedAnswers };
   };
   const issueRightClick = (c, qid, v) =>
   {
