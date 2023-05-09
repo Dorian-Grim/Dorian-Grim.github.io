@@ -56,7 +56,11 @@
   {
     showAnswers = true;
     pickedCourse["userSelections"] = [];
-    $userQuizSelections.forEach(value => pickedCourse["userSelections"].push(value.userSelectedAnswers.length == 0 ? false : true))
+    console.log(localStorage.getItem("userSelections"))
+    $userQuizSelections.forEach(value => 
+    {
+      pickedCourse["userSelections"].push(value.userSelectedAnswers.length == 0 ? false : true)
+    })
     localStorage.setItem("userSelections", JSON.stringify($userQuizSelections))
   }
   let generateAnswered = false;

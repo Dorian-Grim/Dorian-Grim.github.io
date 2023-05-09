@@ -161,11 +161,15 @@
     if(checker) failedQuestions.update(n => n + 1);
   }
   // https://stackoverflow.com/questions/57392773/error-type-attribute-cannot-be-dynamic-if-input-uses-two-way-binding
-  const handleInput = e => 
+  const handleInput = (e, i, a) => 
   {
     // // in here, you can switch on type and implement
     // // whatever behaviour you need
-    userSelectedAnswers.push(e.target.defaultValue)
+    // console.log(document.querySelectorAll(`input[name=${a}]`)[i].value)
+    let localSelection = []
+    document.querySelectorAll(`input[name=${a}]:checked`).forEach(inputE => localSelection.push(inputE.value))
+    userSelectedAnswers = localSelection
+    $userQuizSelections[index] = { userSelectedAnswers };
   };
   const issueRightClick = (c, qid, v) =>
   {
@@ -391,7 +395,7 @@
         <label>
         <input
             type={type}
-            on:input={handleInput}
+            on:input={e => handleInput(e, i, `answers${index}`)}
             name="answers{index}"
             value={answer}
             disabled={showAnswers || showThisAnswer}
