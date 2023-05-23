@@ -104,7 +104,7 @@
   /**
    * @type {string}
    */
-  let type = correct_answers.length == 1 ? "radio" : "checkbox"
+  let type = correct_answers.length == 1 ? "checkbox" : "checkbox"
 /**
    * @type {string[]}
    */
